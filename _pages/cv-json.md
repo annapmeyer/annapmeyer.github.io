@@ -19,11 +19,19 @@ redirect_from:
     float: none;
     padding-right: 0;
   }
+
+  .archivefull {
+    width: 100%;
+    margin 0 auto;
+    float: none;
+    padding-right: 0;
+  }
   
   @media (min-width: 80em) {
     .archive {
       width: 70%;
     }
+
   }
 </style>
 
