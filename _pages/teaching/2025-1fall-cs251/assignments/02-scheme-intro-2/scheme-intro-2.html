@@ -1,0 +1,897 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/scheme-intro-2.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Homework 2: Scheme Intro 2</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../org-html-themes/src/readtheorg_mod_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../org-html-themes/src/readtheorg_mod_theme/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../org-html-themes/src/readtheorg_mod_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Homework 2: Scheme Intro 2</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Get started</a></li>
+<li><a href="#sec-2">2. Run a saved program</a></li>
+<li><a href="#sec-3">3. Conditionals</a>
+<ul>
+<li><a href="#sec-3-1">3.1. if</a></li>
+<li><a href="#sec-3-2">3.2. cond</a></li>
+<li><a href="#sec-3-3">3.3. Equivalence tests</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Defining functions</a>
+<ul>
+<li><a href="#sec-4-1">4.1. lambda</a></li>
+<li><a href="#sec-4-2">4.2. Give it a name</a></li>
+<li><a href="#sec-4-3">4.3. Aliasing</a></li>
+<li><a href="#sec-4-4">4.4. Local variables</a></li>
+<li><a href="#sec-4-5">4.5. Recursion</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Your tasks to submit</a>
+<ul>
+<li><a href="#sec-5-1">5.1. multiply</a></li>
+<li><a href="#sec-5-2">5.2. keep-first-n</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. How to test your work</a></li>
+<li><a href="#sec-7">7. How to submit your work</a></li>
+</ul>
+</div>
+</div>
+<p>
+This assignment is to be done individually. You can talk to other people in the class, me, and any of the course staff (graders, lab assistants, prefects) for ideas and to gain assistance. You can get direct help debugging your code from me and any of the course staff, and you're welcome to show us your code during debugging or other conversations. The code that you write should be your own, and you shouldn’t directly show or share your code with other students (although you may discuss general debugging strategies with others). See the course syllabus for more details or just ask me if I can clarify.
+</p>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Get started</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="scheme-2-starter.zip">Download the starter code here.</a>
+</p>
+
+<p>
+As in the previous homework and in the class lab, get started in
+either VS Code with Docker or using the courses drive and local
+installation of our tools. Look back
+at the instructions for homework 1 if you've forgotten how to do any
+of these steps. Move the unzipped folder with the starter code into
+either the folder for your Docker container or to your student work
+folder on COURSES before you begin.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Run a saved program</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Entering your code interactively is fun, but not a good idea for
+creating large programs. A better way to go is to write your code in a
+file, saving it, and then loading it directly. You might have tried
+this in the in-class lab - this section walks through it in a little
+more detail.
+</p>
+
+<p>
+In principle, you could load a file with any name, but I’ve created
+one called <code>main.scm</code> in order for you to get started. So find the
+file <code>main.scm</code> in VS Code (files are under the Explorer view, which
+is the top button in the left sidebar), open it (click on its name -
+you'll see it open in the VS Code editor in the middle of the window), and enter in the following one line of Scheme code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(+ 1 2)
+</pre>
+</pre>
+</div>
+
+<p>
+You can then start up Scheme as usual by typing the following in the terminal window:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">./scheme
+</pre>
+</div>
+
+<p>
+Finally, load in the code you wrote with the following Scheme code:
+</p>
+
+<pre class="example">
+scheme@(guile-user)&gt; (load "main.scm")
+</pre>
+
+<p>
+If this worked correctly, you should see the results of running your
+code.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Conditionals</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> if</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Enter the following code into <code>main.scm</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (equal? 8 3)
+    9
+    10)
+</pre>
+</pre>
+</div>
+
+<p>
+Run the code, then modify the condition following <code>if</code> to get a
+different value to return. Questions for you to make sure you can answer:
+</p>
+
+<ul class="org-ul">
+<li>What does if do?
+</li>
+<li>Where is the traditional then and else that you would expect to see?
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> cond</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Now enter the following code into <code>main.scm</code>, and run it:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">cond</span> ((equal? 16 3) (+ 3 8))
+      ((equal? 16 8) 12)
+      (<span style="color: #a020f0; font-size: 9.959999999999999pt;">else</span> (* 6 3)))
+</pre>
+</pre>
+</div>
+
+<p>
+See if you can you replace all of the 16’s in the above code with some other value to change the output value. Questions for you to try to answer yourself:
+</p>
+
+<ul class="org-ul">
+<li>What does cond do?
+</li>
+<li>What are the varying levels of nested parentheses for?
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Equivalence tests</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Try this code, copying and pasting one line at a time to see the results:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(equal? '(hi . there) (cons 'hi 'there))
+(equal? 3 3)
+(equal? 3 (+ 2 1))
+(equal? 3 3.0)
+(equal? 3 (/ 6 2))
+(equal? -1/2 -0.5)
+(eqv? '(hi . there) (cons 'hi 'there))
+(eqv? 3 3)
+(eqv? 3 (+ 2 1))
+(eqv? 3 3.0)
+(eqv? 3 (/ 6 2))
+(eqv? -1/2 -0.5)
+(= 3 3)
+(= 3 (+ 2 1))
+(= 3 3.0)
+(= 3 (/ 6 2))
+(= -1/2 -0.5)
+(= '(hi . there) (cons 'hi 'there))  <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">yes, this will give an error</span>
+</pre>
+</pre>
+</div>
+
+<p>
+See what kind of responses you get. Try to think through for yourself
+how <code>equal?</code>, <code>eqv?</code> and <code>=</code> are different. (For understanding the string ones, you might look at
+what happens when you type just <code>(cons 'hi 'there)</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Defining functions</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> lambda</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+In <code>main.scm</code>, enter this code, and then load it:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (x)
+  (+ x 1))
+</pre>
+</pre>
+</div>
+
+<p>
+You should observe that the <code>lambda</code> command returns a function without a name. In this case, you have defined a function that takes a parameter and adds 1 to it. Functions in Scheme are called procedures by Guile. I’ll generally use either term depending on context.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Give it a name</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+A function without a name and with no references to it is useless, as it is immediately garbage
+collected - that is, since there are no references to it, its memory
+is reclaimed; we'll talk more about garbage collection later this term. Try this instead:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">add-one</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (x)
+    (+ x 1)))
+</pre>
+</pre>
+</div>
+
+<p>
+Save this code, load it, then type <code>(add-one 5)</code> at the interactive
+prompt. You should see the results. So what happened here? <code>define</code>
+created a variable named <code>add-one</code>, which refers to the function you
+just created. (This is an example where even though we're doing
+functional programming, we do have a side effect: running the <code>define</code>
+expression leads to changes in how later expressions are evaluated.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Aliasing</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Add the following two lines to <code>main.scm</code>, then load it at the interactive prompt.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">another-add-one</span> add-one)
+(another-add-one 5)
+</pre>
+</pre>
+</div>
+
+<p>
+Try to explain to yourself what the above code does.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Local variables</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+You can declare local variables in Scheme via the use of <code>let</code>. For example, try the following code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">a</span> 5)
+(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">b</span> 6)
+(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">c</span> 7)
+(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">strange</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (x)
+    (<span style="color: #a020f0; font-size: 9.959999999999999pt;">let</span> ((a 1) (b 2) (c 3))
+      (+ x a b c))))
+</pre>
+</pre>
+</div>
+
+<p>
+After executing this code, see what are the values of <code>a</code>, <code>b</code>, and <code>c</code> are. Then see what what you get when you make the call <code>(strange 3)</code>. Try to explain to yourself what’s going on.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Recursion</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+Here’s a factorial, done recursively. Copy and paste, run it, and see if you can make sense out of what it is doing.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">factorial</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (n)
+    (<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (equal? n 0)
+        1
+        (* n (factorial (- n 1))))))
+</pre>
+</pre>
+</div>
+
+<p>
+Note that there is no return statement here as you would find in other languages you may know. In Scheme, return is implicit and automatic.
+</p>
+
+<p>
+One super useful technique for debugging is to use Guile’s tracing ability. It’s a little finicky, but it’s wonderfully helpful. To do this, copy and paste the entire factorial function defined in main.scm, then use the Guile command ,tr (that’s a comma at the beginning of the line) with a function call to trace it. I’ve copied and pasted my complete session here so you can see what it looks like.
+</p>
+
+<pre class="example">
+scheme@(guile-user)&gt; (define factorial
+  (lambda (n)
+    (if (equal? n 0)
+        1
+        (* n (factorial (- n 1))))))
+scheme@(guile-user)&gt; ,tr (factorial 5)
+trace: (factorial 5)
+trace: |  (factorial 4)
+trace: |  |  (factorial 3)
+trace: |  |  |  (factorial 2)
+trace: |  |  |  |  (factorial 1)
+trace: |  |  |  |  |  (factorial 0)
+trace: |  |  |  |  |  1
+trace: |  |  |  |  1
+trace: |  |  |  2
+trace: |  |  6
+trace: |  24
+trace: 120
+</pre>
+
+<p>
+Tracing can help you see all of your recursive calls, and what the parameters and return values are at each shot.
+</p>
+
+<p>
+Try this out yourself to make sure you can make it work.
+</p>
+
+<p>
+Unfortunately, tracing doesn’t work if you load the function first; it
+only works if you enter/paste it directly at the interactive
+prompt. That’s cumbersome. But there is a workaround you can use: you
+can redirect input to the interactive prompt from a file. 
+</p>
+
+<p>
+Here’s how to do so. First, create another file; let’s call it <code>factorial.scm</code>. Then paste the above <code>factorial</code> function definition into that file, followed by the trace command. Here’s how my <code>factorial.scm</code> looks:
+</p>
+<pre class="example">
+(define factorial
+  (lambda (n)
+    (if (equal? n 1)
+        1
+        (* n (factorial (- n 1))))))
+
+,tr (factorial 5)
+</pre>
+
+<p>
+Don’t miss the fact that I’ve got at least one newline at the end of the file: that’s important.
+</p>
+
+<p>
+Then, in the terminal window, quit Guile. You can do so by typing
+,q. Once you are back at the bash prompt (e.g., on mine, <code>csuser@d8d81de83bc9:/workspaces/ProgrammingLanguages/scheme2Starter$</code>), enter the following command:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">./scheme &lt; factorial.scm
+</pre>
+</div>
+
+<p>
+You probably noticed the <code>&lt;</code> above before <code>factorial.scm</code>. This is the
+bash redirect operator. It means that <code>./scheme</code> should run as if you
+were using it interactively, but it should simulate you typing in the
+input from <code>factorial.scm</code>. That’s why the newline at the end of the
+file is important; that’s necessary to simulate you hitting return after the last command. If this works correctly (try it!) you should see output like:
+</p>
+
+<pre class="example">
+csuser@d8d81de83bc9:/workspaces/ProgrammingLanguages/scheme1Starter$ ./scheme &lt; factorial.scm 
+GNU Guile 3.0.7
+Copyright (C) 1995-2021 Free Software Foundation, Inc.
+
+Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'.
+This program is free software, and you are welcome to redistribute it
+under certain conditions; type `,show c' for details.
+
+Enter `,help' for help.
+trace: (factorial 5)
+trace: |  (factorial 4)
+trace: |  |  (factorial 3)
+trace: |  |  |  (factorial 2)
+trace: |  |  |  |  (factorial 1)
+trace: |  |  |  |  |  (factorial 0)
+trace: |  |  |  |  |  1
+trace: |  |  |  |  1
+trace: |  |  |  2
+trace: |  |  6
+trace: |  24
+trace: 120
+</pre>
+
+<p>
+Again, this is a really helpful way to help you debug your code.
+</p>
+
+<p>
+For some longer files or more complex traces, trace will print some
+additional (irrelevant) information at the beginning, which can make
+it a little harder to see the trace that you wanted to see. It's thus
+sometimes helpful to run trace twice, separated by some newlines, so
+that the second one is separated from all the stuff at the top. Here's
+an example of how I modified my file to do that:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">factorial</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (n)
+    (<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (equal? n 0)
+        1
+        (* n (factorial (- n 1))))))
+
+,tr (factorial 5)
+(newline) <span style="color: #b22222; font-size: 9.959999999999999pt;">;;</span><span style="color: #b22222; font-size: 9.959999999999999pt;">Function for displaying a newline!</span>
+(newline)
+(newline)
+,tr (factorial 5)
+</pre>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Your tasks to submit</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> multiply</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+In the <code>main.scm</code> file that I provided, write a recursive function named <code>multiply</code> that multiplies up all the elements in a list. For example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(multiply '(4 5 2 1))
+</pre>
+</pre>
+</div>
+
+<p>
+should return 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">40
+</pre>
+</pre>
+</div>
+
+
+<p>
+Special cases:
+</p>
+
+<ul class="org-ul">
+<li>If the list is empty, it should return 1.
+</li>
+<li>We will not test your code with anything other than a (possibly empty) simple list of numbers.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> keep-first-n</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Also in the <code>main.scm</code> file that I provided, write a recursive function named <code>keep-first-n</code> that returns a list of the first <code>n</code> elements in a list.
+</p>
+
+<p>
+Example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(keep-first-n 3 '(a b c d e f g h i))
+</pre>
+</pre>
+</div>
+
+<p>
+should return
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(a b c)
+</pre>
+</pre>
+</div>
+
+<p>
+Special cases:
+</p>
+<ul class="org-ul">
+<li>If <code>n</code> is 0, you should return the empty list.
+</li>
+<li>If <code>n</code> is bigger than the length of the list, or if n is negative, return the empty list.
+</li>
+</ul>
+
+<p>
+Your function should not use any other Scheme functions than those which have been introduced in this lab or the previous one. [An exception: if you wish, you may use the functions &lt;, &gt;, &lt;=, or &gt;=.]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> How to test your work</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+I've provided two files with tests:
+</p>
+
+<ul class="org-ul">
+<li>M tests: The M ("meets expectations") tests are focused on the
+core functionality of your functions. You should run these tests
+first, and if these aren't passing, you should debug your code
+before moving on to the E-tests. The M tests are defined in
+<code>tests-m.scm</code>, and you can run all of these tests on your code
+by typing <code>./test-m</code> at the command prompt. When you run the
+tests, you'll see a print out of how many tests passed and how
+many failed. If all of them passed, you should see <code>Failing tests: 0.</code> as the final print out.
+</li>
+</ul>
+
+
+<p>
+If some tests fail, you'll get to see which specific tests had issues:
+</p>
+<pre class="example">
+&gt; ./test-m
+FAILED:
+   "/home/runner/SchemeIntro2/scheme-starter-2-master/tests-m.scm":line 7
+   (test-equal 40 (multiply (quote (4 5 2 1))))
+FAILED:
+   "/home/runner/SchemeIntro2/scheme-starter-2-master/tests-m.scm":line 8
+   (test-equal 240 (multiply (quote (4 5 2 1 -2 -3))))
+</pre>
+<p>
+Here, the first failed tests is saying that the returned value for <code>(multiply (quote (4 5 2 1)))</code>
+should be equal to 40, but apparently my code did not return 40. To
+debug, I might run <code>(multiply (quote (4 5 2 1))</code> (after loading
+<code>main.scm</code>), see what the code is returning (or what error is being
+raised), and then use trace if I'm not sure what to do next.
+</p>
+<ul class="org-ul">
+<li>E tests: The E ("exemplary") tests focus more on edge
+cases and less on expected inputs to your functions. You can decide
+whether or not you are aiming to pass these tests (see grading
+information in the Homework Policies for details). The E tests are defined in
+<code>tests-e.scm</code>, and you can run all of these tests on your code
+by typing <code>./test-e</code> at the command prompt.
+</li>
+</ul>
+
+<p>
+Occasionally, you might get a permissions error when trying to run the
+tests:
+</p>
+<pre class="example">
+&gt; ./test-e
+bash: ./test-e: Permission denied
+</pre>
+
+<p>
+This occurs when the execution
+permissions for the files have inexplicably been changed. To fix it, you can run the following at the
+comand prompt:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">chmod a+x test-m test-e
+</pre>
+</div>
+
+<p>
+<code>chmod</code> is the command-line function to change the access permissions
+for files. <code>a+x</code> says to grant all users executable permissions to the
+files that follow; here <code>test-m</code> and <code>test-e</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> How to submit your work</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+You'll submit your work on Gradescope. First, create a <code>CollaborationsAndSources.txt</code>
+file in the same folder as your code. In that file, indicate
+in what ways (if any) you collaborated with other people on this
+assignment and . Indicate any people you talked about the assignment with
+besides me (Anna) and our prefect. Did you share strategies with
+anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with and some description of
+your interactions. If you used any resources outside of our course
+materials, that is also something to note in Collaborations.txt. If
+you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. Look back at the
+Homework 1 instructions if you want more details on the
+<code>CollaborationsAndSources.txt</code> file.
+</p>
+
+<p>
+After making <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, upload your files on Gradescope. <b><b>Note that if you submit
+a zip, you should submit a zip of the files, not a zip of the folder that contains the files.</b></b> If all tests fail on Gradescope but they're
+working on your machine, this is likely the problem.
+</p>
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a very small but possible chance that you
+have coded something highly unexpected that cause the tests pass on
+the computer you’re working on, but not on Gradescope. We will be
+grading this assignment based on the results of the tests on
+Gradescope, so you should make sure to pay attention to how the tests
+run there as well when you submit.
+</p>
+
+
+<p>
+For grading, you'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass
+</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs see Homework policies for more on this).
+</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> with the information
+described above.
+</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.
+</li>
+<li>All the E tests pass.
+</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.
+</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").
+</li>
+</ul>
+
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. You have two revisions to use at any point during the term if
+you earn an SP or M grade and would like to revise your code and
+have us change your grade.
+</p>
+
+<p>
+When you get your grade back, you'll also get some feedback from the
+graders: they may comment on the style and structure of your code,
+suggesting ways that it excels and ways it might be improved. Pay
+attention to those comments! Even though style and structure are not
+directly graded in this course,striving to write code with better
+style and structure often leads to quicker debugging and makes your
+code easier to work with (which you'll appreciate when you have to
+keep working with the same code over many weeks in the interpreter
+project).
+</p>
+
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+<div class="note">
+<p>
+Assignment originally designed by Dave Musicant - thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

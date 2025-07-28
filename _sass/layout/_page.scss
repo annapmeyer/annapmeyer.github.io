@@ -399,3 +399,60 @@
   font-size: $type-size-6;
   text-transform: uppercase;
 }
+
+/* ==========================================================================
+   NEW by Anna
+   ========================================================================== */
+/* Details-summary collapsible section */
+
+
+// details {
+//   summary {
+//     font-size: 1.25em;
+//     color: #2c3e50;
+//     cursor: pointer;
+//     margin-bottom: 0.5em;
+//   }
+
+//   summary:hover {
+//     color: #2980b9;
+//   }
+
+// }
+
+details {
+  margin-top: 1.2em; 
+
+  summary {
+    font-size: 1.25em;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+  }
+
+  summary:hover {
+    color: #2980b9;
+  }
+}
+
+details {
+  h3 {
+    font-size: 1em;
+    margin-top: 1em;
+  }
+
+  p {
+    font-size: 0.9em;
+    margin: 0.5em;
+    margin-left: 2em;
+  }
+
+  li {
+    font-size: 0.9em;
+    margin: 0;
+    margin-left: 2em;
+  }
+
+  ul {
+    margin: 0;
+  }
+}
