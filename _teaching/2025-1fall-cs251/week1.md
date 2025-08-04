@@ -11,6 +11,8 @@
 ### Monday, September 15
 Course intro and why programming languages?
 
+TESTING SOMETHING
+
 **Before class**
 * Read the [syllabus]({{ base_url }}/teaching/fall25_cs251/syllabus). Bring any questions with you to class.
 
