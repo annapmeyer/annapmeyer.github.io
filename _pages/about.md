@@ -1,6 +1,7 @@
 ---
 permalink: /
 title: ""
+excerpt: "About me"
 author_profile: true
 redirect_from: 
   - /about/
@@ -9,14 +10,14 @@ redirect_from:
 
 ------
 
+I am an Assistant Professor in the Computer Science department at [Carleton College](https://cs.carleton.edu). This fall, I am teaching [CS 251 (Programming Languages)](https://annapmeyer.github.io/teaching/2025-cs251). 
 
-I recently defended my PhD in Computer Science from the University of Wisconsin - Madison, and this fall, I will start as an assistant professor at Carleton College.
+My research aims to understand and improve the trustworthiness of machine learning models. Specifically, I look at a property called **multiplicity:** the phenomena where many models may perform equally well on a task, yet give different outputs for a given input.
+Multiplicity can harm machine learning reliability and fairness because it indicates that some decisions a model makes are arbitrary. This arbitrariness may be unavoidable, but is often hidden because the alternative models and decisions are not considered. As a result, people may be overconfident that their model's decisions are objective, which can cause them to over-rely on their model or make it harder to challenge a harmful model output.
 
-I research multiplicity in machine learning – the fact that many models may perform equally well on a task according to standard accuracy metrics. Multiplicity can pose a problem for machine learning because individual decisions, if subject to change given multiplicity, become arbitrary. This arbitrariness may be unavoidable, but is often hidden, because alternative models and decisions are not considered.
+In my research, I use techniques from formal methods, machine learning, and human-computer interaction to measure and control the amount of multiplicity that is incurred throughout  machine learning pipelines. 
 
-My work specifically focuses on how datasets impact multiplicity: how different datasets may be equally well suited to a prediction task, yet yield models that behave differently in practice. My work uses techniques from formal methods and machine learning to computationally measure the impact that dataset multiplicity has on machine learning robustness. I have also used techniques from human-computer interaction to gain a deeper understanding of how multiplicity in machine learning impacts fairness.
-
-At UW-Madison, I was part of the MadPL group, where I was co-advised by Aws Albarghouthi and Loris D’Antoni.
+I received my Ph.D. in computer science from UW-Madison. At UW-Madison, I was part of the [MadPL](https://madpl.cs.wisc.edu/) group and was co-advised by [Aws Albarghouthi](http://pages.cs.wisc.edu/~aws/) and [Loris D'Antoni](https://pages.cs.wisc.edu/~loris/). Before grad school, I received my B.A. in mathematics from Carleton College and then worked for 2 years as a software developer at Epic in Madison. 
 
 
 ## News
@@ -26,6 +27,7 @@ At UW-Madison, I was part of the MadPL group, where I was co-advised by Aws Alba
 * October 2024 - Attended the INFORMS conference in Seattle to present my work on dataset multiplicity. 
 
 
+-----
 ## Publications
 (+) Equal contribution
 
@@ -50,6 +52,7 @@ Anna P. Meyer, Aws Albarghouthi, and Loris D'Antoni <br/>
 [<a href="https://arxiv.org/abs/2110.04363">pdf</a>] [<a href="/files/dec_trees_slides.pdf">slides</a>] [<a href="https://youtu.be/kf5Geyr71T4">video</a>] [<a href="https://github.com/annapmeyer/antidote-P">code</a>] <br/>
 
 
+-----
 ## Preprints and workshop papers
 
 **Verified Training for Counterfactual Explanation Robustness under Data Shift** <br/>
