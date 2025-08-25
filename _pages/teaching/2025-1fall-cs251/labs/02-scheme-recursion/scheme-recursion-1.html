@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Activity: Scheme Recursion Practice (1)</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../org-html-themes/src/readtheorg_mod_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../org-html-themes/src/readtheorg_mod_theme/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../org-html-themes/src/readtheorg_mod_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Activity: Scheme Recursion Practice (1)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Activity structure</a></li>
+<li><a href="#sec-2">2. Setup</a></li>
+<li><a href="#sec-3">3. Tasks</a>
+<ul>
+<li><a href="#sec-3-1">3.1. get-last</a></li>
+<li><a href="#sec-3-2">3.2. list-length</a></li>
+<li><a href="#sec-3-3">3.3. nth</a></li>
+<li><a href="#sec-3-4">3.4. Understanding if</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Turning in activities</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Activity structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an <b>activity</b> not an assignment. That means it is not a graded assessment: you won't get formal feedback on it, but it is a great chance to practice with the ideas we've been talking about and it may also guide you through some new ideas. You'll work on it during class, usually with another students, or if you have to miss class, you'll complete it outside of class.
+</p>
+
+<p>
+If you're working with someone, you should work in a paired programming style. At any point in time, one of you is "driving," i.e. actually using the keyboard and mouse. The other is actively engaged following along, preventing bugs, and providing ideas. You'll tradeoff who is driving <b>about every 10 minutes</b>, and it's important that regardless of whose computer you're using, you take turns typing and controlling it - the owner of the computer <b>should not be the only one who drives</b>. Before you start coding for a new part of the activity, I strongly encourage you to sketch out your strategy with your partner. You might discuss possible approaches together, and write down some ideas on paper that will then help you when you begin coding.
+</p>
+
+<p>
+At the end of class, you should make sure you turn your code in (even if you're not done), as that gives you access to my solutions, and to email the code to your partner (so they can turn it in to access my solutions).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If both you and your partner have computers with you with the tools for our class setup on it, decide whose computer you'll be using. 
+</p>
+
+<p>
+Them you'll do the activity in VS Code: download the starter code (below), unzip it, move it into the ProgrammingLanguages folder for our docker container, and then open that folder as a docker in VSCode. 
+</p>
+
+
+<p>
+<a href="Activity-1-Scheme-Recursion-Practice-1.zip">Click here to download the starter code for this activity.</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Tasks</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Put all of your code for these tasks in <code>main.scm</code>.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> get-last</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+We want to write a function <code>get-last</code> that returns the last item in a
+list, or an empty list if given an empty list as input. Here are some example inputs and expected outputs:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(get-last '(13)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 13</span>
+(get-last '(1 4 6)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 6</span>
+(get-last '((1 2) 7)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 7 (the two items are (1 2) and 7).</span>
+</pre>
+</pre>
+</div>
+
+
+<p>
+Here's the beginning of the implementation, with <code>???</code>
+at spots in the code I haven't completed:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">get-last</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (lst)
+    (<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (null? ???)
+        '()
+        (<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (null? ???)
+            ???
+            (get-last ???)))))
+</pre>
+</pre>
+</div>
+
+<p>
+Copy and paste this skeleton into <code>main.scm</code>, and then modify each
+<code>???</code> so that the code will work correctly. 
+</p>
+
+<p>
+(Hint: Walk yourself
+through each part of the code, talking about it out loud with your
+partner. For instance, to fill in the first <code>???</code> I might say "Okay,
+if <code>???</code> is null, then this will return an empty list. When what thing
+is null do we want to return an empty list?")
+</p>
+
+<p>
+To test your code, you can try it with the examples in Scheme, and
+feel free to make up your own too! For most homeworks, you'll also
+have automated tests; this won't necessarily be true for most
+activities, but this activity does have some automated tests to show
+you how to run them. To run the tests for this function, type the
+following at the command line (not in Guile!):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">./test-get-last
+</pre>
+</div>
+
+<p>
+The tests in <code>tests-get-last.scm</code> will be run on your code, and you'll
+see how many passed and how many failed. I encourage you to try
+testing on your own first, and then if you think everything is
+working, try running my tests. (To run your code yourself, you can
+copy the function from <code>main.scm</code> into Guile, or alternatively, type
+<code>(load "main.scm")</code> in Guile to load the code in <code>main.scm</code>.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> list-length</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Write a function <code>list-length</code> that computes the length of a list. Here are some example inputs and expected outputs:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(list-length '(13)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 1</span>
+(list-length '(1 4 6)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 3</span>
+(list-length '((1 2) 7)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 2 (the two items are (1 2) and 7).</span>
+</pre>
+</pre>
+</div>
+
+<p>
+You can assume that the input is a list, not a number or other
+structure. Do not use the built-in function <code>length</code>.
+</p>
+
+<p>
+As above, first test the function yourself, and then try running my tests:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">./test-length
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> nth</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Write a function <code>nth</code> that gets the nth item in a list. We'll assume that the first item is the 1th item.  Here are some example inputs and expected outputs:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(nth 1 '(3 5 7)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 3</span>
+(nth 2 '(3 5 7)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns 5</span>
+(nth 1 '((1 2) 7)) <span style="color: #b22222; font-size: 9.959999999999999pt;">;; </span><span style="color: #b22222; font-size: 9.959999999999999pt;">Returns (1 2)</span>
+</pre>
+</pre>
+</div>
+
+<p>
+You can assume that the input is a list, not a number or other structure. If the index to look for is longer than the length of the list or less than 1, return an empty list.
+</p>
+
+<p>
+As above, first test the function yourself, and then try running my tests:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-bash">./test-nth
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Understanding if</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+You might wonder whether <code>if</code> can be implemented in Scheme like normal procedures, or if something special is needed to evaluate <code>if</code>. The starter code contains a function <code>example-fn</code>. Try calling <code>example-fn</code> with an unbound variable, e.g.: <code>(example-fn WOW)</code>. What happens?
+</p>
+
+<p>
+Now, try writing an <code>if</code> statement involving an unbound variable in either the consequent or alternative, and make sure that the test in the if statement will not lead to the expression with the unbound variable. Here's an example of what I mean:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> #t
+    3
+    WOW)
+</pre>
+</pre>
+</div>
+
+<p>
+Try running the if-statement. What happens?
+</p>
+
+<p>
+Based on what you've seen here, discuss with your partner (or brainstorm on your own) about whether the following attempt at re-defining <code>if</code> would produce something that is equivalent to the original if:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scheme">(<span style="color: #a020f0; font-size: 9.959999999999999pt;">define</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">new-if</span>
+  (<span style="color: #a020f0; font-size: 9.959999999999999pt;">lambda</span> (predicate consequent alternative)
+          (<span style="color: #a020f0; font-size: 9.959999999999999pt;">cond</span> (predicate consequent)
+                (<span style="color: #a020f0; font-size: 9.959999999999999pt;">else</span> alternative))))
+</pre>
+</pre>
+</div>
+
+<p>
+In a comment at the end of <code>main.scm</code>, indicate whether this is equivalent and briefly justify your answer. Consider what this means for when you write an interpreter for Scheme: will you be able to treat if like any other procedure, or will it need to be handled as a special case? <i>Special forms</i> are particular keywords or constructs that need to be handled differently.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Turning in activities</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To turn in this activity, zip up the folder with your code, and upload that zip on Moodle. Additionally, email the zip to your partner so they can turn it in too. Even if you worked with a partner or you didn't finish, everyone should turn in the activity in order to gain access to my solutions. 
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
