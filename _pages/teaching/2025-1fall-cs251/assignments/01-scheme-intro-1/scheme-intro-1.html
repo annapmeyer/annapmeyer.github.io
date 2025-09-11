@@ -180,7 +180,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4">4. The Guile error prompt</a></li>
 <li><a href="#sec-5">5. Basic Scheme primitives</a>
 <ul>
-<li><a href="#sec-5-1">5.1. Some animals</a></li>
+<li><a href="#sec-5-1">5.1. Some vegetables</a></li>
 <li><a href="#sec-5-2">5.2. Some more things to try</a></li>
 </ul>
 </li>
@@ -256,8 +256,11 @@ The way to access Courses differs depending on where you are:
 </p>
 <ul class="org-ul">
 <li>If you're working on a Carleton-owned computer (e.g., in the CS
-labs):
-<a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=152558">Follow the instructions at the beginning of this page (stop when it gets to the part about writing a Python or Java program).</a>
+labs), the instructions differ depending on whether you're in 
+<a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=168290">Olin 304 (the CS Linux Lab)</a>
+or the 
+<a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=152558">Olin 308 and 310 labs</a>. 
+Follow the instructions in the appropriate article (you can stop when it gets to the part about writing a Python file). 
 </li>
 <li>If you're working on a non-Carleton owned computer (e.g., your own
 computer): <a href="https://stolafcarleton.teamdynamix.com/TDClient/2092/Carleton/KB/ArticleDet?ID=148546">Follow these instructions.</a> Note that if you're off
@@ -330,8 +333,7 @@ Finally, go to the Terminal menu and choose New Terminal.
 
 <div class="note">
 <p>
-Two things to note throughout the class if you're using VS Code and
-not Docker: it's important that you open a folder, not
+Two things to note throughout the class if you're using VS Code and Docker: it's important that you open a folder, not
 a specific file, and it's important to make the new terminal after you
 open the folder, not before. That allows the terminal to start in the
 folder (aka directory) where your code and files are. If you ever want
@@ -509,7 +511,7 @@ Notice that if you type =,q= at the main Guile prompt, it will exit Guile and yo
 <h2 id="sec-5"><span class="section-number-2">5</span> Basic Scheme primitives</h2>
 <div class="outline-text-2" id="text-5">
 </div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Some animals</h3>
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> Some vegetables</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 At the Guile prompt, enter the following, one at a time. You can copy and paste if you like, but pay careful attention to what you're pasting so you can figure out what's going on. (The last one should cause an error.)
@@ -517,11 +519,11 @@ At the Guile prompt, enter the following, one at a time. You can copy and paste 
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(car '(eel koala okapi))
+<pre class="src src-emacs-lisp">(car '(artichoke broccoli carrot))
 
-(cdr '(eel koala okapi))
+(cdr '(artichoke broccoli carrot))
 
-(car (eel koala okapi))
+(car (artichoke broccoli carrot))
 </pre>
 </pre>
 </div>
@@ -584,23 +586,23 @@ Enter each of the following lines of Scheme code, one-by-one, into Guile and obs
 <h2 id="sec-6"><span class="section-number-2">6</span> A task for you to submit</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-Write sequences of cars and cdrs that will pick the symbol <code>koala</code> out of the following expressions:
+Write sequences of cars and cdrs that will pick the symbol <code>broccoli</code> out of the following expressions:
 </p>
 
 <pre class="example">
-(koala eel cheetah okapi)
-(cheetah koala)
-(((cheetah) (eel) (koala) (okapi)))
-(cheetah (eel) ((koala)) (((okapi))))
+(broccoli artichoke fennel carrot)
+(fennel broccoli)
+(((fennel) (artichoke) (broccoli) (carrot)))
+(fennel (artichoke) ((broccoli radish)) (((carrot))))
 </pre>
 
 <p>
-Here's an example of what I might write if I was trying to pick <code>koala</code> out of the expression <code>(koala)</code>:
+Here's an example of what I might write if I was trying to pick <code>broccoli</code> out of the expression <code>(broccoli)</code>:
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-scheme">(car '(koala))
+<pre class="src src-scheme">(car '(broccoli))
 </pre>
 </pre>
 </div>
@@ -618,7 +620,7 @@ can ask questions.
 <div class="outline-text-2" id="text-7">
 <p>
 In the (initially empty) file <code>main.scm</code>, paste in your code to pick
-out <code>koala</code> from each expression. You should end up with four lines
+out <code>broccoli</code> from each expression. You should end up with four lines
 in <code>main.scm</code>, one for each of the four expressions above.
 </p>
 
@@ -636,25 +638,31 @@ submit, you'll need to include a file named
 <code>CollaborationsAndSources.txt</code> that has these two parts. Your file
 should be specific about your collaborations and sources - it
 shouldn't be empty or just list names of people.
+If you did not discuss the assignment with others (or did not use any outside sources), 
+you should state this explicitly, e.g., "I did not discuss the assignment with anyone. I 
+did not consult any sources other than my notes from class". 
 </p>
 
 <p>
-Zip up the starter folder with your modified files (i.e., your
+Zip up your modified files (i.e., your
 modifications to <code>main.scm</code> and your  <code>CollaborationsAndSources.txt</code>)
-and upload it to Moodle. 
+and upload it to Moodle. Note that you need to create a zip file of these two files, not of the 
+folder containing these files.
 </p>
 
 <p>
 For this
 assignment only, you'll earn a grade of M (meets expectations; 3) if
-you've clearly given it a solid attempt, even if you didn't always get
-the koala, and if you have  <code>CollaborationsAndSources.txt</code>. For assignments going
-forward, you'll need to have a series of tests run successfully on
-your code to earn an M. You'll earn an E (exemplary; 4) if
-your four lines of code always pick out koala and you have
-<code>CollaborationsAndSources.txt</code>. The graders will copy and paste your
+you've clearly given it a solid attempt (even if you didn't always get
+the broccoli), if you have  <code>CollaborationsAndSources.txt</code>, and the assignment is turned in by the late deadline. 
+For assignments going forward, you'll need to have a series of tests run successfully on
+your code to earn an M. 
+For this assignmment, you'll earn an E (exemplary; 4) if
+your four lines of code always pick out broccoli, you have
+<code>CollaborationsAndSources.txt</code>, and your code is turned in by the regular deadline 
+(or if you use a late token by submitting a regrade request after the assignment is returned to you). The graders will copy and paste your
 code from <code>main.scm</code> into Scheme to confirm that they correctly get
-the koala.
+the broccoli.
 </p>
 
 
