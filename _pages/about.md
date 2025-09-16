@@ -10,7 +10,7 @@ redirect_from:
 
 ------
 
-I am an Assistant Professor in the Computer Science department at [Carleton College](https://cs.carleton.edu). This fall, I am teaching [CS 251 (Programming Languages)](https://annapmeyer.github.io/teaching/2025-cs251). 
+I am an Assistant Professor in the Computer Science department at [Carleton College](https://cs.carleton.edu). This fall, I am teaching CS 251 (Programming Languages). 
 
 My research aims to understand and improve the trustworthiness of machine learning models. Specifically, I look at a property called **multiplicity:** the phenomena where many models may perform equally well on a task, yet give different outputs for a given input.
 Multiplicity can harm machine learning reliability and fairness because it indicates that some decisions a model makes are arbitrary. This arbitrariness may be unavoidable, but is often hidden because the alternative models and decisions are not considered. As a result, people may be overconfident that their model's decisions are objective, which can cause them to over-rely on their model or make it harder to challenge a harmful model output.
