@@ -8,7 +8,7 @@ permalink: /teaching/cs251fall25/c-intro-2.html
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Homework 8: C Introduction 2</title>
+<title>Homework 7: C Introduction 2</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -191,7 +191,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Homework 8: C Introductory Lab 2</h1>
+<h1 class="title">Homework 7: C Introductory Lab 2</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -251,7 +251,7 @@ the files <code>test-e</code> and <code>test-m</code>.
 </p>
 
 <p>
-  <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/clab-2-starter.zip">Click here to download the starter files.</a>
+  <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/cintro-2-starter.zip">Click here to download the starter files.</a>
 </p>
 </div>
 </div>
@@ -325,7 +325,11 @@ it's out of range and do not include that guess in the count of total guesses.
 <div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2"><span class="section-number-3">2.2</span> Arrays</h3>
 <div class="outline-text-3" id="text-2-2">
-<p>
+
+  <p>You can declare an array in C by giving the type and size of the array.
+    See <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/arrays.c">arrays.c</a> for a sample program. </p>
+
+    <p>
 Just like in Java, C has arrays that allow you to have a sequence of
 values.
 You can allocate
@@ -360,8 +364,7 @@ error" - it will just modify whatever happens to be next in memory!
 </p>
 
 <p>
-The starter code includes <code>arrays.c</code>. In the starter code, the
-following line is commented out:
+In <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/arrays.c">arrays.c</a>, the following line is commented out:
 </p>
 
 <div class="org-src-container">
@@ -426,7 +429,7 @@ Here's a quick summary of C's basic pointer operations (we'll discuss more). <co
 </p>
 
 <p>
-As an example, read and then run the program <code>pointers.c</code>. Try drawing the execution of the program on paper, with boxes for memory locations and arrows for pointers. Can you see how we end up with the final values for <code>a</code> and <code>b</code>? Hopefully it also makes more sense why we pass arguments to <code>scanf</code> using the <code>&amp;</code> operator.
+As an example, read and then run the program <code><a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/pointers.c">pointers.c</a></code>. Try drawing the execution of the program on paper, with boxes for memory locations and arrows for pointers. Can you see how we end up with the final values for <code>a</code> and <code>b</code>? Hopefully it also makes more sense why we pass arguments to <code>scanf</code> using the <code>&amp;</code> operator.
 </p>
 
 
@@ -448,7 +451,9 @@ type.
 </p>
 
 <p>
-Structs are defined using the keyword <code>struct</code>, a name for the struct, and a list of member variables within curly braces. For example, here's a struct to represent a student (see <a href="student.c">student.c</a> for the full code listing):
+Structs are defined using the keyword <code>struct</code>, a name for the struct, and a list of member variables within curly braces. 
+For example, here's a struct to represent a student 
+(see <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/student.c">student.c</a> for the full code listing):
 </p>
 
 <div class="org-src-container">
@@ -465,7 +470,7 @@ Structs are defined using the keyword <code>struct</code>, a name for the struct
 <p>
 You can create an instance of a struct type by declaring it with the
 <code>struct</code> keyword, and access member variables using the dot (.)
-operator. See <a href="student.c">student.c</a> for details.
+operator. See <a href="../../_pages/teaching/2025-1fall-cs251/assignments/08-c-intro-2/student.c">student.c</a> for details.
 </p>
 
 
