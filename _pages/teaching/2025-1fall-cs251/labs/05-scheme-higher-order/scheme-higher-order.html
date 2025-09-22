@@ -335,6 +335,17 @@ use <code>fold-left</code>. I'd call it like:
 </div>
 
 <p>
+  Make sure to input the rnrs module at the top of your file to be able to use fold-left. 
+  </p>
+
+  <div class="org-src-container">
+
+<pre class="src src-scheme">(use-modules (rnrs))
+</pre>
+</pre>
+</div>
+  
+<p>
 Not sure where to start? Here's the skeleton of my code:
 </p>
 
@@ -416,6 +427,14 @@ above, brainstorm what the base case(s) and recursive case(s) should
 be, and then write your code in <code>main.scm</code>. Test your code using a
 variety of inputs and outputs.
 </p>
+
+<p>
+  A note on edge cases: For this activity, you can assume that <code>(fold-l fn start '())</code> and 
+  <code>(fold-r fn start '())</code> should both return <code>start</code> (this assumption will allow you to 
+  use the same base case for each function). But actually, this is only the 
+  behavior for <code>fold-left</code>, not <code>fold-right</code>. Since <code>fold-right</code> applies <code>start</code>
+  as the second operand to <code>fn</code>, it is undefined if the list is null.
+  </p>
 </div>
 </div>
 
