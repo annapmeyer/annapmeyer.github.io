@@ -1,0 +1,598 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/c-intro-1.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Homework 7: C Introduction 1</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Homework 7: C Introduction 1</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Get started</a></li>
+<li><a href="#sec-2">2. Your tasks</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Run your first program</a></li>
+<li><a href="#sec-2-2">2.2. Printing</a></li>
+<li><a href="#sec-2-3">2.3. User Input</a></li>
+<li><a href="#sec-2-4">2.4. Loops and if statements</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Submitting your work</a></li>
+</ul>
+</div>
+</div>
+<p>
+This assignment is to be done individually. You can talk to other people in the class, me, and any of the course staff (graders, lab assistants, prefects) for ideas and to gain assistance. You can get direct help debugging your code from me and any of the course staff, and you're welcome to show us your code during debugging or other conversations. The code that you write should be your own, and you shouldn’t directly show or share your code with other students (although you may discuss general debugging strategies with others). See the course syllabus for more details or just ask me if I can clarify.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Get started</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+You'll download the folder with the starter code from the link
+below. Like for homeworks 1 and 2, unzip the folder and move it to
+where you'd like: the folder for the Docker container if you're using
+Docker, or COURSES if you're not. Then get started in VS Code (see
+Homework 1 if you get stuck).
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+You can run the tests in the same way as you did for
+the Scheme homeworks.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2025-1fall-cs251/assignments/07-c-intro-1/clab-1-starter.zip">Click here to download the starter files.</a>
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Your tasks</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Run your first program</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Create a new file called <code>hello.c</code> in VS Code. Then, copy and paste the
+content from this linked <a href="hello.c">hello.c</a> file into that file. This program
+(unsurprisingly) is supposed to print "Hello, world!" to the
+screen. The top line, <code>/* Hello World in C */</code>, is a comment: <code>/*</code> starts
+the comment and <code>*/</code> ends the comment. (Like in Java, you can also use
+<code>//</code> for comments within a function.)
+</p>
+
+<p>
+Next, compile the program to a binary executable by running the following in the terminal:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">clang -o hello hello.c
+</pre>
+</div>
+
+<p>
+This command should produce a file named <code>hello</code>. You should be able
+to see it in files list in VS Code, and also if you type <code>ls</code> in the terminal. Try running it at the command prompt:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">./hello
+</pre>
+</div>
+
+<p>
+If this worked, you should see "Hello, world!" output to the terminal.
+</p>
+
+<p>
+<b>EXERCISE 1:</b> Change the program to print
+</p>
+
+<pre class="example">
+Hello, CS251!
+</pre>
+
+<p>
+Run the program again (after recompiling it). When complete, you can also run 
+<code>./test-m</code>, which will run the automated M tests.
+</p>
+
+<p>
+There are three
+sections of tests. If all went well, the HelloTests should
+pass. You'll know that happened by the fact that you don't see any
+errors or failures for HelloTests, and the last couple lines of output
+should look something like:
+</p>
+
+<pre class="example">
+Ran 3 tests in 0.183s
+
+FAILED (errors=2)
+</pre>
+
+<p>
+Your number of seconds will differ (mine was 0.183 seconds), but it
+should say it ran 3 tests and only 2 of them had errors. If it says
+FAILED (failures=1, errors=2) that means that your printing in
+<code>hello.c</code> isn't quite right.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Printing</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The first non-commented line of <code>hello.c</code> is: <code>#include &lt;stdio.h&gt;</code>. This directs the C compiler (or technically, a subprocess called the <i>C preprocessor</i>) to include a <i>header file</i> named <code>stdio.h</code> that lists the signatures of standard IO functions, such as <code>printf</code>.
+</p>
+
+<p>
+The documentation for most of the built-in C functions can be found in the UNIX manual ("man") pages. Take a look at the <a href="http://man7.org/linux/man-pages/man3/printf.3.html">documentation for printf in particular</a>. It tells you which header file to include to get access to that function (in this case, <code>stdio.h</code>), as well as documenting the interface and behavior of the function of interest. In this case, the manual page also includes several similarly-named functions such as <code>sprintf</code> and <code>fprintf</code>. Read through the first few paragraphs the man page for <code>printf</code>, and skim through the rest so you get a sense of what these pages look like. There are examples at the end, which is often the most useful part.
+</p>
+
+<p>
+<code>printf</code> is similar to Python's string formatting operator, in that it
+accepts a string that includes format specifiers to print integers,
+floats, etc. To see more about how printf and other operations work,
+create a file name <code>printing.c</code> in your directory, and then copy in
+the contents of this <a href="printing.c">printing.c file</a>. It contains a number of different examples of print formats. To compile and run your code, go back and look at how we did it for the <code>hello.c</code> program, and change accordingly.
+</p>
+
+<p>
+Here are some common C types and their <code>printf</code> formatting specifications: 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Format specifier</th>
+<th scope="col" class="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">%c</td>
+<td class="left">char</td>
+</tr>
+
+<tr>
+<td class="left">%i or %d</td>
+<td class="left">int</td>
+</tr>
+
+<tr>
+<td class="left">%li or %ld</td>
+<td class="left">long</td>
+</tr>
+
+<tr>
+<td class="left">%f</td>
+<td class="left">float</td>
+</tr>
+
+<tr>
+<td class="left">%s</td>
+<td class="left">string (really a char *)</td>
+</tr>
+
+<tr>
+<td class="left">%p</td>
+<td class="left">pointer (e.g. int *)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b>EXERCISE 2</b>: Add code to <code>printing.c</code> that subtracts the value 15 from 87 and
+prints the result, together with an appropriate message. Check the
+PrintingTests section of the results from running <code>./test-m</code> to see if you've got it working correctly.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> User Input</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+You can get user input using the <code>scanf</code> function (<a href="http://man7.org/linux/man-pages/man3/scanf.3.html">the manual page is here</a>):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #a0522d; font-size: 9.959999999999999pt;">i</span>;
+scanf(<span style="color: #8b2252; font-size: 9.959999999999999pt;">"%i"</span>, &amp;i);
+printf(<span style="color: #8b2252; font-size: 9.959999999999999pt;">"You entered: %i\n"</span>, i);
+</pre>
+</pre>
+</div>
+
+<p>
+The first argument to <code>scanf</code> is a string containing formatting specification(s) for the type of input expected. In this case we expect an int.
+</p>
+
+<p>
+The second argument should look pretty weird to you. How is <code>scanf</code> able to modify the value of <code>i</code>? What's that ampersand symbol? The answer is that we're actually passing a <i>pointer</i> to <code>i</code>'s location, not <code>i</code> itself - so the value of <code>i</code> can be modified from within <code>scanf</code>. There will be much more on pointers later.
+</p>
+
+<p>
+<b>EXERCISE 3:</b> Write a program <code>temperature.c</code> that asks the user for a temperature in Fahrenheit and prints the temperature converted to Celsius. Assume that the input is handled as a <code>float</code>, instead of as an <code>int</code>. The relevant formula is:
+</p>
+
+<pre class="example">
+temp_c = (temp_f - 32) * 5/9
+</pre>
+
+<p>
+For example, here's what a sample run of <code>temperature.c</code> might now look like:
+</p>
+
+<pre class="example">
+What is the temperature in degrees Fahrenheit? 42.5
+42.500000 degrees Fahrenheit is 5.833333 degrees Celsius.
+</pre>
+
+<p>
+(If you're interested: there are variants on the formatting specifiers that limit the number of zeroes. Read up on that further if you like.)
+</p>
+
+<p>
+Check the TemperatureTests section after running <code>./test-m</code> to see if you have the output correct.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Loops and if statements</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+C has basically the same syntax for if statements, for loops, while loops and do/while loops as Java. However, there is a critical and very subtle difference with <code>if</code> statements that you should be aware of. C doesn't have boolean variables, exactly. It just has integers, so false is 0 and true is any non-zero value. So the following abomination is legal C code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #a0522d; font-size: 9.959999999999999pt;">x</span> = 1;
+<span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #a0522d; font-size: 9.959999999999999pt;">y</span> = 0;
+<span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (x - y) {
+    printf(<span style="color: #8b2252; font-size: 9.959999999999999pt;">"You entered two different numbers!\n"</span>);
+} <span style="color: #a020f0; font-size: 9.959999999999999pt;">else</span> {
+    printf(<span style="color: #8b2252; font-size: 9.959999999999999pt;">"You entered the same number!\n"</span>);
+}
+</pre>
+</pre>
+</div>
+
+<p>
+If you want to make your code more clear, you can use the library <code>stdbool.h</code> as follows:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #483d8b; font-size: 9.959999999999999pt;">#include</span> <span style="color: #8b2252; font-size: 9.959999999999999pt;">&lt;stdbool.h&gt;</span>
+
+<span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">main</span>() {
+    <span style="color: #228b22; font-size: 9.959999999999999pt;">bool</span> <span style="color: #a0522d; font-size: 9.959999999999999pt;">x</span> = <span style="color: #008b8b; font-size: 9.959999999999999pt;">true</span>;
+}
+</pre>
+</pre>
+</div>
+
+<p>
+However, this is just <i>syntactic sugar</i>, which is a fancy phrase which means that we haven't changed the underlying language, we've just changed the syntax a little bit. With the above, <code>x</code> is really just an <code>int</code>, and <code>true</code> is really just a <code>1</code>. Why does this matter? Try running the following BUGGY code and see what happens. (You can create a new file for this called <code>buggy.c</code> for it.)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #483d8b; font-size: 9.959999999999999pt;">#include</span> <span style="color: #8b2252; font-size: 9.959999999999999pt;">&lt;stdio.h&gt;</span>
+
+<span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #0000ff; font-size: 9.959999999999999pt;">main</span>() {
+    <span style="color: #228b22; font-size: 9.959999999999999pt;">int</span> <span style="color: #a0522d; font-size: 9.959999999999999pt;">x</span> = 3;
+    <span style="color: #a020f0; font-size: 9.959999999999999pt;">if</span> (x = 5) {
+        printf(<span style="color: #8b2252; font-size: 9.959999999999999pt;">"x must be 5, even though I assigned it to 3.\n"</span>);
+    }
+}
+</pre>
+</pre>
+</div>
+
+<p>
+Happily, <code>clang</code> does try to warn you when you do this.
+</p>
+
+<p>
+<b>EXERCISE 4:</b> What happens if the user enters an impossible
+temperature in Exercise 3? Absolute zero, which is the coldest
+temperature anything can possibly be, is -459.67 Fahrenheit. Modify
+<code>temperature.c</code> so that if a temperature lower than that is input, it
+displays the text "Invalid temperature." This test is in the E
+tests. Run <code>./test-e</code> to see if you have this part correct.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-3">
+<h2 id="sec-3"><span class="section-number-3">3</span> Submitting your work</h2>
+<p>
+You'll submit your work on Gradescope. First, create a <code>CollaborationsAndSources.txt</code>
+file in the same folder as your code. In that file, indicate
+in what ways (if any) you collaborated with other people on this
+assignment. Indicate any people you talked about the assignment with
+besides me (Anna) and our prefect. Did you share strategies with
+anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with and some description of
+your interactions. If you used any resources outside of our course
+materials, that is also something to note in Collaborations.txt. If
+you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. Look back at the
+Scheme intro 1 instructions if you want more details on the
+<code>CollaborationsAndSources.txt</code> file.
+</p>
+
+<p>
+After making <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, upload your files on Gradescope. 
+<strong>You should include all files that end in <code>.c</code>.</strong> 
+You don't need to include the compiled files.
+</p>
+
+
+<p>
+ <b><b>Note that if you submit
+a zip on Gradescope, you should submit a zip of the files, not a zip of the folder that contains the files.</b></b> If all tests fail on Gradescope but they're
+working on your machine, this is likely the problem.
+</p>
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a very small but nonzero chance that you
+have coded something unexpected that causes the tests to pass on
+the computer you’re working on, but not on Gradescope. We will be
+grading this assignment based on the results of the tests on
+Gradescope, so you should make sure to pay attention to how the tests
+run there as well when you submit.
+</p>
+
+
+<p>
+For grading, you'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass
+</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs.
+</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> with the information
+described above.
+</li>
+<li>
+  The work is turned in by the late deadline.
+  </li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.
+</li>
+<li>All the E tests pass.
+</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.
+</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").
+</li>
+<li>
+  The homework is turned in by the regular deadline, or it is turned in by the late deadline and 
+  you elect to use a late token (by stating this in a regrade reguest after grading is complete). </li>
+</ul>
+
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment or was not turned in by the late deadline. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+<div class="note">
+<p>
+Assignment originally designed by Dave Musicant - thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
