@@ -353,8 +353,8 @@ file in a particular spot:
 </p>
 <ul class="org-ul">
 <li>First, look in the file explorer in VSCode. Do you see a folder
-named <code>.vscode</code> in the <code>ProgrammingLanguages</code> directory. If not,
-you'll need to create one. Navigate to the <code>ProgrammingLanguages</code>
+named <code>.vscode</code> in the ProgrammingLanguages directory? If not,
+ create one. Navigate to the <code>ProgrammingLanguages</code>
 directory - this is likely <code>cd ..</code> if you're currently in the
 <code>Linked-List-Activity</code> directory. Then type: <code>mkdir .vscode</code></li>
 <li>Now, you'll need to move the file named <code>launch.json</code> in
@@ -404,6 +404,14 @@ breakpoint. Try stepping through the code line by line, and take a
 look at the variable values that are now in the same pane as the green
 arrow was.
 </p>
+
+<div class="note">
+  <p>
+    You may get an error that says "Program .... does not exist". If this happens, it means you have a different
+    file structure than we intended: <code>ProgrammingLanguages/Linked-List-Activity</code>. You have two options:
+    you can either rearrange your folders to have this file structure, or you can open <code>launch.json</code> 
+    and updates lines 11 and 14 to match your file structure.</p>
+  </div>
 
 <p>
 You may find some debugging resources helpful:
