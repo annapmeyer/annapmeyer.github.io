@@ -8,7 +8,7 @@ permalink: /teaching/cs251fall25/interpreter-talloc.html
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Interpreter Project 2: Memory Management with Talloc</title>
+<title>Interpreter Project Part 2: Talloc</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -154,15 +154,16 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6f8f7e5">1. Pair programming structure</a></li>
-<li><a href="#orgef4ab09">2. Get started</a></li>
-<li><a href="#org60c4e39">3. The idea</a></li>
-<li><a href="#orgfbfef92">4. Storing the active list</a></li>
-<li><a href="#orgebf58ee">5. Some specifics</a></li>
-<li><a href="#orgdd0d043">6. Testing and submitting your work</a>
+<li><a href="#org74cc352">1. Pair programming structure</a></li>
+<li><a href="#org9da59f2">2. Get started</a></li>
+<li><a href="#orgda1997a">3. The idea</a></li>
+<li><a href="#org6df6c51">4. Storing the active list</a></li>
+<li><a href="#org14b9fbb">5. Some specifics</a></li>
+<li><a href="#orga6f2a1f">6. Optional Extensions</a></li>
+<li><a href="#orgde551d3">7. Testing and submitting your work</a>
 <ul>
-<li><a href="#org08b317b">6.1. Testing your work</a></li>
-<li><a href="#org657960d">6.2. Submitting your work</a></li>
+<li><a href="#orgf33df73">7.1. Testing your work</a></li>
+<li><a href="#org0051eb6">7.2. Submitting your work</a></li>
 </ul>
 </li>
 </ul>
@@ -175,8 +176,8 @@ to remember to clean individual things up. For this assignment, we're going to b
 collector. This garbage collector is so inefficient that this may bother some of you; if so, consider improving the garbage
 collector to be an optional extension that you can think about when the project is complete.
 </p>
-<div id="outline-container-org6f8f7e5" class="outline-2">
-<h2 id="org6f8f7e5"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div id="outline-container-org74cc352" class="outline-2">
+<h2 id="org74cc352"><span class="section-number-2">1.</span> Pair programming structure</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is a "pair" assignment, which means that if you are working on a team with someone else,
@@ -221,8 +222,8 @@ for this class.
 </p>
 </div>
 </div>
-<div id="outline-container-orgef4ab09" class="outline-2">
-<h2 id="orgef4ab09"><span class="section-number-2">2.</span> Get started</h2>
+<div id="outline-container-org9da59f2" class="outline-2">
+<h2 id="org9da59f2"><span class="section-number-2">2.</span> Get started</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 You'll download the folder with the starter code from the link
@@ -259,8 +260,8 @@ submission into this assignment's folder:
 </ul>
 </div>
 </div>
-<div id="outline-container-org60c4e39" class="outline-2">
-<h2 id="org60c4e39"><span class="section-number-2">3.</span> The idea</h2>
+<div id="outline-container-orgda1997a" class="outline-2">
+<h2 id="orgda1997a"><span class="section-number-2">3.</span> The idea</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 You'll be creating your own replacement for <code>malloc</code>, which we'll call <code>talloc</code> (for "track malloc").
@@ -289,7 +290,7 @@ You'll also write the function <code>texit</code>, which is a simple replacement
 Finally, you'll then modify your linked list from the previous assignment.
 The function <code>cleanup</code> that you wrote will be eliminated, as it is no longer necessary.
 You should also modify <code>reverse</code> so that it no longer duplicates data between the two linked lists.
-When you reverse a list, that should return a new list with a new set of <code>CONS_TYPE</code> Item nodes,
+When you reverse a list, that should return a new list with a new set of <code>CONS_TYPE</code> SchemeItem nodes,
 but the actual data in that list should not be copied from the old list to the new.
 This would be a disaster to try to clean up manually, but <code>tfree</code> will handle it easily.
 This change will make some later aspects of the project much easier.
@@ -297,8 +298,8 @@ Your linked list code should now exclusively use <code>talloc</code>, and should
 </p>
 </div>
 </div>
-<div id="outline-container-orgfbfef92" class="outline-2">
-<h2 id="orgfbfef92"><span class="section-number-2">4.</span> Storing the active list</h2>
+<div id="outline-container-org6df6c51" class="outline-2">
+<h2 id="org6df6c51"><span class="section-number-2">4.</span> Storing the active list</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 One issue you'll need to think through is where the variable for the head of the active list should be.
@@ -321,15 +322,15 @@ but avoiding this circular nightmare is worth it.
 </p>
 </div>
 </div>
-<div id="outline-container-orgebf58ee" class="outline-2">
-<h2 id="orgebf58ee"><span class="section-number-2">5.</span> Some specifics</h2>
+<div id="outline-container-org14b9fbb" class="outline-2">
+<h2 id="org14b9fbb"><span class="section-number-2">5.</span> Some specifics</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 After you download the starter files, you should see the following:
 </p>
 
 <ul class="org-ul">
-<li><code>item.h</code>: this defines the Item structure again. It adds one additional type of item that you'll
+<li><code>schemeitem.h</code>: this defines the SchemeItem structure again. It adds one additional type of item that you'll
 want to modify your code to deal with, a <code>PTR_TYPE</code>.</li>
 <li><code>linkedlist.h</code>: this is a modification form the previous assignment that removes
 the function <code>cleanup</code>, and also changes the documentation on <code>reverse</code> to
@@ -368,13 +369,37 @@ The testing scripts will automatically run <code>valgrind</code> on your code, a
 </p>
 </div>
 </div>
-<div id="outline-container-orgdd0d043" class="outline-2">
-<h2 id="orgdd0d043"><span class="section-number-2">6.</span> Testing and submitting your work</h2>
+<div id="outline-container-orga6f2a1f" class="outline-2">
+<h2 id="orga6f2a1f"><span class="section-number-2">6.</span> Optional Extensions</h2>
 <div class="outline-text-2" id="text-6">
+<p>
+Work in this section is 100% optional, and not worth any points.
+Nonetheless, if you're looking for an extra challenge (or a good way to prepare for an exam),
+these are fun additional exercises to try.
+</p>
+
+
+<p>
+Write a function that that can report a count, in bytes, of how much memory is
+being used in total by this talloc technique.
+It should include both all of the memory that the user asked for when calling talloc,
+but also all of the additional overhead in Value structs that talloc creates for assembling a linked list.
+Here is a signature for that function. You can add it to your <code>talloc.h</code> file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">int tallocMemoryCount();
+</pre>
 </div>
-<div id="outline-container-org08b317b" class="outline-3">
-<h3 id="org08b317b"><span class="section-number-3">6.1.</span> Testing your work</h3>
-<div class="outline-text-3" id="text-6-1">
+</div>
+</div>
+<div id="outline-container-orgde551d3" class="outline-2">
+<h2 id="orgde551d3"><span class="section-number-2">7.</span> Testing and submitting your work</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orgf33df73" class="outline-3">
+<h3 id="orgf33df73"><span class="section-number-3">7.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Go back and look at the sections at the end of Scheme Intro 2 labeled
 "How to test your work". Everything there about how to run M tests and
@@ -385,9 +410,9 @@ behavior is observably incorrect.
 </p>
 </div>
 </div>
-<div id="outline-container-org657960d" class="outline-3">
-<h3 id="org657960d"><span class="section-number-3">6.2.</span> Submitting your work</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-org0051eb6" class="outline-3">
+<h3 id="org0051eb6"><span class="section-number-3">7.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 You'll submit your work on Gradescope. You should already have a file
 <code>CollaborationsAndSources.txt</code>
@@ -397,10 +422,12 @@ in what ways (if any) you collaborated with other people on this
 assignment (did you talk with anyone other than Anna or our prefect? Did you share strategies with anyone?
 Get or give advice on debugging? These are
 fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
-file). If you used any resources outside of your notes from class, 
-that is also something to note in <code>CollaborationsAndSources.txt</code>. If
+file). If you used any resources outside of your notes from class, that is 
+also something to note in <code>CollaborationsAndSources.txt</code>. If
 you didn't talk with anyone or use any outside sources, please note
-that explicitly.
+that explicitly. Look back at the
+Scheme Intro 1 instructions if you want more details on the
+<code>CollaborationsAndSources.txt</code> file.
 </p>
 
 <p>
@@ -491,7 +518,7 @@ Good luck, ask questions, and have fun!
 </p>
 
 
-<div class="note" id="org09d2a3e">
+<div class="note" id="orga18cc74">
 <p>
 Assignment based off one by Dave Musicant. Thanks for sharing!
 </p>

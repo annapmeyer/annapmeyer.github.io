@@ -158,7 +158,7 @@ for the JavaScript code in this tag.
 <li><a href="#org86d0d93">1. Pair programming structure</a></li>
 <li><a href="#org50c2ccb">2. Get started</a></li>
 <li><a href="#org649efd1">3. Assignment overview</a></li>
-<li><a href="#orgdb060e2">4. Items and lists</a></li>
+<li><a href="#orgdb060e2">4. SchemeItems and lists</a></li>
 <li><a href="#orgfad83f6">5. Some specifics</a></li>
 <li><a href="#org4efcaae">6. How to test and submit your work</a>
 <ul>
@@ -260,13 +260,13 @@ on. Future you will thank current you if you use good style and structure!
 </div>
 </div>
 <div id="outline-container-orgdb060e2" class="outline-2">
-<h2 id="orgdb060e2"><span class="section-number-2">4.</span> Items and lists</h2>
+<h2 id="orgdb060e2"><span class="section-number-2">4.</span> SchemeItems and lists</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 One of the first questions to arise will be "What is this a linked list of?
 Integers? Strings? More lists?" The catch is that you'll be storing lists 
 created in Scheme, which can contain items of a whole variety of types. You
-might think: "Ah! I'll have an Item class, with subclasses for IntItem,
+might think: "Ah! I'll have a SchemeItem class, with subclasses for IntItem,
 StringItem, etc." And that would be wonderful &#x2013; if you were implementing
 this list using an OOP (object-oriented programming) language. Oops.
 </p>
@@ -297,7 +297,7 @@ typedef struct SchemeItem {
 
 <p>
 The names <code>INT_TYPE</code>, <code>DOUBLE_TYPE</code>, etc., represent types of
-  Items. (You can read a bit about the enum <a href="https://gribblelab.org/teaching/CBootCamp/3_Basic_Types_Operators_And_Expressions.html#org27f02c1">here in the C Boot Camp</a>.)
+  SchemeItems. (You can read a bit about the enum <a href="https://gribblelab.org/teaching/CBootCamp/3_Basic_Types_Operators_And_Expressions.html#org27f02c1">here in the C Boot Camp</a>.)
   The <code>Item</code> struct includes a field (<code>type</code>) containing
   one of these tags, as well as a union of various possible fields. For example,
   you could create an item containing the integer 5 as follows:
@@ -374,12 +374,12 @@ Here is an abbreviation of the technique that you will use:
 
 <p>
 The "head" pointer for your linked list, whatever you choose to call it,
-should be of type <code>SchemeItem*</code>. It should be <code>NULL_TYPE</code> if the list is
+should be of type <code>SchemeItem*</code>. It should be <code>EMPTY_TYPE</code> if the list is
 empty, or point to a <code>SchemeItem</code>. That <code>SchemeItem</code> should be one that
 holds a cons cell. The <code>car</code> of that cell should point to the first item
 in your linked list; the <code>cdr</code> should point to another <code>SchemeItem</code>. And so
 on. At the end of the linked list, the <code>cdr</code> of that <code>SchemeItem</code>
-should point to a <code>NULL_TYPE</code> <code>SchemeItem</code>.
+should point to a <code>EMPTY_TYPE</code> <code>SchemeItem</code>.
 </p>
 
 <p>
@@ -454,7 +454,7 @@ This will halt execution of the program if <code>list</code> is in fact equal to
 NULL. It will print out an error like:
 </p>
 <pre class="example" id="org7e70555">
-linkedlist: linkedlist.c:164: int length(Item *): Assertion `list != NULL' failed.
+linkedlist: linkedlist.c:164: int length(SchemeItem *): Assertion `list != NULL' failed.
 </pre>
 
 <p>
