@@ -1,0 +1,407 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/labs/ll-parsing.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Activity: LL(1) Parsing</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Activity: LL(1) parsing with and without a table</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgda80927">1. Activity structure</a></li>
+<li><a href="#org7aa2f96">2. Setup</a></li>
+<li><a href="#org3eac6eb">3. Setup</a></li>
+<li><a href="#orgcb2fb52">4. Tasks</a></li>
+<li><a href="#org3e39fac">5. Working with code for a table parser</a></li>
+<li><a href="#org0fc7330">6. Creating a grammar table</a>
+<ul>
+<li><a href="#org6c425c3">6.1. Getting familiar with the code</a></li>
+<li><a href="#org4cce314">6.2. First sets</a></li>
+<li><a href="#org4999ca8">6.3. Follow sets</a></li>
+<li><a href="#org1c53732">6.4. Creating the table</a></li>
+<li><a href="#org8aeb5ab">6.5. Try it!</a></li>
+</ul>
+</li>
+<li><a href="#org2287ee7">7. Working with code for a table parser</a></li>
+<li><a href="#org78d5e8f">8. Extra time?</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgda80927" class="outline-2">
+<h2 id="orgda80927"><span class="section-number-2">1.</span> Activity structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an <b>activity</b> not an assignment.That means it is not graded: you won't
+get formal feedback on it, but it is a great chance to practice with the ideas
+we've been talking about and it may also guide you through some new ideas.
+You'll work on it during class, usually with another students,
+or if you have to miss class, you'll complete it outside of class.
+</p>
+
+<p>
+If you're working with someone, you should work in a paired programming style.
+At any point in time, one of you is "driving," i.e. actually using the
+keyboard and mouse. The other is actively engaged following along, preventing
+bugs, and providing ideas. You'll tradeoff who is driving
+<b>about every 10 minutes</b>, and it's important that regardless of whose
+computer you're using, you take turns typing and controlling it - the owner
+of the computer <b>should not be the only one who drives</b>. Before you start
+coding for a new part of the activity, I strongly encourage you to sketch out
+your strategy with your partner. You might discuss possible approaches
+together, and write down some ideas on paper that will then help you when
+you begin coding.
+</p>
+
+<p>
+At the end of class, you should make sure you turn your code in
+(even if you're not done), as that gives you access to my solutions,
+and to email the code to your partner (so they can turn it in to access
+my solutions).
+</p>
+</div>
+</div>
+<div id="outline-container-org7aa2f96" class="outline-2">
+<h2 id="org7aa2f96"><span class="section-number-2">2.</span> Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If both you and your partner have computers with you with the tools for our
+class setup on it, decide whose computer you'll be using. 
+</p>
+
+<p>
+Them you'll do the activity in VS Code: download the starter code (below),
+unzip it, move it into the ProgrammingLanguages folder for our Docker
+container, and then open that folder within the  Docker container in VSCode. 
+</p>
+</div>
+</div>
+<div id="outline-container-org3eac6eb" class="outline-2">
+<h2 id="org3eac6eb"><span class="section-number-2">3.</span> Setup</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Download the starter code, move it to your ProgrammingLanguages folder, and open the
+ProgrammingLanguages folder in VSCode.
+</p>
+
+<p>
+<a href="../../../_pages/teaching/2025-1fall-cs251/labs/17-parsing/LL1-parsing.zip">Click here to access the starter code for this activity</a>
+</p>
+
+<p>
+Note: This activity relies on Python. You can run <code>python</code> in your Docker container
+using <code>python3</code>
+</p>
+</div>
+</div>
+<div id="outline-container-orgcb2fb52" class="outline-2">
+<h2 id="orgcb2fb52"><span class="section-number-2">4.</span> Tasks</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+In this activity, you'll be automatically creating a grammar table given a grammar,
+as well as using a grammar table to do LL(1) parsing. You'll write some of your own
+code and also read some of my code.
+</p>
+</div>
+</div>
+<div id="outline-container-org3e39fac" class="outline-2">
+<h2 id="org3e39fac"><span class="section-number-2">5.</span> Working with code for a table parser</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In the starter code, you'll see a file name <code>tableParser.py</code>. Read
+through the code, and answer
+the questions about it in <code>Questions.txt</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-org0fc7330" class="outline-2">
+<h2 id="org0fc7330"><span class="section-number-2">6.</span> Creating a grammar table</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+We've spent a few days in class talking about rules for creating a grammar table.
+These can be complex to work through, but our goal was to describe them systematically
+so that they could be implemented on a computer. I've written part of the grammar
+table generator for you in <code>tableGenerator.py</code> and you'll write the rest.
+</p>
+</div>
+<div id="outline-container-org6c425c3" class="outline-3">
+<h3 id="org6c425c3"><span class="section-number-3">6.1.</span> Getting familiar with the code</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+First, take a look at the constructor (<code>__init__) in the =Grammar</code> class as well
+as the file <code>grammar.txt</code>. How are the instance variables set based on the grammar
+file? Try running the code and add lines to main to print out the instance variables
+from <code>Grammar</code> so you can see what they'll look like.
+</p>
+</div>
+</div>
+<div id="outline-container-org4cce314" class="outline-3">
+<h3 id="org4cce314"><span class="section-number-3">6.2.</span> First sets</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+The method <code>makeFirstSets</code> has the start of making first sets: it initializes the 
+first sets and then has a loop to continue to update the rules until no changes
+occur. However, the method it calls, <code>updateFirstSets</code>, is not yet implemented.
+You'll fill in the code. Note that the prototype is already there, along with a 
+comment describing the expected behavior. Fill in the code so that they update the
+first set for the lefthand side of the given rule.
+</p>
+
+<p>
+Test your implementation using main. 
+</p>
+
+<p>
+Some code tips:
+</p>
+
+<ul class="org-ul">
+<li>If you want to  initialize a set with a single string in it, you can do 
+<code>set([myString])</code> where <code>myString</code> is the string you'd like in the set.</li>
+
+<li>I've provided a helper function <code>unionIntoSetWithoutEpsilon</code>. Read the comment 
+to find out what it does. It returns two things: the new set, and a boolean 
+for whether the elements of the set changed as a result of the union. Here's 
+an example of how to call it:</li>
+</ul>
+
+<pre class="example" id="org6c33d87">
+=newSet, changed = unionIntoSetWithoutEpsilon(setToStartWith, setToUnionIn)=
+</pre>
+</div>
+</div>
+<div id="outline-container-org4999ca8" class="outline-3">
+<h3 id="org4999ca8"><span class="section-number-3">6.3.</span> Follow sets</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Now that you have first sets implemented, we'll also want follow sets. Again, I've 
+written a method <code>makeFollowSets</code> that has the start of the implementation, but 
+you should fill in the missing code in <code>updateFollowSets</code>.
+</p>
+
+<p>
+Test your implementation using main.
+</p>
+
+<p>
+Some code tips:
+</p>
+
+<ul class="org-ul">
+<li>I've provided the method <code>getFirstSetForSequence</code> which you may use as a helper.</li>
+<li>You may also want to use <code>unionIntoSetWithoutEpsilon</code> as a helper.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1c53732" class="outline-3">
+<h3 id="org1c53732"><span class="section-number-3">6.4.</span> Creating the table</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+Now, we want to use the first and follow sets to create the grammar table. Most 
+of this code is present in <code>makeGrammarTable</code>, but I've deleted the lines that 
+add rules to the table. Modify the code to correctly create the grammar table. 
+Use <code>addToTable</code> as a helper function: it takes in a table, a row, a column, 
+and a rule, and adds that rule in that spot in the table.
+</p>
+
+<p>
+(Your code here is likely short: I only deleted three lines from my solution.)
+</p>
+</div>
+</div>
+<div id="outline-container-org8aeb5ab" class="outline-3">
+<h3 id="org8aeb5ab"><span class="section-number-3">6.5.</span> Try it!</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+Uncomment the final part of main to write a grammar table!
+</p>
+
+<p>
+You can compare your results to grammarTableSolution.txt, although note that 
+your rules may or may not appear in the same order.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2287ee7" class="outline-2">
+<h2 id="org2287ee7"><span class="section-number-2">7.</span> Working with code for a table parser</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Now that you have a grammar table, you might want to actually parse strings with 
+it. In the starter code, you'll see a file name <code>tableParser.py</code>. Read through 
+the code, and answer the questions about it in <code>Questions.txt</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-org78d5e8f" class="outline-2">
+<h2 id="org78d5e8f"><span class="section-number-2">8.</span> Extra time?</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+If you have extra time, here are a couple of things you might try:
+</p>
+
+<ul class="org-ul">
+<li>On Moodle, there is a worksheet called Extra Grammar Practice. Try doing the
+worksheet, and compare your results to what your table generator produces.</li>
+<li>I have some repeated code in <code>makeFollowSets</code> and <code>makeFirstSets</code>. It turns out
+Python can be used in an imperative way, in an object-oriented way, and even in 
+a functional way. You can pass functions to other functions as input! Refactor 
+my code to avoid the duplication, taking advantage of the ability to pass one 
+function to another.</li>
+</ul>
+</div>
+<div class="note">
+<p>
+Activity originally designed by Anna Rafferty - thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
