@@ -1,0 +1,378 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/interpreter-quote.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interpreter Project Part 6: Quote</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Interpreter 6: quote</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8261b63">1. Pair programming structure</a></li>
+<li><a href="#org981db0d">2. Get started</a></li>
+<li><a href="#org7a0699b">3. Functionality</a></li>
+<li><a href="#org834821b">4. Sample output</a></li>
+<li><a href="#org277c2b5">5. Don't annotate the parse tree</a></li>
+<li><a href="#orge40a605">6. Preparing for exams</a></li>
+<li><a href="#org9b62e23">7. How to test and submit your work</a></li>
+</ul>
+</div>
+</div>
+<p>
+This is a relatively small enhancement of the previous project milestone. You'll
+add functionality to handle the special form <code>quote</code>.
+</p>
+<div id="outline-container-org8261b63" class="outline-2">
+<h2 id="org8261b63"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a "pair" assignment, which means that if you are working on a team with someone else,
+you and your partner should engage in the pair programming model.
+You should be physically together, <b>sharing a computer and both looking at the same screen</b>.
+Each partner has an active role to play during pair programming -
+please review the instructions on Moodle about pair programming,
+and make sure you understand what you should be doing when you are the <i>navigator</i> and when
+you are the <i>driver</i>. 
+</p>
+
+
+<p>
+You should make sure that over the course of an assignment that you spend roughly the same
+amount of time each "driving." My recommendation is to take turns approximately every 15 minutes or so.
+Set a timer to help you remember. I will also ask you to fill out a survey about your partnership at the
+end of the term.
+</p>
+
+<p>
+For the interpreter project, you are permitted to do a limited amount of debugging
+separate from your partner. If you do this, you should be sure that you're each contributing
+similar amounts: it's not fair, either in terms of time or in terms of learning,
+if one person does all the debugging. <b>Before debuggging on your own, make sure that your partner is
+onboard with that.</b> Also, make sure to share what you found with your partner afterwards.
+</p>
+
+<p>
+If pair programming in real-time just doesn't work for you and your
+partner, then you will need to amicably split up and work
+individually. If you choose this option, you <b>must communicate that to
+me [Anna]</b> and send me an email with a zip file containing the code checkpoint
+of any work you did together (if applicable). 
+</p>
+
+<p>
+<b>If things are not going well with working with your partner or you find yourselves tempted
+to split up the work, please talk to me.</b> While doing a limited amount of debugging separately is fine,
+you should be doing the initial design and coding together - if you or your partner cannot
+explain how part of your interpreter works, then you have not followed the pair programming policies
+for this class.
+</p>
+</div>
+</div>
+<div id="outline-container-org981db0d" class="outline-2">
+<h2 id="org981db0d"><span class="section-number-2">2.</span> Get started</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+You'll download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+
+Then, copy over <code>CollaborationsAndSources.txt</code> from the previous milestone.
+Also copy over <code>interpreter.c</code> and all other .c files unless you are using the binaries
+I provide (if so, update <code>justfile</code> to look for those binaries).
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2025-1fall-cs251/assigndments/16-interpreter-quote/interpreter-6-starter.zip">Click here to download the starter files.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org7a0699b" class="outline-2">
+<h2 id="org7a0699b"><span class="section-number-2">3.</span> Functionality</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+For this phase of the project, you must support the correct evaluation of the
+following Scheme expression:
+</p>
+
+<p>
+<code>(quote expr)</code> 
+</p>
+
+
+<p>
+You'll also need to be able to support the abbreviated form
+</p>
+
+<p>
+<code>'expr</code>
+</p>
+
+<p>
+That said, the parser should already be converting the second form into the first.
+</p>
+</div>
+</div>
+<div id="outline-container-org834821b" class="outline-2">
+<h2 id="org834821b"><span class="section-number-2">4.</span> Sample output</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-bash">
+$ cat test-in-01.scm
+(quote a)
+(quote (a b c))
+(quote (a b (quote (c d e))))
+(let ((x (quote a)) (y (quote (a b c))))
+  y)
+
+$ ./interpreter &lt; test-in-01.scm
+a
+(a b c)
+(a b (quote (c d e)))
+(a b c)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org277c2b5" class="outline-2">
+<h2 id="org277c2b5"><span class="section-number-2">5.</span> Don't annotate the parse tree</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Do <i>not</i> implement <code>quote</code> by trying to somehow wrap up the quoted expression in some sort of enclosure indicating that it is quoted.
+</p>
+
+<p>
+Some of you will feel tempted to do otherwise! Some of you may find
+that you are convinced that storing <code>quote</code> or a single quote
+somehow explicitly after evaluation will help you in some way. Some of
+you might even find that by doing so, you can succeed at this
+task. Don't do it. It's a trap. It might help you get this part of the
+assignment to work, but you'll get into hot water later - and it will be
+much more frustrating to go back through your old code and fix it
+later. This reflects
+a common and interesting point of confusion: <code>quote</code> does not tell the
+interpreter to <i>do</i> something to its arguments; rather, it tells the
+interpreter to <i>not do</i> something. 
+</p>
+
+<p>
+If you are feeling a strong urge to annotate something
+indicating that something is quoted, don't do it. If you are
+experiencing such compulsions because your tree is not printing
+properly, past experience has sometimes been that the problem is the
+code for <i>printing</i> the parse tree, not structuring it in the first
+place.
+</p>
+</div>
+</div>
+<div id="outline-container-orge40a605" class="outline-2">
+<h2 id="orge40a605"><span class="section-number-2">6.</span> Preparing for exams</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Exams may ask you to write paper C code to solve problems similar to the above.
+You may be asked to write the code from scratch, to fill in the blanks in partially
+written code, or to use some other technique to demonstrate that you can write code.
+To prepare, you should practice writing C code on paper that can accomplish tasks similar
+to the ones you worked on in this assignment.
+</p>
+
+<p>
+This assignment is fairly short, so an exam might also ask conceptual questions. 
+Why did we implement the quote form like this? Is <code>quote</code> a proper Scheme function, or not? Etc.
+</p>
+</div>
+</div>
+<div id="outline-container-org9b62e23" class="outline-2">
+<h2 id="org9b62e23"><span class="section-number-2">7.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Submission and grading works the same as in previous assignments.
+</p>
+
+<p>
+A special note on grading for thsi assignment: it's important you follow the 
+instructions above about not wrapping up the quoted expression in some kind of
+enclosure. The code for <code>quote</code> is notable in what it <i>doesn't</i> do, rather than
+in what it does do. If you implement quote incorrectly, your code may pass all 
+the tests at this stage, but things will not go smoothly in future project milestones.
+The graders will look at your source code to check whether quote was implemented 
+correctly, without using enclosures.
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+
+<div class="note" id="orgff94eae">
+<p>
+This assignment was originally created by David Liben-Nowell and has since been
+    updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
