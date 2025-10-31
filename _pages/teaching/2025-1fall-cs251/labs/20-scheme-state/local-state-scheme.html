@@ -1,0 +1,371 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/labs/scheme-local-state.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Activity: Local state in Scheme</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Activity: Local state in Scheme</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1303e10">1. Activity structure</a></li>
+<li><a href="#org0ef2112">2. Setup</a></li>
+<li><a href="#org803d172">3. Tasks</a>
+<ul>
+<li><a href="#org6c748d8">3.1. Understanding local state</a></li>
+<li><a href="#orgc76830f">3.2. Adding instance variables</a></li>
+<li><a href="#org67dba4b">3.3. Static versus local variables</a></li>
+<li><a href="#org290999c">3.4. Adding methods</a></li>
+<li><a href="#orgeb27b8f">3.5. Extra time?</a></li>
+</ul>
+</li>
+<li><a href="#org226ac12">4. Turning in activities</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1303e10" class="outline-2">
+<h2 id="org1303e10"><span class="section-number-2">1.</span> Activity structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an <b>activity</b> not an assignment.That means it is not graded: you won't
+get formal feedback on it, but it is a great chance to practice with the ideas
+we've been talking about and it may also guide you through some new ideas.
+You'll work on it during class, usually with another students,
+or if you have to miss class, you'll complete it outside of class.
+</p>
+
+<p>
+If you're working with someone, you should work in a paired programming style.
+At any point in time, one of you is "driving," i.e. actually using the
+keyboard and mouse. The other is actively engaged following along, preventing
+bugs, and providing ideas. You'll tradeoff who is driving
+<b>about every 10 minutes</b>, and it's important that regardless of whose
+computer you're using, you take turns typing and controlling it - the owner
+of the computer <b>should not be the only one who drives</b>. Before you start
+coding for a new part of the activity, I strongly encourage you to sketch out
+your strategy with your partner. You might discuss possible approaches
+together, and write down some ideas on paper that will then help you when
+you begin coding.
+</p>
+
+<p>
+At the end of class, you should make sure you turn your code in
+(even if you're not done), as that gives you access to my solutions,
+and to email the code to your partner (so they can turn it in to access
+my solutions).
+</p>
+</div>
+</div>
+<div id="outline-container-org0ef2112" class="outline-2">
+<h2 id="org0ef2112"><span class="section-number-2">2.</span> Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If both you and your partner have computers with you with the tools for our
+class setup on it, decide whose computer you'll be using. 
+</p>
+
+<p>
+Them you'll do the activity in VS Code: download the starter code (below),
+unzip it, move it into the ProgrammingLanguages folder for our Docker
+container, and then open that folder within the  Docker container in VSCode. 
+</p>
+
+
+<p>
+<a href="../../../_pages/teaching/2025-1fall-cs251/labs/20-scheme-state/local-state-scheme.zip">Click here to access the starter code for this activity.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org803d172" class="outline-2">
+<h2 id="org803d172"><span class="section-number-2">3.</span> Tasks</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+In this activity, you'll be examining and adding to the local state
+example we talked about in class. 
+</p>
+</div>
+<div id="outline-container-org6c748d8" class="outline-3">
+<h3 id="org6c748d8"><span class="section-number-3">3.1.</span> Understanding local state</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+<code>main.scm</code> contains a version of the <code>make-account</code> function, always setting <code>balance</code> to 0 to start. Try running it, and make sure you can draw the same type of
+diagram that I drew to understand where <code>balance</code> is being stored when
+I do something like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(define account (make-account))
+</pre>
+</div>
+
+<p>
+We could imagine two ways of modifying the code to take in an initial
+balance parameter, allowing us to start off with some amount of money
+in the account:
+</p>
+
+<ul class="org-ul">
+<li>Add a parameter and bind it in the <code>let</code> (this is what I demonstrated in class):</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scheme">(define make-account
+    (lambda (initial-balance)
+        (let ((balance initial-balance))
+            (lambda (amt)
+                    (set! balance (- balance amt))
+                    balance))))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Add a parameter and remove the <code>let</code>:</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-scheme">(define make-account
+    (lambda (balance)
+        (lambda (amt)
+                (set! balance (- balance amt))
+                balance)))
+</pre>
+</div>
+
+<p>
+How is the diagram you'd draw for a line like <code>(define account (make-account 30))</code> different for each of these? 
+With the folks at your table, draw the two versions of the environment diagram on the whiteboards.
+Then, modify the code to add in the parameter <code>balance</code> in one of the two ways above.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc76830f" class="outline-3">
+<h3 id="orgc76830f"><span class="section-number-3">3.2.</span> Adding instance variables</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We said that we could see <code>make-account</code> as operating
+similar to a class, with one instance variable. Try adding a second
+instance variable called <code>max-withdrawal</code> that is initialized
+to 5; different account holders should be able to have different
+values for <code>max-withdrawal</code>, as we might later add a method to modify
+this variable for an account holder based on special request. Modify the code to ensure that if the person tries to withdraw
+more than the <code>max-withdrawal</code>, no withdrawal occurs. On paper, draw a
+diagram of the environment if we ran the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(define my-acct (make-account 30))
+(define cats-acct (make-account 400))
+(my-acct 100) ;; doesn't withdraw because &gt; 5
+(my-acct 5)
+(cats-acct 20)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org67dba4b" class="outline-3">
+<h3 id="org67dba4b"><span class="section-number-3">3.3.</span> Static versus local variables</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+In the previous section, <code>my-acct</code> and <code>cats-acct</code> had separate
+<code>max-withdrawal</code> variables, allowing for the potential to set them separately for
+different account holders. Imagine additionally that we want to have an
+<code>absolute-max-withdrawal</code> value for all account holders: no one ever gets to
+withdraw more than 100 at once. Modify <code>make-account</code> so that it
+declares a variable for <code>absolute-max-withdrawal</code> that will be shared across
+account holders, similar to a static variable in a class in Java, and
+always initialize <code>absolute-max-withdrawal</code> to 100.
+</p>
+</div>
+</div>
+<div id="outline-container-org290999c" class="outline-3">
+<h3 id="org290999c"><span class="section-number-3">3.4.</span> Adding methods</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Now, we'll try adding methods, callable via message passing. I'd like
+to be able to write code like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(define my-acct (make-account 30))
+((my-acct "deposit") 15) ;; returns 45, the new amount in my account
+((my-acct "withdraw") 3) ;; returns 42
+</pre>
+</div>
+
+<p>
+Modify <code>make-account</code> to add these options. Note that <code>equal?</code> will
+check if two strings are equal. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgeb27b8f" class="outline-3">
+<h3 id="orgeb27b8f"><span class="section-number-3">3.5.</span> Extra time?</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+If you have extra time, consider how to modify your code to allow
+changing of the shared <code>absolute-max-withdrawal</code> variable as well as
+how to set the individual <code>max-withdrawal</code> variables. Draw a diagram for
+what's happening when you make these changes. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org226ac12" class="outline-2">
+<h2 id="org226ac12"><span class="section-number-2">4.</span> Turning in activities</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To turn in this activity, zip up the folder with your code, and upload that
+zip on Moodle. Additionally, email the zip to your partner so they can turn
+it in too. Even if you worked with a partner or you didn't finish, everyone
+should turn in the activity in order to gain access to my solutions. 
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
