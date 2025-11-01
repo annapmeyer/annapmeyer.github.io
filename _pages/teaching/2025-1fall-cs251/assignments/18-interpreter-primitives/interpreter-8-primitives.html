@@ -1,0 +1,603 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/interpreter-primitives.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interpreter Project Part 8: Primitives</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Interpreter 8: Primitives</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1bb81da">1. Pair programming structure</a></li>
+<li><a href="#orgf34ac03">2. Get started</a></li>
+<li><a href="#orga546192">3. Functionality</a></li>
+<li><a href="#org61b6849">4. Sample tests</a></li>
+<li><a href="#orgc9931d8">5. Primitive functions</a></li>
+<li><a href="#orga907766">6. Optional Extensions</a></li>
+<li><a href="#orgddd0407">7. Starter files and your code</a></li>
+<li><a href="#org80a3585">8. How to test and submit your work</a>
+<ul>
+<li><a href="#orgb661779">8.1. Testing your work</a></li>
+<li><a href="#orgd368c42">8.2. Submitting your work</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+In the last assignment, you implemented <code>lambda</code>, which let you create functions
+within Scheme. Scheme also has primitive functions, which are "built-in"
+functions that are not written in Scheme themselves. You'll implement primitive
+functions for this assignment.
+</p>
+<div id="outline-container-org1bb81da" class="outline-2">
+<h2 id="org1bb81da"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a "pair" assignment, which means that if you are working on a team with someone else,
+you and your partner should engage in the pair programming model.
+You should be physically together, <b>sharing a computer and both looking at the same screen</b>.
+Each partner has an active role to play during pair programming -
+please review the instructions on Moodle about pair programming,
+and make sure you understand what you should be doing when you are the <i>navigator</i> and when
+you are the <i>driver</i>. 
+</p>
+
+
+<p>
+You should make sure that over the course of an assignment that you spend roughly the same
+amount of time each "driving." My recommendation is to take turns approximately every 15 minutes or so.
+Set a timer to help you remember. I will also ask you to fill out a survey about your partnership at the
+end of the term.
+</p>
+
+<p>
+For the interpreter project, you are permitted to do a limited amount of debugging
+separate from your partner. If you do this, you should be sure that you're each contributing
+similar amounts: it's not fair, either in terms of time or in terms of learning,
+if one person does all the debugging. <b>Before debuggging on your own, make sure that your partner is
+onboard with that.</b> Also, make sure to share what you found with your partner afterwards.
+</p>
+
+<p>
+If pair programming in real-time just doesn't work for you and your
+partner, then you will need to amicably split up and work
+individually. If you choose this option, you <b>must communicate that to
+me [Anna]</b> and send me an email with a zip file containing the code checkpoint
+of any work you did together (if applicable). 
+</p>
+
+<p>
+<b>If things are not going well with working with your partner or you find yourselves tempted
+to split up the work, please talk to me.</b> While doing a limited amount of debugging separately is fine,
+you should be doing the initial design and coding together - if you or your partner cannot
+explain how part of your interpreter works, then you have not followed the pair programming policies
+for this class.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf34ac03" class="outline-2">
+<h2 id="orgf34ac03"><span class="section-number-2">2.</span> Get started</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+You'll download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2025-1fall-cs251/assignments/18-interpreter-primitives/interpreter-8-primitives.zip">Click here to download the starter files</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orga546192" class="outline-2">
+<h2 id="orga546192"><span class="section-number-2">3.</span> Functionality</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+In this assignment, you'll implement the following functions: <code>+</code>, <code>null?</code>,
+<code>car</code>, <code>cdr</code>, <code>cons</code>, and <code>equal?</code>.
+</p>
+
+<p>
+Primitives are functions not implemented in Scheme; you'll implement them as C
+functions that get called by your interpreter directly. More details follow in
+the section below on primitive functions. A few comments on these specific
+primitives:
+</p>
+
+<ul class="org-ul">
+<li><code>+</code> should be able to handle any number of integer or real arguments (if 0
+arguments, return 0). If any of the arguments are reals (double), return a real; else
+return an integer.</li>
+
+<li><code>null?</code>, <code>car</code>, and <code>cdr</code> should take one argument each, and you should have
+error checking to make sure that's the case. Similarly, you need to check to
+make sure that the argument is appropriately typed.</li>
+
+<li><code>cons</code> should take two arguments, and you should have error checking to make
+sure that's the case. You'll also need to modify the code you have that
+handles output, because <code>cons</code> allows you to create non-list pairs. You'll
+need to add functionality to use a dot to separate such pairs. <a href="https://www.scheme.com/tspl4/objects.html#./objects:h3">This portion of the Dybvig Scheme book</a> does a decent job at describing how such output should
+work. (Note that the <code>display</code> function in our linkedlist binaries won't work
+on pairs such as this one. If you're using our binaries and using the
+linkedlist <code>display</code> function, you'll need to write your own
+instead.)</li>
+
+<li><code>append</code> should take two arguments, and you should have error checking to make
+sure that's the case; we will not support <code>append</code> with varying
+ numbers of arguments even though Guile does this. The first argument must be a list (do error
+ checking to make sure that's the case; note that an empty list does
+ count as a list for these purposes), and the
+ second can be any type. Like with <code>cons</code>, this will mean needing to
+ be able to display non-list pairs. (E.g., <code>(append (quote (1 2 3))
+   4)</code> evaluates to <code>(1 2 3 . 4)</code> in Guile.) Recall that <code>append</code>
+ works by making a copy of its first argument but not its second
+ (copying versus not copying won't matter much at the moment, but it
+ will matter when we add in <code>set!</code> in the final part of the interpreter).</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org61b6849" class="outline-2">
+<h2 id="org61b6849"><span class="section-number-2">4.</span> Sample tests</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-bash">$ cat test-in-01.scm
+(define length
+  (lambda (L)
+    (if (null? L)
+        0
+        (+ 1 (length (cdr L))))))
+
+(length (quote ()))
+(length (quote (4 5 6)))
+$ ./interpreter &lt; test-in-01.scm
+0
+3
+
+$ cat test-in-02.scm
+(append (quote (4 5)) (quote (6 7)))
+
+(define reverse-list
+  (lambda (L)
+    (if (null? L)
+        L
+        (append (reverse-list (cdr L)) (cons (car L) (quote ()))))))
+
+(reverse-list (quote ()))
+(reverse-list (quote (1 2 3 4)))
+(reverse-list (quote (("computer" "science") "is" "awesome")))
+$ ./interpreter &lt; test-in-02.scm
+(4 5 6 7)
+()
+(4 3 2 1)
+("awesome" "is" ("computer" "science"))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc9931d8" class="outline-2">
+<h2 id="orgc9931d8"><span class="section-number-2">5.</span> Primitive functions</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+There's one bit of trickiness that will come up: you're going to want
+to have both functions-as-closures and functions-as-primitives. Here's
+how to do this. In <code>schemeitem.h</code>, we've added a <code>PRIMITIVE_TYPE</code>. This will
+be for an <code>Item</code> that represents a pointer to a function. Here's how the additional portion appears:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">typedef enum {INT_TYPE, ..., PRIMITIVE_TYPE, ...} itemType;
+
+struct SchemeItem {
+    itemType type;
+    union {
+        int i;
+
+        ...
+
+        // A primitive style function; just a pointer to it, with the right
+        // signature (pf = my chosen variable for a primitive function)
+        struct SchemeItem *(*pf)(struct SchemeItem *);
+    }
+}
+
+</pre>
+</div>
+
+
+<p>
+To show how I'm using primitive functions, here are some relevant
+functions and snippets of code from
+scattered spots in my implementation for an exponential function that
+you're not writing unless you want to do some optional additional
+work:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-c"> /*
+  * Given two int or double items in args,
+  * returns an item representing argument 1
+  * raised to the power of argument 2.
+  * Raises an error with incorrect args length
+  * or types.
+  */
+SchemeItem *primitiveExp(SchemeItem *args) {
+   //Code omitted
+}
+
+/*
+ * Adds a binding between the given name
+ * and the input function. Used to add
+ * bindings for primitive funtions to the top-level
+ * bindings list.
+ */
+void bind(char *name, SchemeItem *(*function)(SchemeItem *), Frame *frame) {
+    //Code omitted
+}
+
+void interpret(SchemeItem *tree) {
+
+    ...
+
+    // Make top-level bindings list:
+
+    // First, initialize frame (code omitted)
+
+    // Then, bind primitive functions
+    bind("exp", primitiveExp, frame);
+    ...
+}
+</pre>
+</div>
+
+<p>
+Note that it really is important that you bind the functions and not
+just that you look for a primitive function name occurring as the
+first thing after parentheses. Primitive functions aren't special
+forms like <code>if</code> or <code>lambda</code>, and treating them in the same way where
+you look for them to appear directly after parentheses will lead to
+problems if these functions are passed as inputs to other functions
+or returned as outputs.
+</p>
+</div>
+</div>
+<div id="outline-container-orga907766" class="outline-2">
+<h2 id="orga907766"><span class="section-number-2">6.</span> Optional Extensions</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Work in this section is 100% optional, and not worth any points. Nonetheless, if you're looking for an extra challenge, 
+these are fun additional exercises to try.
+</p>
+
+<ul class="org-ul">
+<li>Implement the following additional special forms: <code>list</code>, <code>map</code>, and <code>equal?</code>. 
+<code>equal?</code> only needs to work for numbers, strings, and symbols; it does not need to perform any sort of deep equality test on a nested structure.</li>
+
+<li>Implement the following primitives: <code>-</code>, <code>*</code>, and <code>/</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgddd0407" class="outline-2">
+<h2 id="orgddd0407"><span class="section-number-2">7.</span> Starter files and your code</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+The files follow the same structure that they have for the previous
+assignments. The only change in the files I'm providing is the change
+to add a primitive function in <code>item.h</code>, as described above. You'll
+then need to add in the files from your previous version, and/or
+switch over to using our binaries. But note that the binaries I provide only 
+go through part 4 of the project; I am not providing a working if/let interpreter. (The project gets too 
+intermingled at this point for me to be able to supply complete partial work.)
+</p>
+
+<p>
+Building and testing your code will work precisely the same as on the
+previous assignment. Note that the tokenizer assignment gives you
+instructions for how to run a single file (which can either be one you
+create or one of our tests). If your code is not passing the tests, I
+strongly encourage you to try running on one test (of your creation or
+of ours) and figure out what's going wrong there before moving on. You
+can run valgrind as well as use gdb; if you get stuck, reach out for help!
+</p>
+</div>
+</div>
+<div id="outline-container-org80a3585" class="outline-2">
+<h2 id="org80a3585"><span class="section-number-2">8.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-orgb661779" class="outline-3">
+<h3 id="orgb661779"><span class="section-number-3">8.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+Go back and look at the sections at the end of Scheme Intro 2 labeled
+"How to test your work". Everything there about how to run M tests and
+E tests applies identically here. Note that the tests will fail if
+your code
+has compiler warnings and/or valgrind errors, in addition to if its
+behavior is observably incorrect.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd368c42" class="outline-3">
+<h3 id="orgd368c42"><span class="section-number-3">8.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+You'll submit your work on Gradescope. You should already have a file
+<code>CollaborationsAndSources.txt</code>
+in your working directory (if not, copy it over from the previous assignment). Go to the header
+for this portion of the assignment and fill in the document. Indicate
+in what ways (if any) you collaborated with other people on this
+assignment (did you talk with anyone other than Anna or our prefect? Did you share strategies with anyone?
+Get or give advice on debugging? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file). If you used any resources outside of your notes from class, that is 
+also something to note in <code>CollaborationsAndSources.txt</code>. If
+you didn't talk with anyone or use any outside sources, please note
+that explicitly. Look back at the
+Scheme Intro 1 instructions if you want more details on the
+<code>CollaborationsAndSources.txt</code> file.
+</p>
+
+<p>
+After updating  <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code>
+</p>
+
+<p>
+This will zip up your C files, header files, and collaborations and
+sources. We will be re-copying in our version of the tests and of the
+included header files.
+</p>
+
+<p>
+Then, upload the created zip to Gradescope. 
+</p>
+
+<p>
+<b><b>On Gradescope, make
+sure to add your partner if you worked with a partner.</b></b>
+<a href="https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members">This page has detailed instructions for how to do that.</a>
+</p>
+
+
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small but nonzero chance that you
+have coded something unexpected that cause the tests pass on
+the computer you’re working on, but not on Gradescope. We will be
+grading this assignment based on the results of the tests on
+Gradescope, so you should make sure to pay attention to how the tests
+run there as well when you submit.
+</p>
+
+
+<p>
+For grading, you'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs (see Homework policies for more on this).</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> with the information
+described above.</li>
+<li>The work is submitted by the late deadline.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+<li>The work is submitted by the regular deadline or it is submitted by the late
+deadline and you elect to use a late token by submmitting a regrading request.</li>
+</ul>
+
+<p>
+You may earn a grade of M or SP (Some Progress) and be offered to resubmit for an improved grade if:
+</p>
+<ul class="org-ul">
+<li>All tests pass (all E tests if you can resubmit for an E, and all M tests if you can resubmit for an M)</li>
+<li>Your code has significant stylistic or efficiency issues that we have not explicitly covered in class
+or on the feedback for a previous assignment.</li>
+</ul>
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+
+<div class="note" id="orge50d1d3">
+<p>
+This assignment was originally created by David Liben-Nowell and has since been
+    updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
