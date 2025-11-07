@@ -1,0 +1,572 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/interpreter-final.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interpreter Project Part 9: End</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Interpreter 9: Final Part</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb8bb4bb">1. Get started</a></li>
+<li><a href="#org5cb08b8">2. Functionality</a>
+<ul>
+<li><a href="#org6a58f29">2.1. Some missing special forms</a></li>
+<li><a href="#org1b1f362">2.2. One more primitive functions</a></li>
+<li><a href="#org62656ee">2.3. Notes on testing your code</a></li>
+</ul>
+</li>
+<li><a href="#orgb671953">3. Exemplary functionality</a></li>
+<li><a href="#org289e201">4. Starter files and your code</a></li>
+<li><a href="#orgd1dd86d">5. How to test and submit your work</a>
+<ul>
+<li><a href="#orgd5a8b54">5.1. Testing your work</a></li>
+<li><a href="#org61b1f42">5.2. Submitting your work</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This assignment is the final phase of your interpreter! It involves
+implementing several additional special forms and primitive functions,
+such that most of the code we wrote at the beginning of the term could
+now be run in your interpreter.
+</p>
+
+<p>
+Note that this assignment is due at <b>10pm on the last day of class.</b>
+You cannot use late tokens on this assignment. 
+If you need an exception to this policy due to extreme circumstances, reach
+out to your class dean and me (Anna). 
+</p>
+
+<p>
+This assignment is to be done <b>individually</b>.
+</p>
+
+<p>
+You can talk to other people in the class, me, and any of the course staff
+(graders, lab assistants, prefects) for ideas and to gain assistance.
+You can get direct help debugging your code from me and any of the course
+staff, and you're welcome to show us your code during debugging or other
+conversations. The code that you write should be your own, and
+<b>you shouldn’t directly show or share your code with other students</b>
+(although you may discuss general debugging strategies with others).
+Similarly, you should not look at other's code.
+See the course syllabus for more details or just ask me if I can clarify. 
+</p>
+
+<p>
+Both you and your interpreter partner can access your code from the
+previous part by downloading it from Gradescope.
+<b>You should not work with your interpreter partner on this assignment</b>.
+</p>
+<div id="outline-container-orgb8bb4bb" class="outline-2">
+<h2 id="orgb8bb4bb"><span class="section-number-2">1.</span> Get started</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+You'll download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2025-1fall-cs251/assignments/19-interpreter-final/interpreter-9-starter.zip">Click here to download the starter files</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org5cb08b8" class="outline-2">
+<h2 id="org5cb08b8"><span class="section-number-2">2.</span> Functionality</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Required additions to your interpreter are as follows:
+</p>
+</div>
+<div id="outline-container-org6a58f29" class="outline-3">
+<h3 id="org6a58f29"><span class="section-number-3">2.1.</span> Some missing special forms</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Implement the following special forms: <code>letrec</code> and <code>set!</code>.
+</p>
+
+
+<ul class="org-ul">
+<li><code>letrec</code>: Recall that letrec allows you to define (mutually) recursive 
+procedures. Take a look
+at the specification in <a href="http://www.scheme.com/tspl4/binding.html#./binding:h4">Dybvig</a>. 
+The key difference from let is that the bound variables can be accessed from other
+variables bound in the same let, but unlike <code>let*</code>, the values can't
+be accessed until all expressions have been evaluated. For instance,
+consider:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-nil">(letrec ((x 3) (y x)) 
+  x)
+</pre>
+</div>
+
+<p>
+This violates the description in Dybvig that "The order of evaluation
+of the expressions expr &#x2026; is unspecified, so a program must not
+evaluate a reference to any of the variables bound by the letrec
+expression before all of the values have been computed." The
+specification says that if this restriction is violated, an exception
+(i.e., evaluation error) should be raised. However,
+Guile doesn't handle it correctly! It prints 3. Your interpreter
+should handle this correctly by raising an evaluation error.
+</p>
+
+<p>
+Similarly, consider:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">(define y 5)
+(letrec ((x y) (y x))
+    x)
+</pre>
+</div>
+
+<p>
+Again, the value of a variable is accessed before all variables
+are bound, so your interpreter should raise an evaluation
+error. This differs from Guile, which appears to print nothing in
+response to this.
+</p>
+
+
+<p>
+Still not quite sure how to interpret <code>letrec</code>? Here's a rough guide
+to evaluating <code>(letrec ((x1 e1) ... (xn en)) body1 ... bodyn)</code>,
+although it doesn't inclue all needed error checking:
+</p>
+
+<ol class="org-ol">
+<li>Create a new frame env’ with parent env.</li>
+<li>Create each of the bindings, and set the to <code>UNSPECIFIED_TYPE</code> (this is in <code>schemeitem.h</code>)</li>
+<li>Evaluate each of e1, …, en in environment env’.</li>
+<li>After all of these evaluations are complete, replace bindings for each xi to the evaluated result of ei (from step 2) in environment env’.</li>
+<li>Evaluate body1, &#x2026;, bodyn sequentially in env’, returning the
+result of evaluating bodyn.</li>
+</ol>
+
+
+<ul class="org-ul">
+<li><code>set!</code>: Read the specification in <a href="http://www.scheme.com/tspl4/binding.html#./binding:h7">Dybvig</a>. This should be similar to <code>define</code>,
+except that it always modifies an existing variable, and may be used
+in contexts outside of the global environment (unlike how we've
+restricted the testing of your <code>define</code> implementation). We'll have
+<code>set!</code> return a <code>VOID_TYPE</code>, similar to <code>define</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1b1f362" class="outline-3">
+<h3 id="org1b1f362"><span class="section-number-3">2.2.</span> One more primitive functions</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Implement <code>&lt;</code> (the less-than function)
+</p>
+</div>
+</div>
+<div id="outline-container-org62656ee" class="outline-3">
+<h3 id="org62656ee"><span class="section-number-3">2.3.</span> Notes on testing your code</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+The tests for this portion use both your old functionality and this new
+functionality together, which may mean lead to finding some bugs in
+your old code. Part of completing this assignment may involve some
+debugging that is not directly related to the new functionality. One
+note from past experience is that until now, we have had limited
+ability to test if you are doing the right thing when you have a <code>let</code>
+or <code>lambda</code> with multiple bodies. In both cases, each body should be
+evaluated (starting from the first), and the result of evaluating the
+final body should be returned.
+</p>
+
+<p>
+I strongly encourage you to implement one new piece of functionality
+at a time, testing with small test cases as you go, and to use a
+debugger for debugging. This can be visually in VSCode or using gdb on
+the command line.
+</p>
+
+
+<p>
+#+BEGIN<sub>COMMENT</sub>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb671953" class="outline-2">
+<h2 id="orgb671953"><span class="section-number-2">3.</span> Exemplary functionality</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+There is some functionality that your interpreter will likely need if you want
+your interpreter to successfully run with the Scheme assignments that you built
+earlier this term. I'm putting all of this functionality in the "exemplary" category. 
+If you are swamped for time and are looking for just "meets expectations," you can skip this section.
+</p>
+
+<ul class="org-ul">
+<li>Implement <code>cond</code>.
+<ul class="org-ul">
+<li>You may assume that all of the conditions for <code>cond</code> have type boolean; we
+will not test otherwise. Your code for <code>cond</code> should allow either <code>#t</code> or
+<code>else</code> as a default case. (If you've done things right, <code>#t</code> should work
+automatically; you'll need to code <code>else</code> as a special case.)</li>
+<li><p>
+Strangely, <code>cond</code> technically allows additional arguments or none at all
+following the condition, like:
+</p>
+<div class="org-src-container">
+<pre class="src src-scheme">(cond (#t 3 5 7))
+(cond (#t))
+</pre>
+</div>
+<p>
+We will not test any cases like this, and you do not need to implement them.
+</p></li>
+<li>If there's nothing to return (i.e. no true cases for <code>cond</code>), return <code>VOID_TYPE</code>.</li>
+</ul></li>
+</ul>
+
+
+
+<ul class="org-ul">
+<li>Additional primitive functions:, <code>*</code>, <code>/</code>, and <code>modulo</code>.
+
+<ul class="org-ul">
+<li><code>*</code> should be able to take any number of numeric arguments &gt;= 2, but for the
+other functions you may assume two numeric arguments (i.e., print evaluation
+error if not).</li>
+
+<li><code>/</code> should return a real (i.e., double) if the numbers do not divide
+evenly. (Guile returns a fraction; don't do this.)  For example, (/ 5 2)
+should return 2.5. We will only test division with two arguments.</li>
+
+<li><code>modulo</code> may further assume that its arguments are integers. We
+will not test non-integer cases for <code>modulo</code>.</li>
+</ul></li>
+</ul>
+
+
+<p>
+#+END<sub>COMMENT</sub>
+</p>
+</div>
+</div>
+<div id="outline-container-org289e201" class="outline-2">
+<h2 id="org289e201"><span class="section-number-2">4.</span> Starter files and your code</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The files follow the same structure that they have for the previous
+assignments. You'll
+then need to add in the files from your previous version, and/or
+switch over to using our binaries. But note that the binaries I provide only go through part 4 of the project; I am not providing a working if/let interpreter. (The project gets too intermingled at this point for me to be able to supply complete partial work.)
+</p>
+
+<p>
+Building and testing your code will work precisely the same as on the previous assignment.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd1dd86d" class="outline-2">
+<h2 id="orgd1dd86d"><span class="section-number-2">5.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+For this final assignment, please note that if you haven't already, 
+you <b>must</b> fill out the partner evaluation form (linked on Moodle) in order to earn an E or an M. 
+The deadline for this for is the last day of classes, and it is required even 
+if you worked individually.
+</p>
+</div>
+<div id="outline-container-orgd5a8b54" class="outline-3">
+<h3 id="orgd5a8b54"><span class="section-number-3">5.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Go back and look at the sections at the end of Scheme Intro 2 labeled
+"How to test your work". Everything there about how to run M tests and
+E tests applies identically here. Note that the tests will fail if
+your code
+has compiler warnings and/or valgrind errors, in addition to if its
+behavior is observably incorrect.
+</p>
+</div>
+</div>
+<div id="outline-container-org61b1f42" class="outline-3">
+<h3 id="org61b1f42"><span class="section-number-3">5.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+You'll submit your work on Gradescope.
+You should already have a file <code>CollaborationsAndSources.txt</code>
+in your working directory (if not, copy it over from the previous assignment).
+Go to the header
+for this portion of the assignment and fill in the document. Indicate
+in what ways (if any) you collaborated with other people on this
+assignment (did you talk with anyone other than Anna or our prefect?
+Did you share strategies with anyone?
+Get or give advice on debugging? These are
+fine things to do, and you should note them in
+the <code>CollaborationsAndSources.txt</code>
+file). If you used any resources outside of your notes from class, that 
+is also something to note in <code>CollaborationsAndSources.txt</code>.
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly.
+</p>
+
+<p>
+After updating <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code>
+</p>
+
+<p>
+This will zip up your C files, header files, and collaborations and
+sources. We will be re-copying in our version of the tests and of the
+included header files.
+</p>
+
+<p>
+Then, upload the created zip to Gradescope. 
+</p>
+
+
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small but nonzero chance that you
+have coded something unexpected that cause the tests pass on
+the computer you’re working on, but not on Gradescope. We will be
+grading this assignment based on the results of the tests on
+Gradescope, so you should make sure to pay attention to how the tests
+run there as well when you submit.
+</p>
+
+
+<p>
+For grading, you'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs see Homework policies for more on this).</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> with the information
+described above.</li>
+<li>The work is submitted by the deadline.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+</ul>
+
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+
+
+
+
+
+
+<p>
+Good luck, ask questions, and have fun! When you've completed this
+assignment, you'll be able to run pretty complicated Scheme code,
+including code from earlier assignments.
+</p>
+
+
+<div class="note" id="orgee92e38">
+<p>
+This assignment was originally created by David Liben-Nowell and has since been
+    updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
