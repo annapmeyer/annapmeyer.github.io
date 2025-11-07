@@ -154,17 +154,16 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1bb81da">1. Pair programming structure</a></li>
-<li><a href="#orgf34ac03">2. Get started</a></li>
-<li><a href="#orga546192">3. Functionality</a></li>
-<li><a href="#org61b6849">4. Sample tests</a></li>
-<li><a href="#orgc9931d8">5. Primitive functions</a></li>
-<li><a href="#orga907766">6. Optional Extensions</a></li>
-<li><a href="#orgddd0407">7. Starter files and your code</a></li>
-<li><a href="#org80a3585">8. How to test and submit your work</a>
+<li><a href="#orgec2fc66">1. Get started</a></li>
+<li><a href="#orgd7ee8e1">2. Functionality</a></li>
+<li><a href="#orgc7126c5">3. Sample tests</a></li>
+<li><a href="#orgb5f911b">4. Primitive functions</a></li>
+<li><a href="#org2756413">5. Optional Extensions</a></li>
+<li><a href="#orgc967e06">6. Starter files and your code</a></li>
+<li><a href="#org692fd12">7. How to test and submit your work</a>
 <ul>
-<li><a href="#orgb661779">8.1. Testing your work</a></li>
-<li><a href="#orgd368c42">8.2. Submitting your work</a></li>
+<li><a href="#org65e78bc">7.1. Testing your work</a></li>
+<li><a href="#org7b31b08">7.2. Submitting your work</a></li>
 </ul>
 </li>
 </ul>
@@ -176,55 +175,31 @@ within Scheme. Scheme also has primitive functions, which are "built-in"
 functions that are not written in Scheme themselves. You'll implement primitive
 functions for this assignment.
 </p>
-<div id="outline-container-org1bb81da" class="outline-2">
-<h2 id="org1bb81da"><span class="section-number-2">1.</span> Pair programming structure</h2>
+
+<p>
+This assignment is to be done <b>individually</b>.
+</p>
+
+<p>
+You can talk to other people in the class, me, and any of the course staff
+(graders, lab assistants, prefects) for ideas and to gain assistance.
+You can get direct help debugging your code from me and any of the course
+staff, and you're welcome to show us your code during debugging or other
+conversations. The code that you write should be your own, and
+<b>you shouldn’t directly show or share your code with other students</b>
+(although you may discuss general debugging strategies with others).
+Similarly, you should not look at other's code.
+See the course syllabus for more details or just ask me if I can clarify. 
+</p>
+
+<p>
+Both you and your interpreter partner can access your code from the
+previous part by downloading it from Gradescope.
+<b>You should not work with your interpreter partner on this assignment</b>.
+</p>
+<div id="outline-container-orgec2fc66" class="outline-2">
+<h2 id="orgec2fc66"><span class="section-number-2">1.</span> Get started</h2>
 <div class="outline-text-2" id="text-1">
-<p>
-This is a "pair" assignment, which means that if you are working on a team with someone else,
-you and your partner should engage in the pair programming model.
-You should be physically together, <b>sharing a computer and both looking at the same screen</b>.
-Each partner has an active role to play during pair programming -
-please review the instructions on Moodle about pair programming,
-and make sure you understand what you should be doing when you are the <i>navigator</i> and when
-you are the <i>driver</i>. 
-</p>
-
-
-<p>
-You should make sure that over the course of an assignment that you spend roughly the same
-amount of time each "driving." My recommendation is to take turns approximately every 15 minutes or so.
-Set a timer to help you remember. I will also ask you to fill out a survey about your partnership at the
-end of the term.
-</p>
-
-<p>
-For the interpreter project, you are permitted to do a limited amount of debugging
-separate from your partner. If you do this, you should be sure that you're each contributing
-similar amounts: it's not fair, either in terms of time or in terms of learning,
-if one person does all the debugging. <b>Before debuggging on your own, make sure that your partner is
-onboard with that.</b> Also, make sure to share what you found with your partner afterwards.
-</p>
-
-<p>
-If pair programming in real-time just doesn't work for you and your
-partner, then you will need to amicably split up and work
-individually. If you choose this option, you <b>must communicate that to
-me [Anna]</b> and send me an email with a zip file containing the code checkpoint
-of any work you did together (if applicable). 
-</p>
-
-<p>
-<b>If things are not going well with working with your partner or you find yourselves tempted
-to split up the work, please talk to me.</b> While doing a limited amount of debugging separately is fine,
-you should be doing the initial design and coding together - if you or your partner cannot
-explain how part of your interpreter works, then you have not followed the pair programming policies
-for this class.
-</p>
-</div>
-</div>
-<div id="outline-container-orgf34ac03" class="outline-2">
-<h2 id="orgf34ac03"><span class="section-number-2">2.</span> Get started</h2>
-<div class="outline-text-2" id="text-2">
 <p>
 You'll download the folder with the starter code from the link
 below. Like for previous homeworks, unzip the folder and move it to
@@ -251,9 +226,9 @@ the files <code>test-e</code> and <code>test-m</code>.
 </p>
 </div>
 </div>
-<div id="outline-container-orga546192" class="outline-2">
-<h2 id="orga546192"><span class="section-number-2">3.</span> Functionality</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgd7ee8e1" class="outline-2">
+<h2 id="orgd7ee8e1"><span class="section-number-2">2.</span> Functionality</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 In this assignment, you'll implement the following functions: <code>+</code>, <code>null?</code>,
 <code>car</code>, <code>cdr</code>, <code>cons</code>, and <code>equal?</code>.
@@ -294,13 +269,16 @@ sure that's the case; we will not support <code>append</code> with varying
    4)</code> evaluates to <code>(1 2 3 . 4)</code> in Guile.) Recall that <code>append</code>
  works by making a copy of its first argument but not its second
  (copying versus not copying won't matter much at the moment, but it
- will matter when we add in <code>set!</code> in the final part of the interpreter).</li>
+ will matter when we add in <code>set!</code> in the final part of the interpreter).
+ This should be a shallow copy, meaning that we create new <code>cons</code> cells to represent 
+   the outermost list layer, but nested lists will still point to shared memory.
+</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org61b6849" class="outline-2">
-<h2 id="org61b6849"><span class="section-number-2">4.</span> Sample tests</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgc7126c5" class="outline-2">
+<h2 id="orgc7126c5"><span class="section-number-2">3.</span> Sample tests</h2>
+<div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-bash">$ cat test-in-01.scm
 (define length
@@ -336,9 +314,9 @@ $ ./interpreter &lt; test-in-02.scm
 </div>
 </div>
 </div>
-<div id="outline-container-orgc9931d8" class="outline-2">
-<h2 id="orgc9931d8"><span class="section-number-2">5.</span> Primitive functions</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgb5f911b" class="outline-2">
+<h2 id="orgb5f911b"><span class="section-number-2">4.</span> Primitive functions</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 There's one bit of trickiness that will come up: you're going to want
 to have both functions-as-closures and functions-as-primitives. Here's
@@ -423,9 +401,9 @@ or returned as outputs.
 </p>
 </div>
 </div>
-<div id="outline-container-orga907766" class="outline-2">
-<h2 id="orga907766"><span class="section-number-2">6.</span> Optional Extensions</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org2756413" class="outline-2">
+<h2 id="org2756413"><span class="section-number-2">5.</span> Optional Extensions</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Work in this section is 100% optional, and not worth any points. Nonetheless, if you're looking for an extra challenge, 
 these are fun additional exercises to try.
@@ -439,9 +417,9 @@ these are fun additional exercises to try.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgddd0407" class="outline-2">
-<h2 id="orgddd0407"><span class="section-number-2">7.</span> Starter files and your code</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgc967e06" class="outline-2">
+<h2 id="orgc967e06"><span class="section-number-2">6.</span> Starter files and your code</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 The files follow the same structure that they have for the previous
 assignments. The only change in the files I'm providing is the change
@@ -463,13 +441,13 @@ can run valgrind as well as use gdb; if you get stuck, reach out for help!
 </p>
 </div>
 </div>
-<div id="outline-container-org80a3585" class="outline-2">
-<h2 id="org80a3585"><span class="section-number-2">8.</span> How to test and submit your work</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org692fd12" class="outline-2">
+<h2 id="org692fd12"><span class="section-number-2">7.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-orgb661779" class="outline-3">
-<h3 id="orgb661779"><span class="section-number-3">8.1.</span> Testing your work</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-org65e78bc" class="outline-3">
+<h3 id="org65e78bc"><span class="section-number-3">7.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Go back and look at the sections at the end of Scheme Intro 2 labeled
 "How to test your work". Everything there about how to run M tests and
@@ -480,28 +458,29 @@ behavior is observably incorrect.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd368c42" class="outline-3">
-<h3 id="orgd368c42"><span class="section-number-3">8.2.</span> Submitting your work</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-org7b31b08" class="outline-3">
+<h3 id="org7b31b08"><span class="section-number-3">7.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
-You'll submit your work on Gradescope. You should already have a file
-<code>CollaborationsAndSources.txt</code>
-in your working directory (if not, copy it over from the previous assignment). Go to the header
+You'll submit your work on Gradescope.
+You should already have a file <code>CollaborationsAndSources.txt</code>
+in your working directory (if not, copy it over from the previous assignment).
+Go to the header
 for this portion of the assignment and fill in the document. Indicate
 in what ways (if any) you collaborated with other people on this
-assignment (did you talk with anyone other than Anna or our prefect? Did you share strategies with anyone?
+assignment (did you talk with anyone other than Anna or our prefect?
+Did you share strategies with anyone?
 Get or give advice on debugging? These are
-fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
-file). If you used any resources outside of your notes from class, that is 
-also something to note in <code>CollaborationsAndSources.txt</code>. If
-you didn't talk with anyone or use any outside sources, please note
-that explicitly. Look back at the
-Scheme Intro 1 instructions if you want more details on the
-<code>CollaborationsAndSources.txt</code> file.
+fine things to do, and you should note them in
+the <code>CollaborationsAndSources.txt</code>
+file). If you used any resources outside of your notes from class, that 
+is also something to note in <code>CollaborationsAndSources.txt</code>.
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly.
 </p>
 
 <p>
-After updating  <code>CollaborationsAndSources.txt</code> and finishing the
+After updating <code>CollaborationsAndSources.txt</code> and finishing the
 assignment, run <code>./zipitup</code>
 </p>
 
@@ -513,12 +492,6 @@ included header files.
 
 <p>
 Then, upload the created zip to Gradescope. 
-</p>
-
-<p>
-<b><b>On Gradescope, make
-sure to add your partner if you worked with a partner.</b></b>
-<a href="https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members">This page has detailed instructions for how to do that.</a>
 </p>
 
 
@@ -543,7 +516,7 @@ For grading, you'll earn at least an M if the following conditions are all met:
 hyper-tailored your code to pass the tests.  Hyper-tailoring your
 code would be doing things like checking for the exact input from
 the test, meaning you haven't written your code in a way that would
-work for similar inputs (see Homework policies for more on this).</li>
+work for similar inputs see Homework policies for more on this).</li>
 <li>You have a <code>CollaborationsAndSources.txt</code> with the information
 described above.</li>
 <li>The work is submitted by the late deadline.</li>
@@ -561,7 +534,7 @@ accomplish the task.</li>
 does (its input/output behavior, not a play-by-play of "first
 checks&#x2026; then makes a recursive call &#x2026;").</li>
 <li>The work is submitted by the regular deadline or it is submitted by the late
-deadline and you elect to use a late token by submmitting a regrading request.</li>
+deadline and you elect to use a late token by submmitting a regrading request</li>
 </ul>
 
 <p>
@@ -580,7 +553,11 @@ have an attempt at one or more functions in the assignment. Some Progress means
 that your submission has some code (in the correct language) for all functions in the
 assignment, but that the code does not pass all of the M tests, is
 hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
-file. 
+file. Note that revisions may not be used on individual interpreter
+assignments to avoid extensions beyond the end of term or revisions in
+cases where you would have gained access to your partner's code. (To
+be fair to all students, this policy applies whether or not you were
+assigned a partner.)
 </p>
 
 <p>
@@ -588,7 +565,7 @@ Good luck, ask questions, and have fun!
 </p>
 
 
-<div class="note" id="orge50d1d3">
+<div class="note" id="orgacbf14c">
 <p>
 This assignment was originally created by David Liben-Nowell and has since been
     updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
