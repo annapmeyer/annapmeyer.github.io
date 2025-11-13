@@ -162,12 +162,11 @@ for the JavaScript code in this tag.
 <li><a href="#org62656ee">2.3. Notes on testing your code</a></li>
 </ul>
 </li>
-<li><a href="#orgb671953">3. Exemplary functionality</a></li>
-<li><a href="#org289e201">4. Starter files and your code</a></li>
-<li><a href="#orgd1dd86d">5. How to test and submit your work</a>
+<li><a href="#org289e201">3. Starter files and your code</a></li>
+<li><a href="#orgd1dd86d">4. How to test and submit your work</a>
 <ul>
-<li><a href="#orgd5a8b54">5.1. Testing your work</a></li>
-<li><a href="#org61b1f42">5.2. Submitting your work</a></li>
+<li><a href="#orgd5a8b54">4.1. Testing your work</a></li>
+<li><a href="#org61b1f42">4.2. Submitting your work</a></li>
 </ul>
 </li>
 </ul>
@@ -354,72 +353,16 @@ the command line.
 </p>
 
 
-<p>
-#+BEGIN<sub>COMMENT</sub>
-</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb671953" class="outline-2">
-<h2 id="orgb671953"><span class="section-number-2">3.</span> Exemplary functionality</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-There is some functionality that your interpreter will likely need if you want
-your interpreter to successfully run with the Scheme assignments that you built
-earlier this term. I'm putting all of this functionality in the "exemplary" category. 
-If you are swamped for time and are looking for just "meets expectations," you can skip this section.
-</p>
-
-<ul class="org-ul">
-<li>Implement <code>cond</code>.
-<ul class="org-ul">
-<li>You may assume that all of the conditions for <code>cond</code> have type boolean; we
-will not test otherwise. Your code for <code>cond</code> should allow either <code>#t</code> or
-<code>else</code> as a default case. (If you've done things right, <code>#t</code> should work
-automatically; you'll need to code <code>else</code> as a special case.)</li>
-<li><p>
-Strangely, <code>cond</code> technically allows additional arguments or none at all
-following the condition, like:
-</p>
-<div class="org-src-container">
-<pre class="src src-scheme">(cond (#t 3 5 7))
-(cond (#t))
-</pre>
-</div>
-<p>
-We will not test any cases like this, and you do not need to implement them.
-</p></li>
-<li>If there's nothing to return (i.e. no true cases for <code>cond</code>), return <code>VOID_TYPE</code>.</li>
-</ul></li>
-</ul>
 
 
 
-<ul class="org-ul">
-<li>Additional primitive functions:, <code>*</code>, <code>/</code>, and <code>modulo</code>.
-
-<ul class="org-ul">
-<li><code>*</code> should be able to take any number of numeric arguments &gt;= 2, but for the
-other functions you may assume two numeric arguments (i.e., print evaluation
-error if not).</li>
-
-<li><code>/</code> should return a real (i.e., double) if the numbers do not divide
-evenly. (Guile returns a fraction; don't do this.)  For example, (/ 5 2)
-should return 2.5. We will only test division with two arguments.</li>
-
-<li><code>modulo</code> may further assume that its arguments are integers. We
-will not test non-integer cases for <code>modulo</code>.</li>
-</ul></li>
-</ul>
 
 
-<p>
-#+END<sub>COMMENT</sub>
-</p>
-</div>
-</div>
 <div id="outline-container-org289e201" class="outline-2">
-<h2 id="org289e201"><span class="section-number-2">4.</span> Starter files and your code</h2>
+<h2 id="org289e201"><span class="section-number-2">3.</span> Starter files and your code</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The files follow the same structure that they have for the previous
@@ -434,7 +377,7 @@ Building and testing your code will work precisely the same as on the previous a
 </div>
 </div>
 <div id="outline-container-orgd1dd86d" class="outline-2">
-<h2 id="orgd1dd86d"><span class="section-number-2">5.</span> How to test and submit your work</h2>
+<h2 id="orgd1dd86d"><span class="section-number-2">4.</span> How to test and submit your work</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 For this final assignment, please note that if you haven't already, 
@@ -444,7 +387,7 @@ if you worked individually.
 </p>
 </div>
 <div id="outline-container-orgd5a8b54" class="outline-3">
-<h3 id="orgd5a8b54"><span class="section-number-3">5.1.</span> Testing your work</h3>
+<h3 id="orgd5a8b54"><span class="section-number-3">4.1.</span> Testing your work</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Go back and look at the sections at the end of Scheme Intro 2 labeled
@@ -457,7 +400,7 @@ behavior is observably incorrect.
 </div>
 </div>
 <div id="outline-container-org61b1f42" class="outline-3">
-<h3 id="org61b1f42"><span class="section-number-3">5.2.</span> Submitting your work</h3>
+<h3 id="org61b1f42"><span class="section-number-3">4.2.</span> Submitting your work</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 You'll submit your work on Gradescope.
