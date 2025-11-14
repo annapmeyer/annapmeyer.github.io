@@ -158,7 +158,7 @@ for the JavaScript code in this tag.
 <li><a href="#org5cb08b8">2. Functionality</a>
 <ul>
 <li><a href="#org6a58f29">2.1. Some missing special forms</a></li>
-<li><a href="#org1b1f362">2.2. One more primitive functions</a></li>
+<li><a href="#org1b1f362">2.2. Two more primitive functions</a></li>
 <li><a href="#org62656ee">2.3. Notes on testing your code</a></li>
 </ul>
 </li>
@@ -323,10 +323,12 @@ restricted the testing of your <code>define</code> implementation). We'll have
 </div>
 </div>
 <div id="outline-container-org1b1f362" class="outline-3">
-<h3 id="org1b1f362"><span class="section-number-3">2.2.</span> One more primitive functions</h3>
+<h3 id="org1b1f362"><span class="section-number-3">2.2.</span> Two more primitive functions</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
-Implement <code>&lt;</code> (the less-than function)
+Implement <code>&lt;</code> (the less-than function) and <code>equal?</code>. <code>equal?</code> should 
+work for strings, numbers, and bools. It does not need to work for nested structures. For symbols it's okay to just check
+whether the symbol name is the name (e.g., x=x should be true, but x=y can be false even if x=1 and y=1).
 </p>
 </div>
 </div>
