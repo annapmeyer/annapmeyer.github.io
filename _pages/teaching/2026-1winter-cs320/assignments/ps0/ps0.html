@@ -1,0 +1,320 @@
+---
+layout: null
+permalink: /teaching/cs320/ps0.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-05 Fri 14:03 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PS0</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">PS0</h1>
+<p>
+Welcome to CS 320! This homework assignment has 3 parts: course setup logistics, 
+a mathematical background activity, and an intro coding activity. 
+</p>
+<div id="outline-container-org9e5b43e" class="outline-2">
+<h2 id="org9e5b43e">Assignment logistics</h2>
+<div class="outline-text-2" id="text-org9e5b43e">
+<p>
+This is an individual assignment. You are welcome to discuss Part 1 and Part 3 with classmates or Anna. 
+You should complete Part 2 individually, because the goal is to assess your current mathematical knowledge (this 
+will help Anna calibrate her teaching and will help you identify which topics you should review). After you submit
+Part 2, you are encouraged to consult outside materials, classmates, or Anna to review questions that you missed.
+</p>
+</div>
+</div>
+<div id="outline-container-org27302e7" class="outline-2">
+<h2 id="org27302e7">Part 1: Course setup logistics</h2>
+<div class="outline-text-2" id="text-org27302e7">
+<ul class="org-ul">
+<li><b><b>Log into Moodle:</b></b> log into our course Moodle page. Class materials, readings, and homework will be posted here.</li>
+<li><b><b>Log into the class Slack:</b></b>  We will use Slack for informal discussions and as the Q and A platform throughout the term.
+You can join <a href="https://join.slack.com/t/cs320-winter2026/shared_invite/zt-3kae6ez11-F6LM4Y0Z~wvwGGaYIk1beA">here</a>. Make
+sure to use your Carleton email to sign up. If you run into any problems, email Anna.</li>
+<li><b><b>Fill out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpyki2SXTW0oHKIffaJlAUA18ZR6SFkvWIA_i0reffL75I_g/viewform?usp=header">background survey</a></b></b> 
+(please do this by Wednesday, if possible).</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7e4055b" class="outline-2">
+<h2 id="org7e4055b">Part 2: Mathematical background</h2>
+<div class="outline-text-2" id="text-org7e4055b">
+<p>
+Complete the questions in <a href="https://annapmeyer.github.io/teaching/cs320/ps0/math.pdf">this document</a> and then submit your 
+solutions to Moodle <a href="https://moodle.carleton.edu/mod/quiz/view.php?id=1068542">here</a>. I encourage you to write down your 
+thought process, but on Moodle I will only ask for you final answers.
+</p>
+
+<p>
+This exercise is graded on completion. I will use the (aggregate) class results to determine what material might need extra
+attnetion as it comes up in class. However, you should take responsibility for reviewing any content (or getting help from 
+me, online resources, or on-campus resources like the Math Skills Center or QRC) that is unfamiliar to you. 
+</p>
+</div>
+</div>
+<div id="outline-container-orge594f16" class="outline-2">
+<h2 id="orge594f16">Part 3: Coding</h2>
+<div class="outline-text-2" id="text-orge594f16">
+<p>
+Most of the directions for each homework will be in a Jupyter notebook: an interactive document that allows 
+you to combine text, code, and visualizations. This document walks you through the process for getting 
+started with that notebook.
+</p>
+</div>
+<div id="outline-container-org493d024" class="outline-3">
+<h3 id="org493d024">Downloading the starter files</h3>
+<div class="outline-text-3" id="text-org493d024">
+<p>
+First, you'll need to download the starter files. <a href="https://annapmeyer.github.io/teaching/cs320/ps0/ps0_starter.zip">Click here to do so.</a>
+Once the download is complete, unzip the file to get a folder. 
+</p>
+</div>
+</div>
+<div id="outline-container-org3bc9579" class="outline-3">
+<h3 id="org3bc9579">Uploading the starter files to Google Drive</h3>
+<div class="outline-text-3" id="text-org3bc9579">
+<p>
+Next, upload that folder to Google Drive:
+</p>
+<ul class="org-ul">
+<li>Create a folder for this course on your Google Drive (e.g., <code>cs320</code>)</li>
+<li>Upload the unzipped folder with the starter code to the folder you just created on Google Drive by dragging the starter code folder to that folder or using Google's upload interface.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd029462" class="outline-3">
+<h3 id="orgd029462">Getting started in Colab</h3>
+<div class="outline-text-3" id="text-orgd029462">
+<ul class="org-ul">
+<li>Use a web browser to navigate into the folder you just uploaded the starter code into.</li>
+<li>You should see a file named ps0.ipynb. Open that file in the browser. To do so, try double clicking it. It may open automatically in Colab (in which case, skip the rest of the bullet points in this section), but more likely it will pop up a screen with Download in the center and an "Open with" menu at the top (circled in purple in the screenshot below).</li>
+<li>Click on the "Open with" and select "+Connect more apps".</li>
+<li>You'll see a dialog pop up. In the search bar (circled in green) type "Colaboratory".</li>
+<li>You'll see the Colaboratory app from Google. Select it, and install it.</li>
+<li>Once the app is installed, you should be able to simply double click to open .ipynb files, or if not, Colaboratory will show up as an option in the "Open with" menu.</li>
+</ul>
+
+<p>
+Once you've opened the assignment, follow the instructions in the notebook. I have highlighted things you must complete
+with a comment starting with <b><b>Task</b></b> or with a comment <code>#todo</code> in the code blocks.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb9a0f71" class="outline-2">
+<h2 id="orgb9a0f71">Handing in the assignment</h2>
+<div class="outline-text-2" id="text-orgb9a0f71">
+<p>
+You need to hand in Part 3 on Gradescope as a pdf and a zip file.
+To do so, open the notebook <code>collect_submission.ipynb</code> in Colab (it's in the same folder of starter files that you uploaded to Drive) and follow the instructions there. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgb750c94" class="outline-2">
+<h2 id="orgb750c94">Tips</h2>
+<div class="outline-text-2" id="text-orgb750c94">
+<ul class="org-ul">
+<li>Make sure to save your work, especially in .py files and also in the .ipynb file! Google won't necessarily do it for you automatically.</li>
+<li>Please make sure you've run your whole PS0 notebook, in order, before submitting. I should be able to see all of the cell outputs, and if I rerun the whole notebook, I should see exactly the same cell outputs as what you submit.</li>
+<li>If you're stuck on the logistics of all this, reach out in office hours or on Slack. I think this will eventually be pretty smooth, but might have some hiccups to start.</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>
