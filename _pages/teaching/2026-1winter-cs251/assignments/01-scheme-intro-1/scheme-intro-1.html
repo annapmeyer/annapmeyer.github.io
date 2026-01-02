@@ -1,0 +1,571 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/scheme-intro-1.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Homework 1: Scheme Intro 1</title>
+<!-- 2024-03-22 Fri 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="annameyer" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Homework 1: Scheme Intro 1</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org634f64c">1. Get started</a>
+<ul>
+<li><a href="#orgaa041fc">1.1. Download the starter files</a></li>
+<li><a href="#orgf16c0d7">1.2. Finding a spot for your work</a></li>
+<li><a href="#orgc3a5976">1.3. Getting started with Scheme</a>
+<ul>
+<li><a href="#orgf7463eb">1.3.1. Start up Scheme</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf20c36d">2. Call a function</a></li>
+<li><a href="#orgd9a472c">3. Play around a little</a></li>
+<li><a href="#org6119ff3">4. The Guile error prompt</a></li>
+<li><a href="#orgdcfbde8">5. Basic Scheme primitives</a>
+<ul>
+<li><a href="#org89db3bc">5.1. Some vegetables</a></li>
+<li><a href="#org668fe4b">5.2. Some more things to try</a></li>
+</ul>
+</li>
+<li><a href="#org30a8f20">6. A task for you to submit</a></li>
+<li><a href="#org1430d09">7. What to hand in</a></li>
+</ul>
+</div>
+</div>
+<p>
+This assignment is to be done individually.
+You can talk to other people in the class to come up with ideas and get help with general concepts, 
+but you should not show others your code, nor 
+see others' code. You can get direct help debugging from Anna and any of the course staff (graders, lab assistants, 
+prefects). 
+</p>
+<div id="outline-container-org634f64c" class="outline-2">
+<h2 id="org634f64c"><span class="section-number-2">1.</span> Get started</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+If you haven't completed the course <a href="https://moodle.carleton.edu/mod/page/view.php?id=1066608">Development setup</a> 
+yet, please do that before continuing. 
+</p>
+</div>
+<div id="outline-container-orgaa041fc" class="outline-3">
+<h3 id="orgaa041fc"><span class="section-number-3">1.1.</span> Download the starter files</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/01-scheme-intro-1/scheme-1-starter.zip">Click this link to download the starter files for this homework.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgf16c0d7" class="outline-3">
+<h3 id="orgf16c0d7"><span class="section-number-3">1.2.</span> Finding a spot for your work</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+You’ll need a folder (also known as a directory) to store your code. 
+You shouldn’t do all of this right in your home folder or on your desktop, as it will get really messy with a lot of files.
+</p>
+
+<p>
+You already have a folder named
+ProgrammingLanguages that you created as part of the Docker setup. Drag the folder with the starter files into 
+the ProgrammingLanguages folder.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc3a5976" class="outline-3">
+<h3 id="orgc3a5976"><span class="section-number-3">1.3.</span> Getting started with Scheme</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+First, you'll launch Docker in VSCode. Open the ProgrammingLanguages folder in VSCode (File-&gt;Open Folder). 
+You may see a popup in the lower right corner prompting you to reopen the folder in the Docker container. If so,
+click through to do so. Otherwise, click the &gt;&lt; icon in the lower left corner of VSCode. This will open a dropdown
+menu where you can select "Reopen in Container". 
+</p>
+
+<p>
+If you run into any problems launching Docker, refer back to the Development Setup instructions on Moodle or reach out to
+Anna or Mike Tie for help.
+</p>
+
+<div class="note" id="org8009e4c">
+<p>
+Two things to note throughout the class when using VS Code and
+ Docker: it's important that you open a folder, not
+a specific file, and it's important to make the new terminal after you
+open the folder, not before. That allows the terminal to start in the
+folder (aka directory) where your code and files are. If you ever want
+to check the current directory in the terminal, type <code>pwd</code> in the
+terminal and then
+hit return. (<code>pwd</code> stands for "print working directory.")
+</p>
+
+</div>
+</div>
+<div id="outline-container-orgf7463eb" class="outline-4">
+<h4 id="orgf7463eb"><span class="section-number-4">1.3.1.</span> Start up Scheme</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Open a new terminal window in VSCode (see the top-level menu, Terminal -&gt; New Terminal). 
+You'll start up the Scheme environment that we're using by issuing the
+following command in that new terminal window. Make sure to include the dot and the slash before the word <code>scheme</code>. 
+That's because you're actually running a script that I created for you to start things up. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">./scheme
+</pre>
+</div>
+
+
+<p>
+You should see something like this: 
+</p>
+
+<pre class="example" id="orgf28b9a6">
+GNU Guile 3.0.7
+Copyright (C) 1995-2021 Free Software Foundation, Inc.
+
+Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'.
+This program is free software, and you are welcome to redistribute it
+under certain conditions; type `,show c' for details.
+
+Enter `,help' for help.
+scheme@(guile-user)&gt; 
+</pre>
+
+<p>
+This shows that you are at the Guile interactive prompt. (Guile is the
+name of the particular Scheme implementation that we'll be using.)
+This interactive prompt is much like working with Python
+interactively. You can type in commands, and see what they do. 
+</p>
+
+<p>
+If this doesn't work and you see a "Permission denied" error, it means
+that the permissions have for some reason been changed. That's okay -
+we can fix it! We want to give executable permissions
+to that scheme script. In the terminal, type:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x scheme
+</pre>
+</div>
+<p>
+That says to give executable (<code>x</code>) permissions to all (<code>a</code>) for the
+file <code>scheme</code>. If you ever get this error in the future, now you know
+how to fix it!
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf20c36d" class="outline-2">
+<h2 id="orgf20c36d"><span class="section-number-2">2.</span> Call a function</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+At the Guile prompt, type
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(+ 3 5)
+</pre>
+</div>
+
+<p>
+In Scheme, <code>+</code> is a function. 
+To call a function in Scheme, you place the name of the function and its arguments, separated by spaces, 
+inside parentheses. This takes a little getting used to! In most programming languages, function calls 
+look something like this: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java">function(<span style="color: #228b22;">arg1</span>, <span style="color: #228b22;">arg2</span>, <span style="color: #228b22;">arg3</span>)
+</pre>
+</div>
+
+<p>
+In Scheme, function calls look like this: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">function</span> arg1 arg2 arg3)
+</pre>
+</div>
+
+<p>
+So the above code that you typed in should add 3 to 5, and so you should see output that looks like:
+</p>
+
+<pre class="example" id="orgc22d528">
+$1 = 8
+</pre>
+
+<p>
+This means that the return value from the above expression is <code>8</code>, and Guile is assigning it to a 
+history variable called <code>$1</code>. You can ignore these history variables; they're not especially useful for us.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd9a472c" class="outline-2">
+<h2 id="orgd9a472c"><span class="section-number-2">3.</span> Play around a little</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Back at the regular Scheme prompt, change your program in some way. For example, re-type it as
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(+ 3 7)
+</pre>
+</div>
+
+<p>
+Experiment with using the up and down arrow keys, which let you move backwards and 
+forwards through your command history.
+</p>
+</div>
+</div>
+<div id="outline-container-org6119ff3" class="outline-2">
+<h2 id="org6119ff3"><span class="section-number-2">4.</span> The Guile error prompt</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+If you make a mistake and type in some invalid syntax, Guile Scheme presents a sub-prompt indicating 
+that you've had an error. Perhaps this has already happened to you. The error prompt looks looks like this:
+</p>
+
+<pre class="example" id="orgc8ea424">
+Entering a new prompt.  Type `,bt' for a backtrace or `,q' to continue.
+scheme@(guile-user) [1]&gt; 
+</pre>
+
+<p>
+The key way to notice that you're there is somewhat subtle: it's the
+<code>[1]</code> that appears in the prompt. It means that you're 1 level deep
+into the error system. We'll play with the debugging system more later
+on, but for now, when you see this, get out of by typing <code>,q</code> (don't
+miss the comma in front).
+</p>
+
+<p>
+Let's try it, just so you can see how it works. At the Guile prompt, just type <code>x</code>, and hit enter. 
+You should see an error about an unbound variable, and then you'll find yourself at the error prompt. 
+Type <code>,q</code> to return to the main Guile prompt.
+</p>
+
+<p>
+Notice that if you type <code>,q</code> at the main Guile prompt, it will exit Guile and you'll end up back at the 
+regular bash prompt. If that happens, type <code>./scheme</code> again to start it up.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdcfbde8" class="outline-2">
+<h2 id="orgdcfbde8"><span class="section-number-2">5.</span> Basic Scheme primitives</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org89db3bc" class="outline-3">
+<h3 id="org89db3bc"><span class="section-number-3">5.1.</span> Some vegetables</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+At the Guile prompt, enter the following, one at a time. You can copy and paste if you like, 
+but pay careful attention to what you're pasting so you can figure out what's going on. 
+(The last one should cause an error.)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(car '(artichoke broccoli carrot))
+
+(cdr '(artichoke broccoli carrot))
+
+(car (artichoke broccoli carrot))
+</pre>
+</div>
+
+<p>
+Experiment with the code to try to answer the following questions:
+</p>
+
+<ul class="org-ul">
+<li>What do car and cdr do?</li>
+<li>Why is the single quote necessary? What does it do?</li>
+<li>The last line of the above should cause an error: why?</li>
+</ul>
+
+<p>
+The error caused by the last line should land you at a Guile error prompt, that looks like this:
+</p>
+
+<pre class="example" id="org83442a7">
+Entering a new prompt.  Type `,bt' for a backtrace or `,q' to continue.
+scheme@(guile-user) [1]&gt;
+</pre>
+
+<p>
+Again, remember that you know you're at an error prompt whenever you see a number in brackets, 
+like the <code>[1]</code> in there. Type <code>,q</code> to get out of it.
+</p>
+</div>
+</div>
+<div id="outline-container-org668fe4b" class="outline-3">
+<h3 id="org668fe4b"><span class="section-number-3">5.2.</span> Some more things to try</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Enter each of the following lines of Scheme code, one-by-one, into Guile and observe the output. 
+See if you can figure out for yourself what's going on. Assemble a list of questions for posting on 
+Moodle or discussing in class when this assignment is complete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme"><span style="color: #b22222;">;; </span><span style="color: #b22222;">This is a comment, by the way!
+</span>(cons 'x '(1 2))
+(cons '(1 5) '(2 3))
+(append '(1) '(2 3))
+(append '(1 5) '(2 3))
+(list '1 '2 '3 '(4 5))
+(length '(plato socrates aristotle))
+(reverse '(plato socrates aristotle))
+(member 'socrates '(plato socrates aristotle))
+(member 'raphael '(plato socrates aristotle))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org30a8f20" class="outline-2">
+<h2 id="org30a8f20"><span class="section-number-2">6.</span> A task for you to submit</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Write sequences of cars and cdrs that will pick the symbol <code>broccoli</code> out of the following expressions:
+</p>
+
+<pre class="example" id="orgb8f43fe">
+(artichoke broccoli fennel carrot)
+(broccoli carrot)
+(((fennel) (artichoke broccoli) (carrot)))
+(fennel (artichoke radish) (broccoli) (((carrot))))
+
+</pre>
+
+<p>
+Here's an example of what I might write if I was trying to pick <code>broccoli</code> out of the expression <code>(broccoli)</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(car '(broccoli))
+</pre>
+</div>
+
+<p>
+It's ok if you have trouble getting this to work: the key aspect to
+this assignment is to make the effort before the deadline so that you
+can ask questions. 
+</p>
+</div>
+</div>
+<div id="outline-container-org1430d09" class="outline-2">
+<h2 id="org1430d09"><span class="section-number-2">7.</span> What to hand in</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+In the (initially empty) file <code>main.scm</code>, paste in your code to pick
+out <code>broccoli</code> from each expression. You should end up with four lines
+in <code>main.scm</code>, one for each of the four expressions above.
+</p>
+
+<p>
+Additionally, create a file named <code>CollaborationsAndSources.txt</code> within
+the starter folder. In this file, you should describe (a) your
+collaborations with anyone on the assignment and (b) your use of any
+outside sources on the assignment. For example, I might say something
+like "I worked through a few related examples on the board with Grace
+Hopper to better understand car and cdr, and then I wrote my code for
+the examples in the assignment on my own. I talked with Alan Turing
+about the assignment to help him understand list. I didn't refer to any
+outside sources except the Dybvig book." With every assignment you
+submit, you'll need to include a file named
+<code>CollaborationsAndSources.txt</code> that has these two parts. Your file
+should be specific about your collaborations and sources - it
+shouldn't be empty or just list names of people.
+</p>
+
+<p>
+Create the zip file that you'll submit to Gradescope by running the script <code>./zipitup</code>.
+If you get an error about file permissions, first run <code>chmod a+x ./zipitup</code>. 
+</p>
+
+<p>
+For this
+assignment only, you'll earn a grade of M (meets expectations; 3) if
+you've clearly given it a solid attempt, even if you didn't always get
+the broccoli, and if you have  <code>CollaborationsAndSources.txt</code>. For assignments going
+forward, you'll need to have a series of tests run successfully on
+your code to earn an M. You'll earn an E (exemplary; 4) if
+your four lines of code always pick out broccoli and you have
+<code>CollaborationsAndSources.txt</code>. The graders will copy and paste your
+code from <code>main.scm</code> into Scheme to confirm that they correctly get
+the broccoli.
+</p>
+
+
+<div class="note" id="org73e306b">
+<p>
+Assignment originally designed by Dave Musicant - thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: annameyer</p>
+<p class="date">Created: 2026-01-02 Fri 14:59</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
