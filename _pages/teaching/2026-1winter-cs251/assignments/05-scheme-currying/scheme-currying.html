@@ -1,0 +1,587 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/scheme-currying.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Homework 5: Currying and higher-order functions</title>
+<!-- 2024-03-22 Fri 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="annameyer" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Homework 5: Currying and higher order functions</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb91e1d1">1. Pair programming structure</a></li>
+<li><a href="#org43ed2f7">2. Get started</a></li>
+<li><a href="#org6c13d4e">3. Main assignment</a>
+<ul>
+<li><a href="#org7affcf6">3.1. Currying</a></li>
+<li><a href="#org48c854a">3.2. Uncurrying</a></li>
+<li><a href="#orgab9ad3e">3.3. General uncurrying</a></li>
+<li><a href="#org06c05d4">3.4. my-filter</a></li>
+<li><a href="#org1d8a351">3.5. set operations</a></li>
+<li><a href="#org7ae83e2">3.6. exists</a></li>
+</ul>
+</li>
+<li><a href="#org67da8bc">4. Optional extensions</a>
+<ul>
+<li><a href="#org4996b45">4.1. flatmap</a></li>
+</ul>
+</li>
+<li><a href="#org69ce5d0">5. Other info</a></li>
+<li><a href="#org8ea91db">6. How to test and submit your work</a>
+<ul>
+<li><a href="#orgafd925b">6.1. Testing your work</a></li>
+<li><a href="#orgff55dda">6.2. Submitting your work</a>
+<ul>
+<li><a href="#org74f1a11">6.2.1. Acknowledging help</a></li>
+<li><a href="#orgee20a40">6.2.2. Generating the submission file and uploading to Gradescope</a></li>
+<li><a href="#org291990e">6.2.3. Grading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb91e1d1" class="outline-2">
+<h2 id="orgb91e1d1"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a "pair" assignment, which means that you and your partner should use the pair programming model. 
+You should be physically together, sharing a computer and both looking at the same screen. 
+</p>
+
+<p>
+Each partner has an active role to play during pair programming - please review the instructions on 
+Moodle about pair programming, and make sure you understand what you should be doing when you are the 
+<i>navigator</i> and when you are the <i>driver</i>. 
+You should make sure that over the course of an assignment that you each spend roughly the same amount of time  
+"driving." My recommendation is to set a timer and switch drivers every 10-15 minute. 
+</p>
+
+<p>
+If pair programming in real-time doesn't work for you and your partner, then you will need to amicably 
+split up and work individually. If you choose this option, you <b>must communicate that to
+me [Anna]</b>. Please do so as soon as that decision is made. If you split, a new partner typically cannot be
+ assigned until the rest of the class switches partners.
+</p>
+</div>
+</div>
+<div id="outline-container-org43ed2f7" class="outline-2">
+<h2 id="org43ed2f7"><span class="section-number-2">2.</span> Get started</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/05-scheme-currying/currying-starter.zip">Click here to download the starter files</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org6c13d4e" class="outline-2">
+<h2 id="org6c13d4e"><span class="section-number-2">3.</span> Main assignment</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org7affcf6" class="outline-3">
+<h3 id="org7affcf6"><span class="section-number-3">3.1.</span> Currying</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+First, here's a super quick overview on currying: a curried function to handle
+multiplication can be defined as:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">define</span> <span style="color: #0000ff;">mult</span>
+  (<span style="color: #a020f0;">lambda</span> (a)
+    (<span style="color: #a020f0;">lambda</span> (b)
+      (* a b))))
+</pre>
+</div>
+
+<p>
+A curried function of two arguments, for example, is one that
+really just takes one argument, and returns another function to handle
+the second argument.
+</p>
+
+<p>
+Define a function <code>curry3</code> that takes a three-argument function and returns a
+curried version of that function. Thus <code>((((curry3 f) x) y) z)</code>
+returns the result of <code>(f x y z)</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-org48c854a" class="outline-3">
+<h3 id="org48c854a"><span class="section-number-3">3.2.</span> Uncurrying</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Define a function <code>uncurry3</code> that takes a curried three-argument function
+and returns a normal Scheme uncurried version of that function. Thus <code>((uncurry3
+(curry3 f)) x y z)</code> returns the result of <code>(f x y z)</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgab9ad3e" class="outline-3">
+<h3 id="orgab9ad3e"><span class="section-number-3">3.3.</span> General uncurrying</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+<b>Heads up: this section is only required for the E tests</b>
+</p>
+
+<p>
+Define a function <code>uncurry</code> that takes a curried function of any number of
+parameters. It should return a normal Scheme uncurried version of that
+function. Thus
+<code>((uncurry (curry3 f)) x y z)</code> returns the result of <code>(f x y z)</code>, <code>((uncurry
+(curry4 g)) w x y z)</code> would return the result of <code>(g w x y z)</code> if we had written
+<code>curry4</code>, and so on. (Thought question for yourself only: why didn't I ask you to also write a general <code>curry</code> function?)
+</p>
+
+<p>
+Note that in your <code>uncurry</code>, you'll need to create a
+function that handles a variable number of parameters (however many
+parameters the curried function took. When the parentheses are omitted
+around the parameters in the lambda, Scheme bundles all inputs
+into a list. Here's an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">define</span> <span style="color: #0000ff;">get-all-but-first-input</span>
+  (<span style="color: #a020f0;">lambda</span> args 
+    (cdr args)))
+</pre>
+</div>
+
+<p>
+I can use it as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(get-all-but-first-input 1 2 3) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (2 3)
+</span>(get-all-but-first-input 1 2 3 4 5) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (2 3 4 5)</span>
+</pre>
+</div>
+
+<p>
+<i>Tips:</i> There are two general approaches here:
+</p>
+<ul class="org-ul">
+<li>Create a helper function, using a separate <code>define</code> that takes in a
+function and a list as arguments. I think this may be the more
+straightforward approach. Note that helper functions, like all
+functions, should have a comment.</li>
+<li>Do everything in one function, recursively. If you take this option,
+you may find yourself in a situation where you wish you could
+somehow call a function on a list of arguments and have it treat
+that list as if it were not a list. I.e., you have the list <code>(1 2
+  3)</code> and what you'd like to do is <code>(myfn 1 2 3)</code>, where each item in
+the list is a separate argument. The scheme function <code>apply</code> can
+help you in this situation. <a href="https://www.scheme.com/tspl4/control.html#./control:s3">Dybvig talks about it here</a>. <code>apply</code> can
+take in a function and a list and act as if that function received
+the elements of the list as separate arguments. For instance,
+<code>(apply + '(4 5))</code> is equivalent to <code>(+ 4 5)</code>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org06c05d4" class="outline-3">
+<h3 id="org06c05d4"><span class="section-number-3">3.4.</span> my-filter</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+We will discuss / have discussed higher-order Scheme functions such as
+<code>map</code>, <code>fold-left</code>, and <code>fold-right</code>. Scheme provides another such function called
+<code>filter</code>, for which you can find <a href="https://www.scheme.com/tspl4/objects.html#./objects:s55">documentation here</a>. Create a function called
+<code>my-filter</code> that works just like <code>filter</code> does, but doesn't use <code>filter</code> or any
+other higher-order functions.
+</p>
+</div>
+</div>
+<div id="outline-container-org1d8a351" class="outline-3">
+<h3 id="org1d8a351"><span class="section-number-3">3.5.</span> set operations</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+In Scheme sets can be represented as lists. However, unlike lists, the order
+of values in a set is not significant. Thus both <code>(1 2 3)</code> and <code>(3 2 1)</code>
+represent the same set. Use your <code>my-filter</code> function to implement Scheme
+functions <code>(set-union S1 S2)</code> and <code>(set-intersect S1 S2)</code>, that handle set union and set
+intersection. You may assume that set elements are always atomic, and that there
+are no duplicates. You must use <code>my-filter</code> (or the built-in <code>filter</code>, if you
+didn't succeed at making <code>my-filter</code> work) in a useful way to do this. You can
+also use the built-in function <code>member</code> if you find that useful. For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(set-union '(1 2 3) '(3 2 1)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (1 2 3)
+</span>(set-union '(1 2 3) '(3 4 5)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (1 2 3 4 5)
+</span>(set-union '(a b c) '(3 2 1)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (a b c 1 2 3)
+</span>(set-intersect '(1 2 3) '(3 2 1)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (1 2 3)
+</span>(set-intersect '(1 2 3) '(4 5 6)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to ()
+</span>(set-intersect '(1 2 3) '(2 3 4 5 6)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (2 3) </span>
+</pre>
+</div>
+
+<p>
+<b>Note that you must use <code>my-filter</code> or <code>filter</code> within your code in order to earn a grade of M or E. Passing the tests alone is not sufficient.</b>
+</p>
+</div>
+</div>
+<div id="outline-container-org7ae83e2" class="outline-3">
+<h3 id="org7ae83e2"><span class="section-number-3">3.6.</span> exists</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Use <code>my-filter</code> (or <code>filter</code>) to implement the function <code>exists</code>, which
+returns <code>#t</code> if at least one item in a list satisfies a predicate. For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(exists (<span style="color: #a020f0;">lambda</span> (x) (eq? x 0)) '(-1 0 1))   <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to   #t
+</span>(exists (<span style="color: #a020f0;">lambda</span> (x) (eq? x 2)) '(-1 0 1))   <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to  #f</span>
+</pre>
+</div>
+
+<p>
+<b>Note that your tests may pass if you don't use <code>my-filter</code> or
+<code>filter</code> within your code, but the graders will not grant a grade of M or E if you do do not use one of these functions in a non-trivial way.</b>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org67da8bc" class="outline-2">
+<h2 id="org67da8bc"><span class="section-number-2">4.</span> Optional extensions</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Work in this section is 100% optional, and not worth any points. Nonetheless, if you're looking for an extra challenge (or a good way to study for exams), 
+these are fun additional exercises to try.
+</p>
+</div>
+<div id="outline-container-org4996b45" class="outline-3">
+<h3 id="org4996b45"><span class="section-number-3">4.1.</span> flatmap</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Define a function <code>flatmap</code> that works like <code>map</code>, but if the function returns a list of values, those values are "flattened" for the final list. Here's an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">define</span> <span style="color: #0000ff;">plus1</span> (<span style="color: #a020f0;">lambda</span> (x) (+ x 1)))
+(flatmap plus1 '(1 2 3)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (2 3 4)
+</span>
+(<span style="color: #a020f0;">define</span> <span style="color: #0000ff;">doubleup</span> (<span style="color: #a020f0;">lambda</span> (x) (list x x)))
+(flatmap doubleup '(1 2 3)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Evaluates to (1 1 2 2 3 3)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org69ce5d0" class="outline-2">
+<h2 id="org69ce5d0"><span class="section-number-2">5.</span> Other info</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+You must use recursion, and not iteration. (To clarify, your code for set-union, set-intersect
+and set-exists will probably not use either recursion or iteration &#x2013; that is fine.) You may not use
+side-effects (e.g. <code>set!</code>).
+</p>
+</div>
+</div>
+<div id="outline-container-org8ea91db" class="outline-2">
+<h2 id="org8ea91db"><span class="section-number-2">6.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orgafd925b" class="outline-3">
+<h3 id="orgafd925b"><span class="section-number-3">6.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+As with previous assignments, there are M tests and E tests. See the section of Scheme Intro 2
+labeled "How to test your work" if 
+you need a refresher on how to run these tests. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgff55dda" class="outline-3">
+<h3 id="orgff55dda"><span class="section-number-3">6.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+<div id="outline-container-org74f1a11" class="outline-4">
+<h4 id="org74f1a11"><span class="section-number-4">6.2.1.</span> Acknowledging help</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<p>
+Create a file called <code>CollaborationsAndSources.txt</code>, and in it,
+indicate in what ways (if any) you collaborated with other people or consulted
+outside resources on this assignment. 
+Did you share strategies with anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with and some description of
+your interactions. If you used any resources outside of notes taken in class or the homework/lab starter files that
+Anna provided, that is also something to note. 
+</p>
+
+<p>
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgee20a40" class="outline-4">
+<h4 id="orgee20a40"><span class="section-number-4">6.2.2.</span> Generating the submission file and uploading to Gradescope</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<p>
+After completing <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code> (if you get a permissions error, run <code>chmod u+x ./zipitup</code> first).
+This script will create a zip file <code>XXX_submission.zip</code> where XXX is the assignment name or number. 
+Upload this file to Gradescope. 
+</p>
+
+<p>
+<b><b>On Gradescope, make
+sure to add your partner if you worked with a partner.</b></b>
+<a href="https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members">This page has detailed instructions for how to do that.</a>
+</p>
+
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small chance that the tests will fail on Gradescope, even 
+if they passed on your own computer. Usually this means that you coded something in a 
+different way than we expected when writing the autograders. We will be grading based on the 
+results of the tests on Gradescope, so make sure to pay attention to the results of the tests there.
+(If you run into this issue, check that you are submitting to the correct assignment on Gradescope. 
+Then try resubmitting and rerunning the autograder. If the error messages are legible, feel free to debug further, 
+but it's also fine to reach out to Anna or the graders at this point.)
+</p>
+</div>
+</div>
+<div id="outline-container-org291990e" class="outline-4">
+<h4 id="org291990e"><span class="section-number-4">6.2.3.</span> Grading</h4>
+<div class="outline-text-4" id="text-6-2-3">
+<p>
+You'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs.</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> file with the information
+described above.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+<li>Your code follows good style convention (we will get more strict on this as we progress with
+each language).</li>
+</ul>
+
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+
+<p>
+You are welcome to revise your submission until the revision deadline (see Gradescope). 
+</p>
+
+<p>
+If you revise your submission, double-check to make sure that the autograder tests pass and that you
+have included <code>CollaborationsAndSources.txt</code>. 
+</p>
+
+<div class="note" id="org3d2a890">
+<p>
+Assignment modified from one originally designed by Dave Musicant (with input from Stephen Fruend and John Mitchell) - thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: annameyer</p>
+<p class="date">Created: 2026-01-02 Fri 17:24</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
