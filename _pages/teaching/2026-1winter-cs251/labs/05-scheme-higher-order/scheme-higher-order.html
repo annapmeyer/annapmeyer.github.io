@@ -1,0 +1,453 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/labs/higher-order.html
+---
+
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Activity: Higher Order Functions</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Activity: Higher Order Functions</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8dcfb98">1. Activity structure</a></li>
+<li><a href="#org28a9a60">2. Setup</a></li>
+<li><a href="#orga48e5a4">3. Tasks</a>
+<ul>
+<li><a href="#org10aee43">3.1. map practice</a></li>
+<li><a href="#org1988306">3.2. fold-left</a>
+<ul>
+<li><a href="#orgf070260">3.2.1. input/output practice</a></li>
+<li><a href="#org6a6a2ea">3.2.2. Using fold-left</a></li>
+<li><a href="#orgbc110d6">3.2.3. Implementing fold-left</a></li>
+</ul>
+</li>
+<li><a href="#org9d23a27">3.3. fold-right</a></li>
+<li><a href="#org5e267aa">3.4. Extra time?</a></li>
+</ul>
+</li>
+<li><a href="#orgd2e6562">4. Turning in activities</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8dcfb98" class="outline-2">
+<h2 id="org8dcfb98"><span class="section-number-2">1.</span> Activity structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an <b>activity</b> not an assignment.That means it is not graded: you won't
+get formal feedback on it, but it is a great chance to practice with the ideas
+we've been talking about and it may also guide you through some new ideas.
+You'll work on it during class, usually with another students,
+or if you have to miss class, you'll complete it outside of class.
+</p>
+
+<p>
+If you're working with someone, you should work in a paired programming style.
+At any point in time, one of you is "driving," i.e. actually using the
+keyboard and mouse. The other is actively engaged following along, preventing
+bugs, and providing ideas. You'll tradeoff who is driving
+<b>about every 10 minutes</b>, and it's important that regardless of whose
+computer you're using, you take turns typing and controlling it - the owner
+of the computer <b>should not be the only one who drives</b>. Before you start
+coding for a new part of the activity, I strongly encourage you to sketch out
+your strategy with your partner. You might discuss possible approaches
+together, and write down some ideas on paper that will then help you when
+you begin coding.
+</p>
+
+<p>
+At the end of class, you should make sure you turn your code in
+(even if you're not done), as that gives you access to my solutions,
+and to email the code to your partner (so they can turn it in to access
+my solutions).
+</p>
+</div>
+</div>
+<div id="outline-container-org28a9a60" class="outline-2">
+<h2 id="org28a9a60"><span class="section-number-2">2.</span> Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If both you and your partner have computers with you with the tools for our
+class setup on it, decide whose computer you'll be using. 
+</p>
+
+<p>
+Them you'll do the activity in VS Code: download the starter code (below),
+unzip it, move it into the ProgrammingLanguages folder for our Docker
+container, and then open that folder within the  Docker container in VSCode. 
+</p>
+
+
+<p>
+<a href="../../../_pages/teaching/2025-1fall-cs251/labs/05-scheme-higher-order/Activity-Higher-Order-Functions.zip">Click here to download the starter code for this activity.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orga48e5a4" class="outline-2">
+<h2 id="orga48e5a4"><span class="section-number-2">3.</span> Tasks</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Put all of your code for these tasks in <code>main.scm</code>. Put written
+answers in <code>WrittenAnswers.txt</code>.
+</p>
+</div>
+<div id="outline-container-org10aee43" class="outline-3">
+<h3 id="org10aee43"><span class="section-number-3">3.1.</span> map practice</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Here's some Scheme code:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">map</span> (<span style="color: #a020f0;">lambda</span> (item) (+ 2 item)) '(1 4 7 10))
+</pre>
+</div>
+
+<p>
+What will this expression evaluate to? Try to figure it out <b>without</b>
+using the interpreter. Write your answer in
+<code>WrittenAnswers.txt</code>.  After you've come up with an answer, check your answers in Guile by running the input; you'll need to
+use the following line first to tell Guile to use a module:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(use-modules (rnrs))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1988306" class="outline-3">
+<h3 id="org1988306"><span class="section-number-3">3.2.</span> fold-left</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Recall that Scheme has two versions of a reduce-like
+function: <code>fold-left</code> and <code>fold-right</code>. <code>fold-left</code> applies the reduction from left to right,
+while <code>fold-right</code> applies the reduction from right to left (although as
+usual, it is always initially accessing the Scheme list from left to
+right). Here are a couple of inputs and expected outputs for <code>fold-left</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(fold-left + 3 '(7 0 4)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Returns 14
+</span>(fold-left - 3 '(7 0 4)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Returns -8
+</span>(fold-left cons 3 '(7 0 4)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Returns (((3 . 7) . 0) . 4)</span>
+</pre>
+</div>
+
+<p>
+Make sure you can explain <b>why</b> fold-left returns each of the outputs
+above for these examples.
+</p>
+</div>
+<div id="outline-container-orgf070260" class="outline-4">
+<h4 id="orgf070260"><span class="section-number-4">3.2.1.</span> input/output practice</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+Determine the correct outputs for
+the following inputs (make sure you come up with an answer before you
+run these!):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(fold-left * 3 '()) 
+(fold-left - 8 '(1 -3 5)) 
+(fold-left cons 7 '((1 . 2) 3)) 
+</pre>
+</div>
+
+<p>
+Write each input and the expected output in WrittenAnswers.txt. As
+above, you
+can check your answers in Guile by running the input. Make sure you've
+told Guile to use the module:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(use-modules (rnrs))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6a6a2ea" class="outline-4">
+<h4 id="org6a6a2ea"><span class="section-number-4">3.2.2.</span> Using fold-left</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+Imagine I want to sum up all the entries in a list that are less
+than 10. For example, if I had the list <code>(10 5 9 20 25 2 35)</code>, I'd
+want to get 16, since <code>5+9+2=16</code>.
+</p>
+
+<p>
+In <code>main.scm</code>, write a Scheme function <code>sum-small</code> to accomplish your task. The
+function should take a single input, the list to sum up, and it should
+use <code>fold-left</code>. I'd call it like: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(sum-small '(10 5 9 20 25 2 35))
+</pre>
+</div>
+
+<p>
+Not sure where to start? Here's the skeleton of my code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">define</span> <span style="color: #0000ff;">sum-small</span>
+  (<span style="color: #a020f0;">lambda</span> (lst)
+    (fold-left (<span style="color: #a020f0;">lambda</span> (cur-total next-item) [FUNCTION BODY - you'll fill this in!])
+               FILL-IN
+               lst)))
+</pre>
+</div>
+
+<p>
+You'll fill in the function body and the second input to <code>fold-left</code>
+marked FILL-IN above.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbc110d6" class="outline-4">
+<h4 id="orgbc110d6"><span class="section-number-4">3.2.3.</span> Implementing fold-left</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+You'll now write your own version of <code>fold-left</code>, which we'll call
+<code>fold-l</code>. First, brainstorm what the base case(s) and recursive case(s)
+are, and then write your code in <code>main.scm</code>. Test your code on the examples
+above. If you wish, you can add your own tests to
+<code>tests-activity.scm</code>, and then you can run these tests with <code>./test-activity</code>; look at
+mine for examples of the syntax, and feel free to ask for help if you
+get stuck!
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org9d23a27" class="outline-3">
+<h3 id="org9d23a27"><span class="section-number-3">3.3.</span> fold-right</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Now, you'll do the same thing for fold-right. To remind yourself what
+fold-right does and how it differs from fold-left, here are a couple
+of examples of inputs and outputs from fold-right:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(fold-right cons 3 '(7 0 4)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Returns (7 0 4 . 3)
+</span>(fold-right list '(1) '(21 22 23)) <span style="color: #b22222;">;; </span><span style="color: #b22222;">Returns (21 (22 (23 (1))))</span>
+</pre>
+</div>
+
+<p>
+Before you start writing code, determine the correct outputs for
+the following inputs (make sure you come up with an answer before you
+run these!):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(fold-right cons '(1 2)  '(10 11 12))
+(fold-right list 4 '(3)) 
+</pre>
+</div>
+
+<p>
+Write each input and the expected output in WrittenAnswers.txt. As
+above, you can check your answers in Guile if you use the <code>rnrs</code>
+module.
+</p>
+
+<p>
+Now, write your own version fold-right, which we'll call <code>fold-r</code>. As
+above, brainstorm what the base case(s) and recursive case(s) should
+be, and then write your code in <code>main.scm</code>. Test your code using a
+variety of inputs and outputs.
+</p>
+</div>
+</div>
+<div id="outline-container-org5e267aa" class="outline-3">
+<h3 id="org5e267aa"><span class="section-number-3">3.4.</span> Extra time?</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+If you have extra time, write two functions: <code>reverse-fold-l</code> and
+<code>reverse-fold-r</code>. Each of these functions takes a list as input, and
+returns the reverse of that list as output. <code>reverse-fold-l</code> should
+call the <code>fold-l</code> function, while <code>reverse-fold-r</code> should call the
+<code>fold-r</code> function.
+</p>
+
+<p>
+<i>Hint:</i> My implementation of each of these includes a single call to
+<code>fold-l</code> or <code>fold-r</code>, and defines a function using <code>lambda</code> to pass in
+to <code>fold-l</code> or <code>fold-r</code>. One note that may be helpful: the base case
+of <code>append</code> is such that <code>(append '() 'whatever)</code> evaluates to
+<code>whatever</code> (i.e., appending to an empty list simply returns wht you're
+appending to - you might consider how to implement append for why this
+is the case).
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd2e6562" class="outline-2">
+<h2 id="orgd2e6562"><span class="section-number-2">4.</span> Turning in activities</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To turn in this activity, zip up the folder with your code, and upload that
+zip on Moodle. Additionally, email the zip to your partner so they can turn
+it in too. Even if you worked with a partner or you didn't finish, everyone
+should turn in the activity in order to gain access to my solutions. 
+</p>
+
+<div class="note" id="orgf877840">
+<p>
+This activity was originally designed by Anna Rafferty - thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
