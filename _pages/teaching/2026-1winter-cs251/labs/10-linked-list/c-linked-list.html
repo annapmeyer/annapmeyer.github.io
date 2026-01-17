@@ -1,0 +1,518 @@
+---
+layout: null
+permalink: /teaching/cs251fall25/labs/linked-list.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Activity: Linked List</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Activity: Linked Lists in C</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0f553fd">1. Activity structure</a></li>
+<li><a href="#org8f2026d">2. Setup</a></li>
+<li><a href="#orge5600db">3. Tasks</a>
+<ul>
+<li><a href="#org3685ec3">3.1. insertFront</a></li>
+<li><a href="#orgc48dc9b">3.2. printList</a></li>
+<li><a href="#org3a5de5a">3.3. Trying a debugger</a></li>
+<li><a href="#org24715be">3.4. destroyList</a></li>
+<li><a href="#org7028a33">3.5. deleteItem</a></li>
+<li><a href="#org6187e6d">3.6. find</a></li>
+<li><a href="#orgf893a15">3.7. Extra time?</a></li>
+</ul>
+</li>
+<li><a href="#orgf03a583">4. Turning in activities</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0f553fd" class="outline-2">
+<h2 id="org0f553fd"><span class="section-number-2">1.</span> Activity structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is an <b>activity</b> not an assignment.That means it is not graded: you won't
+get formal feedback on it, but it is a great chance to practice with the ideas
+we've been talking about and it may also guide you through some new ideas.
+You'll work on it during class, usually with another students,
+or if you have to miss class, you'll complete it outside of class.
+</p>
+
+<p>
+If you're working with someone, you should work in a paired programming style.
+At any point in time, one of you is "driving," i.e. actually using the
+keyboard and mouse. The other is actively engaged following along, preventing
+bugs, and providing ideas. You'll tradeoff who is driving
+<b>about every 10 minutes</b>, and it's important that regardless of whose
+computer you're using, you take turns typing and controlling it - the owner
+of the computer <b>should not be the only one who drives</b>. Before you start
+coding for a new part of the activity, I strongly encourage you to sketch out
+your strategy with your partner. You might discuss possible approaches
+together, and write down some ideas on paper that will then help you when
+you begin coding.
+</p>
+
+<p>
+At the end of class, you should make sure you turn your code in
+(even if you're not done), as that gives you access to my solutions,
+and to email the code to your partner (so they can turn it in to access
+my solutions).
+</p>
+</div>
+</div>
+<div id="outline-container-org8f2026d" class="outline-2">
+<h2 id="org8f2026d"><span class="section-number-2">2.</span> Setup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If both you and your partner have computers with you with the tools for our
+class setup on it, decide whose computer you'll be using. 
+</p>
+
+<p>
+Them you'll do the activity in VS Code: download the starter code (below),
+unzip it, move it into the ProgrammingLanguages folder for our Docker
+container, and then open that folder within the  Docker container in VSCode. 
+</p>
+
+
+
+<p>
+<a href="../../../_pages/teaching/2025-1fall-cs251/labs/10-linked-list/Linked-List-Activity.zip">Click here to access the starter code for this activity.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orge5600db" class="outline-2">
+<h2 id="orge5600db"><span class="section-number-2">3.</span> Tasks</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+In this activity, you'll be adding to the code in <code>linkedlist.c</code> to
+develop some more linked list functionality. The code that is there
+right now is close to where we ended with livecoding in class.
+</p>
+</div>
+<div id="outline-container-org3685ec3" class="outline-3">
+<h3 id="org3685ec3"><span class="section-number-3">3.1.</span> insertFront</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Right now, the linked list is a pain to use: I had to make each node
+one by one!  Write a new function <code>insertFront</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">/* Adds a new node with the given item
+ * in front of head. Returns a pointer
+ * to the new node.
+ */
+Node *insertFront(Node *head, int item) {
+  //You'll fill in the body!
+}
+</pre>
+</div>
+
+<p>
+As noted in the comment, this function adds a new item to the front of
+the list. It returns the pointer to that new node, allowing me to do
+something like:
+</p>
+<div class="org-src-container">
+<pre class="src src-c">Node *head = NULL;
+head = insertFront(head, 3);
+head = insertFront(head, 2);
+head = insertFront(head, 1);
+</pre>
+</div>
+
+<p>
+This creates a list with the items 1, 2, and then 3.
+</p>
+
+<p>
+In main, test your code by creating a list of length 3 using the code
+above. 
+</p>
+
+<p>
+Use valgrind to check if you have any memory errors or leaks. You can
+do so by compiling your code with the <code>-g</code> option, and then running valgrind:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">clang -g -o linkedlist linkedlist.c
+valgrind ./linkedlist
+</pre>
+</div>
+
+
+<p>
+If you have memory leaks, you can see more about them by adding
+<code>--leak-check=full</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">valgrind --leak-check=full ./linkedlist
+</pre>
+</div>
+
+<p target="_blank">
+If you get stuck on <code>insertFront</code>, please raise your hand and ask for help!
+</p>
+</div>
+</div>
+<div id="outline-container-orgc48dc9b" class="outline-3">
+<h3 id="orgc48dc9b"><span class="section-number-3">3.2.</span> printList</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+As you've probably noticed, printing the list is also currently rather
+cumbersome. Add a function <code>printList(Node *head)</code> that prints the
+items in the given list. You might want to make this pretty in some
+way, e.g., by adding commas between items or braces before and after
+the list (e.g., [1, 2, 3]). As above, test your function in <code>main</code>,
+perhaps after using <code>insertFront</code> to create a longer list. 
+</p>
+</div>
+</div>
+<div id="outline-container-org3a5de5a" class="outline-3">
+<h3 id="org3a5de5a"><span class="section-number-3">3.3.</span> Trying a debugger</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+ Debuggers
+like gdb
+typically allow you to do things like:
+</p>
+
+<ul class="org-ul">
+<li>Set a breakpoint: A breakpoint is a specific line in your code where
+you would like to stop execution of the program so you can take a
+look at what's going on. When execution is stopped, you can
+print out the values of variables.</li>
+<li>Step line-by-line through the program: You can view each line of
+code as it executes, determining exactly what line a crash occurs,
+and print out the values of variables to understand what's
+happening.</li>
+</ul>
+<p>
+These features are incredibly useful for debugging your code! This is
+especially true in C, where you might get errors like "Segmentation
+fault" with no info on where the error has occurred.
+</p>
+
+<p>
+You have two options for using the debugger with C, both of which
+buid on a debugger named <code>gdb</code>: working on the
+command line with gdb, or using a plugin with VSCode that makes things
+a little easier to work with visually. 
+</p>
+
+<p>
+Getting the visual part
+requires a small amount of setup: you'll need to put a <code>launch.json</code>
+file in a particular spot:
+</p>
+<ul class="org-ul">
+<li>First, look in the file explorer in VSCode. Do you see a folder
+named <code>.vscode</code> in the ProgrammingLanguages directory? If not,
+ create one. Navigate to the <code>ProgrammingLanguages</code>
+directory - this is likely <code>cd ..</code> if you're currently in the
+<code>Linked-List-Activity</code> directory. Then type: <code>mkdir .vscode</code></li>
+<li>Now, you'll need to move the file named <code>launch.json</code> in
+<code>vscode-files</code> (in the starter code) into the <code>.vscode</code>
+directory. You can do so via drag and drop in the VSCode file
+explorer, or you can do so at the comment line:</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-bash">cp Linked-ListActivity/vscode-files/launch.json .vscode/
+</pre>
+</div>
+<p>
+That says to copy (<code>cp</code>) the file at
+<code>Linked-ListActivity/vscode-files/launch.json</code> into the directory <code>.vscode</code>.
+</p>
+
+
+
+<p>
+Now, let's try the debugger on the <code>linkedlist</code> program you just created.
+</p>
+
+<p>
+First, compile <code>linkedlist.c</code> with the <code>-g</code> flag, just
+like you needed for <code>valgrind</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">clang -g -o linkedlist linkedlist.c
+</pre>
+</div>
+
+<p>
+Then we'll set a breakpoint and then start the debugger. To set a
+breakpoint, you'll click slightly to the left of the line number in
+<code>linkedlist.c</code>. You should get a red circle. Set a breakpoint
+somewhere in your <code>main</code> function.
+</p>
+
+<p>
+Then, you'll start the debugger. Go to the "Run and Debug" in the left
+panel (has a left arrow and a weird looking bug as an icon). After you
+click it, you should see a button near the top that is a green arrow
+and where the text for it begins with "(gdb)". Click on that green
+arrow, and your program should start running and stop when it hits the
+breakpoint. Try stepping through the code line by line, and take a
+look at the variable values that are now in the same pane as the green
+arrow was.
+</p>
+
+<div class="note">
+  <p>
+    You may get an error that says "Program .... does not exist". If this happens, it means you have a different
+    file structure than we intended: <code>ProgrammingLanguages/Linked-List-Activity</code>. You have two options:
+    you can either rearrange your folders to have this file structure, or you can open <code>launch.json</code> 
+    and updates lines 11 and 14 to match your file structure.</p>
+  </div>
+
+<p>
+You may find some debugging resources helpful:
+</p>
+<ul class="org-ul">
+<li><a href="https://code.visualstudio.com/docs/editor/debugging">This page describes the VSCode debugging interface</a>. It's very
+helpful for seeing what buttons to press and where to look. I
+encourage you to check it out!</li>
+<li><a href="https://www.cs.carleton.edu/faculty/arafferty/cs251/gdb5-refcard.pdf">Here's a helpful reference card with lots of gdb information.</a></li>
+</ul>
+
+<p>
+If you get stuck in later parts, try using the debugger to help you
+find the error! It allows you to compare what you think the values of
+the variables should be to the actual values of those variables.
+</p>
+</div>
+</div>
+<div id="outline-container-org24715be" class="outline-3">
+<h3 id="org24715be"><span class="section-number-3">3.4.</span> destroyList</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+We'll now deal with the final annoying part of your current list:
+remembering to free everything. Create a function <code>destroyList(Node
+*head)</code> that frees all of the allocated memory associated with
+head. It should assume that head refers to a Node on the heap, and
+that each of these nodes also refer to Nodes on the heap (or NULL at
+the end. 
+</p>
+
+<p>
+In <code>main</code>, test with lists of several different lengths, and as above,
+make sure to use <code>valgrind</code> to check for memory leaks or errors.
+</p>
+</div>
+</div>
+<div id="outline-container-org7028a33" class="outline-3">
+<h3 id="org7028a33"><span class="section-number-3">3.5.</span> deleteItem</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Write a function <code>Node *deleteItem(Node *head, int item)</code> that deletes item from
+the list if it is present, and otherwise doesn't modify the list. It
+returns a pointer to the first node in the (possibly modified)
+list. If there are no items in the list, it returns NULL.
+</p>
+</div>
+</div>
+<div id="outline-container-org6187e6d" class="outline-3">
+<h3 id="org6187e6d"><span class="section-number-3">3.6.</span> find</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Write a function <code>int find(Node *head, int item)</code> that returns the
+index of the given item in the list. If the item isn't found, return
+-1.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf893a15" class="outline-3">
+<h3 id="orgf893a15"><span class="section-number-3">3.7.</span> Extra time?</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+If you have extra time, I recommend the following activities:
+</p>
+<ul class="org-ul">
+<li>Find out what happens with bugs!: Writing the previous functions
+might have given you lots of practice seeing bugs, but there are
+some you might not have seen. Examine what errors occur (or don't
+occur!) with a variety of common memory mistakes: dereferencing a
+pointer that hasn't been initialized, access stack memory that is no
+longer allocated, writing to memory that hasn't been allocated, and
+anything else you can think of related to memory allocation. Seeing
+the errors that occur will help you to recognize these errors when
+they inevitably occur for you at some point in the future.</li>
+<li>Flesh out your linked list with other useful functions that you'd
+expect from a linked list, such as inserting at a particular index. With your partner, brainstorm about what
+the pros and cons would be of directly passing our Node *s, versus
+creating another struct named LinkedList that has a single member, a
+Node * that will refer to the head of the list, and passing around a
+reference to the LinkedList. How would this alternative make it
+easier to have the same functionality as <code>delete</code> but to return a
+value indicating whether or not an item was removed?</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf03a583" class="outline-2">
+<h2 id="orgf03a583"><span class="section-number-2">4.</span> Turning in activities</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To turn in this activity, zip up the folder with your code, and upload that
+zip on Moodle. Additionally, email the zip to your partner so they can turn
+it in too. Even if you worked with a partner or you didn't finish, everyone
+should turn in the activity in order to gain access to my solutions. 
+</p>
+
+<div class="note">
+<p>
+Activity originally designed by Anna Rafferty - thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

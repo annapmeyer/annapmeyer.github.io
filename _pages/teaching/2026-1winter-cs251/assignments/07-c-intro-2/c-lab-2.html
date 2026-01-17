@@ -1,0 +1,647 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/c-intro2.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Homework 7: Intro to C, part 2</title>
+<!-- 2024-03-22 Fri 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="annameyer" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Homework 7: C Introduction 2</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgdf9ac03">1. Get started</a></li>
+<li><a href="#orgf4763a4">2. Your tasks</a>
+<ul>
+<li><a href="#org6ab3d3b">2.1. Guess a number</a></li>
+<li><a href="#org9fafbef">2.2. Arrays</a></li>
+<li><a href="#org1e8fb07">2.3. Pointers</a></li>
+<li><a href="#org05e6505">2.4. Structs</a></li>
+</ul>
+</li>
+<li><a href="#org02cfb89">3. How to test and submit your work</a>
+<ul>
+<li><a href="#org2b2f7b8">3.1. Testing your work</a></li>
+<li><a href="#org855493e">3.2. Submitting your work</a>
+<ul>
+<li><a href="#org2881650">3.2.1. Acknowledging help</a></li>
+<li><a href="#org0dfce7d">3.2.2. Generating the submission file and uploading to Gradescope</a></li>
+<li><a href="#orgcbccffe">3.2.3. Grading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This assignment is to be done individually.
+You can talk to other people in the class to come up with ideas and get help with general concepts, 
+but you should not show others your code, nor 
+see others' code. You can get direct help debugging from Anna and any of the course staff (graders, lab assistants, 
+prefects). 
+</p>
+<div id="outline-container-orgdf9ac03" class="outline-2">
+<h2 id="orgdf9ac03"><span class="section-number-2">1.</span> Get started</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/c-intro2-starter.zip">Click here to download the starter files.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgf4763a4" class="outline-2">
+<h2 id="orgf4763a4"><span class="section-number-2">2.</span> Your tasks</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org6ab3d3b" class="outline-3">
+<h3 id="org6ab3d3b"><span class="section-number-3">2.1.</span> Guess a number</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<b>EXERCISE 1</b>: Write a program <code>guess.c</code> that picks a random number between 1 and 100 and has the user 
+repeatedly guess the number in a while loop. 
+For random numbers, use the <a href="http://man7.org/linux/man-pages/man3/random.3.html">random</a> function. 
+Here is a sample usage:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;time.h&gt;</span>
+
+...
+<span style="color: #228b22;">unsigned</span> <span style="color: #228b22;">int</span> seed;
+scanf(<span style="color: #8b2252;">"%u"</span>, &amp;seed);
+<span style="color: #0000ff;">srandom</span>(seed);
+<span style="color: #b22222;">//</span><span style="color: #b22222;">srandom((unsigned int)time(NULL));
+</span><span style="color: #228b22;">int</span> <span style="color: #a0522d;">rand_num</span> = random()%100 + 1;
+</pre>
+</div>
+
+<p>
+Note that with the above approach, you'll produce the same random number every time you run your program, 
+based on the seed. That's good, as it allows our testing code to work reliably. That said, I've shown 
+commented code above that you can use just for fun that lets you pull the random number seed 
+from the system clock, rather than based on user input.
+</p>
+
+<p>
+A run of your program might look like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">Enter a random seed: 112233
+Guess a number: 50
+Too high!
+Guess a number: 37
+Too low!
+Guess a number: 43
+Too high!
+Guess a number: 40
+Too high!
+Guess a number: 39
+Correct! Total <span style="color: #a0522d;">guesses</span> = 5
+</pre>
+</div>
+
+<p>
+You can take a look at the tests to see how we're checking your work. In
+particular, it's important that you say "Too high!", "Too low!", and
+"Total guesses = " followed by the number of total
+guesses. Additionally, it's important that the seed is the first thing
+requested from the user, followed by the guesses.
+</p>
+
+<p>
+If a user guesses a number that is not between 1 and 100, tell them
+it's out of range and do not include that guess in the count of total guesses.
+</p>
+</div>
+</div>
+<div id="outline-container-org9fafbef" class="outline-3">
+<h3 id="org9fafbef"><span class="section-number-3">2.2.</span> Arrays</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+You can declare an array in C by giving the type and size of the array. See 
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/arrays.c">arrays.c</a>
+for a sample program.
+</p>
+
+<p>
+Just like in Java, C has arrays that allow you to have a sequence of
+values.
+You can allocate
+space on the stack or in the heap. Here's an example of the difference:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">array_stack</span>[10];<span style="color: #b22222;">//</span><span style="color: #b22222;">Allocates a 10 integer array on the stack
+</span><span style="color: #228b22;">int</span> *<span style="color: #a0522d;">array_heap</span> = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>)*10); <span style="color: #b22222;">//</span><span style="color: #b22222;">Allocates a 10 integer array on the heap</span>
+</pre>
+</div>
+
+<p>
+In either case, you can use [] notation or derefencing to
+read and write elements:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">array_stack</span>[3] = 5; <span style="color: #b22222;">//</span><span style="color: #b22222;">equivalent to: *(array_stack + 3) = 5;</span>
+</pre>
+</div>
+
+<p>
+Unlike Java, there's <a href="https://stackoverflow.com/a/10349610/490329">no reasonable way to find out the length of an
+array</a>, so you need to keep track of an array's length yourself. And if
+you write past the end of an array, there's no check or "out of bounds
+error" - it will just modify whatever happens to be next in memory!
+</p>
+
+<p>
+In <a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/arrays.c">arrays.c</a>, the
+following line is commented out:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">array</span>[10] = 5;
+</pre>
+</div>
+
+<p>
+Uncomment that line, and observe how the
+value of x changes. Note that clang issues a warning that you're doing
+a bad thing, which you are, but the program should still run. What
+does this imply about the layout of the variables in memory? After you've
+experimented, re-comment out this line to get rid of the compiler
+warning.
+</p>
+
+
+<p>
+<b>EXERCISE 2:</b> Create a new file <code>sums.c</code> to ask the user how many numbers
+they'd like to store and what number they'd like to start at. Allocate
+an array to store that number of numbers, and write that number of
+numbers into the array, consecutively and starting at the number they
+say they'd like to start at. Then, print out the sum of the numbers at
+odd indices in the array.
+</p>
+
+<p>
+Here's an example of me interacting with my program:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">How many numbers<span style="color: #a020f0;"> do</span> you want to include? 4
+What number<span style="color: #a020f0;"> do</span> you want to start at? 7
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1e8fb07" class="outline-3">
+<h3 id="org1e8fb07"><span class="section-number-3">2.3.</span> Pointers</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+The variable <code>array</code> is actually a pointer to the first element of the array. 
+A pointer is a special type containing the address in memory of some data. You
+can use pointer arithmetic to access the elements of the array.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">printf(<span style="color: #8b2252;">"Array address: %p\n"</span>, array);
+<span style="color: #a020f0;">for</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>=0; i &lt; 10; i++) {
+  printf(<span style="color: #8b2252;">"Array element at address %p: %i\n"</span>, array+i, *(array + i));
+}
+</pre>
+</div>
+
+<p>
+Here the expression <code>array + i</code> gives the address of the i-th element in the array.
+The expression <code>*(array + i)</code> retrieves the integer value stored at that address. 
+</p>
+
+<p>
+Here's a quick summary of C's basic pointer operations (we'll discuss more in class).
+<code>&amp;E</code> evaluates to the address of an expression E. <code>*p</code> gives the value stored at the 
+location pointer to by <code>p</code>. <code>p</code> must have a pointer type, indicated by a <code>*</code> in the
+type declaration. For example, <code>int *</code> is the type representing a pointer to an int.
+So if <code>p</code> has type <code>T *</code>, the <code>*p</code> has type <code>T</code>. 
+</p>
+
+<p>
+As an example, read and run the program 
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/pointers.c">pointers.c</a>.
+Try drawing the execution of the program on paper, with boxes for memory locations and
+arrows for pointers. Can you see how we end up with the final values for <code>a</code> and <code>b</code>?
+Hopefully it also makes more sense why we pass arguments to <code>scanf</code> using the <code>&amp;</code> operator.
+</p>
+
+
+
+<p>
+<b>EXERCISE 3:</b> If you declare two variables in a row, i.e., <code>a</code> and <code>b</code>, does the second
+one have a higher memory address or a lower one? Add an "if" to your code to determine
+if the memory address for <code>b</code> is higher or lower than the one for <code>a</code>. If it is 
+higher, print "higher" to the screen; otherwise, print "lower". 
+</p>
+</div>
+</div>
+<div id="outline-container-org05e6505" class="outline-3">
+<h3 id="org05e6505"><span class="section-number-3">2.4.</span> Structs</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+C does not have classes or objects. However, you'll often run into
+situations where you want to group related values together. For this
+purpose, you can create a <i>struct</i>, a special kind of user-defined
+type.
+</p>
+
+<p>
+Structs are defined using the keyword <code>struct</code>, a name for the struct, and a list of member variables 
+within curly braces. For example, here's a struct to represent a student 
+(see <a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/student.c">student.c</a> for the full code listing):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Student</span> {
+    <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">first_name</span>;
+    <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">last_name</span>;
+    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">id</span>;
+};
+</pre>
+</div>
+
+<p>
+You can create an instance of a struct type by declaring it with the
+<code>struct</code> keyword, and access member variables using the dot (.)
+operator. See <a href="../../_pages/teaching/2026-1winter-cs251/assignments/07-c-intro-2/student.c">student.c</a> for details.
+</p>
+
+
+<p>
+<b>EXERCISE 4:</b> Create a new file <code>complex.c</code>. In this file, add a
+struct type <code>struct Complex</code> containing two doubles representing the
+real and imaginary parts of a complex number. Add a function,
+<code>multiply_in_place</code> that has two parameters, both pointers to
+variables of type <code>struct
+Complex</code>. After this function is run, the two input pointers should reference the
+product of the two complex numbers they originally pointed
+to. <code>multiply_in_place</code> should not return anything (i.e., its return
+type is <code>void</code>). Note
+that if you have two complex numbers \(c_1\) and \(c_2\) whose real parts
+are \(a_1\) and \(a_2\) and whose imaginary parts are \(b_1\) and \(b_2\),
+respectively, then the real part of their product is \(a_1 * a_2 -
+b_1 * b_2\), and their imaginary part is \(a_1 * b_2 + a_2 * b_1\). 
+</p>
+
+<p>
+In main, the program should prompt the user for the two complex
+numbers and then print out both numbers before and after calling the
+multiplication function. Here is a sample run, which you should match to make sure you pass the tests:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">Enter real part of c1: 2
+Enter imaginary part of c1: 5
+Enter real part of c2: 3
+Enter imaginary part of c2: 4
+Before multiplication:
+c1:       2.00 +       5.00 i
+c2:       3.00 +       4.00 i
+After multiplication:
+c1:     -14.00 +      23.00 i
+c2:     -14.00 +      23.00 i
+</pre>
+</div>
+
+<p>
+To get the output looking like I did with two decimal places, I wrote
+a short function for printing a complex number:
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #b22222;">/* </span><span style="color: #b22222;">Prints a complex number with two decimal places of precision</span><span style="color: #b22222;"> */</span>
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">print_complex</span>(<span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Complex</span> <span style="color: #a0522d;">num</span>) {
+  printf(<span style="color: #8b2252;">"%10.2f + %10.2f i\n"</span>, num.real, num.imaginary);
+}
+</pre>
+</div>
+<p>
+Please copy and paste this function into your code and use it to allow
+you to match my output exactly.
+</p>
+
+<p>
+<b>Note for testing scripts</b>: The scripts won't directly check that your
+<code>multiply_in_place</code> function is working in the manner stated here,
+with the values that are pointed to by the inputs actually being
+changed. <b>However, we will consider not doing this to be an instance of
+hyper-tailoring your code to our tests.</b> One way to ensure that you are
+not doing so is to make sure you call <code>print_complex</code> on a variable
+<code>c1</code> twice and on a variable <code>c2</code> twice, with the only non-printing thing that
+happens in between being a call to <code>multiply_in_place</code>.
+</p>
+
+<p>
+Note that while the testing scripts are ignoring your spacing, they
+are checking for exact matches on the colons/etc that I have above.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org02cfb89" class="outline-2">
+<h2 id="org02cfb89"><span class="section-number-2">3.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org2b2f7b8" class="outline-3">
+<h3 id="org2b2f7b8"><span class="section-number-3">3.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+As with previous assignments, there are M tests and E tests. See the section of Scheme Intro 2
+labeled "How to test your work" if 
+you need a refresher on how to run these tests. 
+For C homework assignments after the first two, the tests will also
+use Valgrind to check your code. Make sure to run the tests in the Docker environment. 
+</p>
+</div>
+</div>
+<div id="outline-container-org855493e" class="outline-3">
+<h3 id="org855493e"><span class="section-number-3">3.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-org2881650" class="outline-4">
+<h4 id="org2881650"><span class="section-number-4">3.2.1.</span> Acknowledging help</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+Create a file called <code>CollaborationsAndSources.txt</code>, and in it,
+indicate in what ways (if any) you collaborated with other people or consulted
+outside resources on this assignment. 
+Did you share strategies with anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with and some description of
+your interactions. If you used any resources outside of notes taken in class or the homework/lab starter files that
+Anna provided, that is also something to note. 
+</p>
+
+<p>
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org0dfce7d" class="outline-4">
+<h4 id="org0dfce7d"><span class="section-number-4">3.2.2.</span> Generating the submission file and uploading to Gradescope</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+After completing <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code> (if you get a permissions error, run <code>chmod u+x ./zipitup</code> first).
+This script will create a zip file <code>XXX_submission.zip</code> where XXX is the assignment name or number. 
+Upload this file to Gradescope. 
+</p>
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small chance that the tests will fail on Gradescope, even 
+if they passed on your own computer. Usually this means that you coded something in a 
+different way than we expected when writing the autograders. We will be grading based on the 
+results of the tests on Gradescope, so make sure to pay attention to the results of the tests there.
+(If you run into this issue, check that you are submitting to the correct assignment on Gradescope. 
+Then try resubmitting and rerunning the autograder. If the error messages are legible, feel free to debug further, 
+but it's also fine to reach out to Anna or the graders at this point.)
+</p>
+</div>
+</div>
+<div id="outline-container-orgcbccffe" class="outline-4">
+<h4 id="orgcbccffe"><span class="section-number-4">3.2.3.</span> Grading</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+You'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs.</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> file with the information
+described above.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+<li>Your code follows good style convention (we will get more strict on this as we progress with
+each language).</li>
+</ul>
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+<p>
+You are welcome to revise your submission until the revision deadline (see Gradescope). 
+</p>
+
+<p>
+If you revise your submission, double-check to make sure that the autograder tests pass and that you
+have included <code>CollaborationsAndSources.txt</code>. 
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+
+<div class="note" id="org2bc7ef3">
+<p>
+Assignment modified from one originally designed by Dave Musicant - Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
