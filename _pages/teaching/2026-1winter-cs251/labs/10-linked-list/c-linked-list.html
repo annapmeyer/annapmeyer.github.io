@@ -1,15 +1,14 @@
 ---
 layout: null
-permalink: /teaching/cs251fall25/labs/linked-list.html
+permalink: /teaching/cs251winter26/labs/linked-list.html
 ---
 
-
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Activity: Linked List</title>
+<title>Activity: Linked Lists in C</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -155,25 +154,25 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0f553fd">1. Activity structure</a></li>
-<li><a href="#org8f2026d">2. Setup</a></li>
-<li><a href="#orge5600db">3. Tasks</a>
+<li><a href="#orge482304">1. Activity structure</a></li>
+<li><a href="#org6d70e15">2. Setup</a></li>
+<li><a href="#orgec056d0">3. Tasks</a>
 <ul>
-<li><a href="#org3685ec3">3.1. insertFront</a></li>
-<li><a href="#orgc48dc9b">3.2. printList</a></li>
-<li><a href="#org3a5de5a">3.3. Trying a debugger</a></li>
-<li><a href="#org24715be">3.4. destroyList</a></li>
-<li><a href="#org7028a33">3.5. deleteItem</a></li>
-<li><a href="#org6187e6d">3.6. find</a></li>
-<li><a href="#orgf893a15">3.7. Extra time?</a></li>
+<li><a href="#orgf9b6d0f">3.1. insertFront</a></li>
+<li><a href="#orgb28b520">3.2. printList</a></li>
+<li><a href="#org3a86a98">3.3. Trying a debugger</a></li>
+<li><a href="#orgeae6f5c">3.4. destroyList</a></li>
+<li><a href="#org69f76c3">3.5. deleteItem</a></li>
+<li><a href="#org29f639f">3.6. find</a></li>
+<li><a href="#orgdb93e30">3.7. Extra time?</a></li>
 </ul>
 </li>
-<li><a href="#orgf03a583">4. Turning in activities</a></li>
+<li><a href="#org2de0ce4">4. Turning in activities</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0f553fd" class="outline-2">
-<h2 id="org0f553fd"><span class="section-number-2">1.</span> Activity structure</h2>
+<div id="outline-container-orge482304" class="outline-2">
+<h2 id="orge482304"><span class="section-number-2">1.</span> Activity structure</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is an <b>activity</b> not an assignment.That means it is not graded: you won't
@@ -205,8 +204,8 @@ my solutions).
 </p>
 </div>
 </div>
-<div id="outline-container-org8f2026d" class="outline-2">
-<h2 id="org8f2026d"><span class="section-number-2">2.</span> Setup</h2>
+<div id="outline-container-org6d70e15" class="outline-2">
+<h2 id="org6d70e15"><span class="section-number-2">2.</span> Setup</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 If both you and your partner have computers with you with the tools for our
@@ -222,12 +221,12 @@ container, and then open that folder within the  Docker container in VSCode.
 
 
 <p>
-<a href="../../../_pages/teaching/2025-1fall-cs251/labs/10-linked-list/Linked-List-Activity.zip">Click here to access the starter code for this activity.</a>
+<a href="../../_pages/teaching/2026-1winter-cs251/labs/10-linked-list/Linked-List-Activity.zip">Click here to access the starter code for this activity.</a>
 </p>
 </div>
 </div>
-<div id="outline-container-orge5600db" class="outline-2">
-<h2 id="orge5600db"><span class="section-number-2">3.</span> Tasks</h2>
+<div id="outline-container-orgec056d0" class="outline-2">
+<h2 id="orgec056d0"><span class="section-number-2">3.</span> Tasks</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 In this activity, you'll be adding to the code in <code>linkedlist.c</code> to
@@ -235,22 +234,22 @@ develop some more linked list functionality. The code that is there
 right now is close to where we ended with livecoding in class.
 </p>
 </div>
-<div id="outline-container-org3685ec3" class="outline-3">
-<h3 id="org3685ec3"><span class="section-number-3">3.1.</span> insertFront</h3>
+<div id="outline-container-orgf9b6d0f" class="outline-3">
+<h3 id="orgf9b6d0f"><span class="section-number-3">3.1.</span> insertFront</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
-Right now, the linked list is a pain to use: I had to make each node
+Right now, the linked list is a pain to use: I have to make each node
 one by one!  Write a new function <code>insertFront</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c">/* Adds a new node with the given item
+<pre class="src src-c"><span style="color: #b22222;">/* </span><span style="color: #b22222;">Adds a new node with the given item
  * in front of head. Returns a pointer
  * to the new node.
- */
-Node *insertFront(Node *head, int item) {
-  //You'll fill in the body!
-}
+</span><span style="color: #b22222;"> */</span>
+<span style="color: #228b22;">Node</span> *<span style="color: #0000ff;">insertFront</span>(<span style="color: #228b22;">Node</span> *<span style="color: #a0522d;">head</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">item</span>) {
+  <span style="color: #b22222;">//</span><span style="color: #b22222;">You'll fill in the body!
+</span>}
 </pre>
 </div>
 
@@ -260,7 +259,7 @@ the list. It returns the pointer to that new node, allowing me to do
 something like:
 </p>
 <div class="org-src-container">
-<pre class="src src-c">Node *head = NULL;
+<pre class="src src-c"><span style="color: #228b22;">Node</span> *<span style="color: #a0522d;">head</span> = <span style="color: #008b8b;">NULL</span>;
 head = insertFront(head, 3);
 head = insertFront(head, 2);
 head = insertFront(head, 1);
@@ -301,8 +300,8 @@ If you get stuck on <code>insertFront</code>, please raise your hand and ask for
 </p>
 </div>
 </div>
-<div id="outline-container-orgc48dc9b" class="outline-3">
-<h3 id="orgc48dc9b"><span class="section-number-3">3.2.</span> printList</h3>
+<div id="outline-container-orgb28b520" class="outline-3">
+<h3 id="orgb28b520"><span class="section-number-3">3.2.</span> printList</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 As you've probably noticed, printing the list is also currently rather
@@ -314,13 +313,11 @@ perhaps after using <code>insertFront</code> to create a longer list.
 </p>
 </div>
 </div>
-<div id="outline-container-org3a5de5a" class="outline-3">
-<h3 id="org3a5de5a"><span class="section-number-3">3.3.</span> Trying a debugger</h3>
+<div id="outline-container-org3a86a98" class="outline-3">
+<h3 id="org3a86a98"><span class="section-number-3">3.3.</span> Trying a debugger</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
- Debuggers
-like gdb
-typically allow you to do things like:
+Debuggers like gdb typically allow you to do things like:
 </p>
 
 <ul class="org-ul">
@@ -341,86 +338,66 @@ fault" with no info on where the error has occurred.
 
 <p>
 You have two options for using the debugger with C, both of which
-buid on a debugger named <code>gdb</code>: working on the
-command line with gdb, or using a plugin with VSCode that makes things
-a little easier to work with visually. 
+buid on a debugger named <code>gdb</code>: working on the command line with gdb, or 
+using a plugin with VSCode that makes things a little easier to work with visually. 
 </p>
 
 <p>
-Getting the visual part
-requires a small amount of setup: you'll need to put a <code>launch.json</code>
-file in a particular spot:
+Unfortunately, in my experience getting the visual debugger to work with the interpreter
+project is very finicky. I would rather that you have a working debugger than no debugger 
+(even if it's a little more cumbersome to use), so the instructers here are for command-line
+<code>gdb</code>. If you have experience with the VSCode plugin (or are motivated to learn) and want to try 
+your luck with that instead, feel free.
+</p>
+
+
+<p>
+Let's walk through <code>linkedlist</code> in gdb:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">gdb linkedlist
+</pre>
+</div>
+
+<p>
+Here are a couple important commands for <code>gdb</code>:
 </p>
 <ul class="org-ul">
-<li>First, look in the file explorer in VSCode. Do you see a folder
-named <code>.vscode</code> in the ProgrammingLanguages directory? If not,
- create one. Navigate to the <code>ProgrammingLanguages</code>
-directory - this is likely <code>cd ..</code> if you're currently in the
-<code>Linked-List-Activity</code> directory. Then type: <code>mkdir .vscode</code></li>
-<li>Now, you'll need to move the file named <code>launch.json</code> in
-<code>vscode-files</code> (in the starter code) into the <code>.vscode</code>
-directory. You can do so via drag and drop in the VSCode file
-explorer, or you can do so at the comment line:</li>
+<li>run (or <i>r</i>): starts your program running</li>
+<li>break (or <i>b</i>): <code>break functionName</code> will put in a breakpoint at the
+function named <code>functionName</code>. That means when you get to that
+function, the program will stop executing, allowing you to print out
+variables or step through line by line. <code>break lineNumber</code> where
+<code>lineNumber</code> is a line number will put in a breakpoint at that
+particular line. That means that when the program reaches that line
+of code (and before it executes it), it will stop executing.</li>
+<li>print (or <i>p</i>): <code>print x</code>, where <code>x</code> is a variable, will print the
+value of x. Note that this is printing before the line that is
+currently shown executes.</li>
+<li>step (or <i>s</i>): execute the current line of code and stop execution
+when the next line of code is reached, even if this next line is in a 
+different function.</li>
+<li>next (or <i>n</i>): execute the current line of code, <b>including any
+function calls</b>, and stop execution when the next line in the
+current function is reached.</li>
+<li>continue (or <i>c</i>): continue running the program until it ends,
+crashes, or a breakpoint occurs.</li>
+<li>backtrace (or <i>bt</i>): print out all frames in the stack (this is useful if the line an
+error occurs is in some library, so you can see where in your code
+called that library)</li>
+<li>quit: exit gdb.</li>
 </ul>
-<div class="org-src-container">
-<pre class="src src-bash">cp Linked-ListActivity/vscode-files/launch.json .vscode/
-</pre>
-</div>
-<p>
-That says to copy (<code>cp</code>) the file at
-<code>Linked-ListActivity/vscode-files/launch.json</code> into the directory <code>.vscode</code>.
-</p>
-
 
 
 <p>
-Now, let's try the debugger on the <code>linkedlist</code> program you just created.
-</p>
-
-<p>
-First, compile <code>linkedlist.c</code> with the <code>-g</code> flag, just
-like you needed for <code>valgrind</code>:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">clang -g -o linkedlist linkedlist.c
-</pre>
-</div>
-
-<p>
-Then we'll set a breakpoint and then start the debugger. To set a
-breakpoint, you'll click slightly to the left of the line number in
-<code>linkedlist.c</code>. You should get a red circle. Set a breakpoint
-somewhere in your <code>main</code> function.
-</p>
-
-<p>
-Then, you'll start the debugger. Go to the "Run and Debug" in the left
-panel (has a left arrow and a weird looking bug as an icon). After you
-click it, you should see a button near the top that is a green arrow
-and where the text for it begins with "(gdb)". Click on that green
-arrow, and your program should start running and stop when it hits the
-breakpoint. Try stepping through the code line by line, and take a
-look at the variable values that are now in the same pane as the green
-arrow was.
-</p>
-
-<div class="note">
-  <p>
-    You may get an error that says "Program .... does not exist". If this happens, it means you have a different
-    file structure than we intended: <code>ProgrammingLanguages/Linked-List-Activity</code>. You have two options:
-    you can either rearrange your folders to have this file structure, or you can open <code>launch.json</code> 
-    and updates lines 11 and 14 to match your file structure.</p>
-  </div>
-
-<p>
-You may find some debugging resources helpful:
+Try out gdb as follows:
 </p>
 <ul class="org-ul">
-<li><a href="https://code.visualstudio.com/docs/editor/debugging">This page describes the VSCode debugging interface</a>. It's very
-helpful for seeing what buttons to press and where to look. I
-encourage you to check it out!</li>
-<li><a href="https://www.cs.carleton.edu/faculty/arafferty/cs251/gdb5-refcard.pdf">Here's a helpful reference card with lots of gdb information.</a></li>
+<li>Add a breakpoint to the main function in <code>linkedlist.c</code>. (Type <code>b main</code> once <code>gdb</code> is running)</li>
+<li>Run the program in gdb.  (Type <code>r</code>)</li>
+<li>Step through line by line, and try printing out the values of
+different variables. (Use <code>s</code> and <code>p</code>.)</li>
 </ul>
 
 <p>
@@ -428,10 +405,15 @@ If you get stuck in later parts, try using the debugger to help you
 find the error! It allows you to compare what you think the values of
 the variables should be to the actual values of those variables.
 </p>
+
+<p>
+If you want more detailed information on how to use <code>gdb</code>, 
+<a href="https://www.cs.carleton.edu/faculty/arafferty/cs251/gdb5-refcard.pdf">this is a great resource</a>.
+</p>
 </div>
 </div>
-<div id="outline-container-org24715be" class="outline-3">
-<h3 id="org24715be"><span class="section-number-3">3.4.</span> destroyList</h3>
+<div id="outline-container-orgeae6f5c" class="outline-3">
+<h3 id="orgeae6f5c"><span class="section-number-3">3.4.</span> destroyList</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 We'll now deal with the final annoying part of your current list:
@@ -439,7 +421,7 @@ remembering to free everything. Create a function <code>destroyList(Node
 *head)</code> that frees all of the allocated memory associated with
 head. It should assume that head refers to a Node on the heap, and
 that each of these nodes also refer to Nodes on the heap (or NULL at
-the end. 
+the end). 
 </p>
 
 <p>
@@ -448,8 +430,8 @@ make sure to use <code>valgrind</code> to check for memory leaks or errors.
 </p>
 </div>
 </div>
-<div id="outline-container-org7028a33" class="outline-3">
-<h3 id="org7028a33"><span class="section-number-3">3.5.</span> deleteItem</h3>
+<div id="outline-container-org69f76c3" class="outline-3">
+<h3 id="org69f76c3"><span class="section-number-3">3.5.</span> deleteItem</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 Write a function <code>Node *deleteItem(Node *head, int item)</code> that deletes item from
@@ -459,8 +441,8 @@ list. If there are no items in the list, it returns NULL.
 </p>
 </div>
 </div>
-<div id="outline-container-org6187e6d" class="outline-3">
-<h3 id="org6187e6d"><span class="section-number-3">3.6.</span> find</h3>
+<div id="outline-container-org29f639f" class="outline-3">
+<h3 id="org29f639f"><span class="section-number-3">3.6.</span> find</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Write a function <code>int find(Node *head, int item)</code> that returns the
@@ -469,18 +451,18 @@ index of the given item in the list. If the item isn't found, return
 </p>
 </div>
 </div>
-<div id="outline-container-orgf893a15" class="outline-3">
-<h3 id="orgf893a15"><span class="section-number-3">3.7.</span> Extra time?</h3>
+<div id="outline-container-orgdb93e30" class="outline-3">
+<h3 id="orgdb93e30"><span class="section-number-3">3.7.</span> Extra time?</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 If you have extra time, I recommend the following activities:
 </p>
 <ul class="org-ul">
-<li>Find out what happens with bugs!: Writing the previous functions
+<li>Find out what happens with bugs: Writing the previous functions
 might have given you lots of practice seeing bugs, but there are
 some you might not have seen. Examine what errors occur (or don't
 occur!) with a variety of common memory mistakes: dereferencing a
-pointer that hasn't been initialized, access stack memory that is no
+pointer that hasn't been initialized, accessing stack memory that is no
 longer allocated, writing to memory that hasn't been allocated, and
 anything else you can think of related to memory allocation. Seeing
 the errors that occur will help you to recognize these errors when
@@ -489,7 +471,7 @@ they inevitably occur for you at some point in the future.</li>
 expect from a linked list, such as inserting at a particular index. With your partner, brainstorm about what
 the pros and cons would be of directly passing our Node *s, versus
 creating another struct named LinkedList that has a single member, a
-Node * that will refer to the head of the list, and passing around a
+<code>Node *</code> that will refer to the head of the list, and passing around a
 reference to the LinkedList. How would this alternative make it
 easier to have the same functionality as <code>delete</code> but to return a
 value indicating whether or not an item was removed?</li>
@@ -497,19 +479,14 @@ value indicating whether or not an item was removed?</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf03a583" class="outline-2">
-<h2 id="orgf03a583"><span class="section-number-2">4.</span> Turning in activities</h2>
+<div id="outline-container-org2de0ce4" class="outline-2">
+<h2 id="org2de0ce4"><span class="section-number-2">4.</span> Turning in activities</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 To turn in this activity, zip up the folder with your code, and upload that
 zip on Moodle. Additionally, email the zip to your partner so they can turn
 it in too. Even if you worked with a partner or you didn't finish, everyone
 should turn in the activity in order to gain access to my solutions. 
-</p>
-
-<div class="note">
-<p>
-Activity originally designed by Anna Rafferty - thanks for sharing!
 </p>
 </div>
 </div>
