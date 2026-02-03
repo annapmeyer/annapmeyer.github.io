@@ -1,0 +1,828 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/tokenizer.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interpreter Project 3: Tokenizer</title>
+<!-- 2024-03-22 Fri 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="annameyer" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Interpreter 3: Tokenizer</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org511aa4b">1. Pair programming structure</a></li>
+<li><a href="#orge247ab5">2. Get started</a></li>
+<li><a href="#org304f26e">3. Assignment details</a></li>
+<li><a href="#org768c9a7">4. Syntax details</a></li>
+<li><a href="#org465fe8a">5. Some additional hints</a></li>
+<li><a href="#orgbbdceef">6. The files you start with</a></li>
+<li><a href="#orgeb00d73">7. Capstone extensions</a>
+<ul>
+<li><a href="#org4fb8635">7.1. Studying for exams</a></li>
+</ul>
+</li>
+<li><a href="#orgae0bb6f">8. How to test and submit your work</a>
+<ul>
+<li><a href="#org67db76f">8.1. Testing your work</a></li>
+<li><a href="#orgcab1429">8.2. Submitting your work</a>
+<ul>
+<li><a href="#org12dd1ab">8.2.1. Acknowledging help</a></li>
+<li><a href="#org8995ad2">8.2.2. Generating the submission file and uploading to Gradescope</a></li>
+<li><a href="#orgc752b85">8.2.3. Grading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+For this part of the assignment, you'll build a tokenizer for Scheme, in C. (You
+must implement the tokenizer from scratch &#x2013; don't use Lex or any similar tool,
+even if you happen to know what it is and how to use it.)
+</p>
+<div id="outline-container-org511aa4b" class="outline-2">
+<h2 id="org511aa4b"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a "pair" assignment, which means that you and your partner should use the pair programming model. 
+You should be physically together, sharing a computer and both looking at the same screen. 
+</p>
+
+<p>
+Each partner has an active role to play during pair programming - please review the instructions on 
+Moodle about pair programming, and make sure you understand what you should be doing when you are the 
+<i>navigator</i> and when you are the <i>driver</i>. 
+You should make sure that over the course of an assignment that you each spend roughly the same amount of time  
+"driving." My recommendation is to set a timer and switch drivers every 10-15 minute. 
+</p>
+
+<p>
+For the interpreter project, you are permitted to do a limited amount of debugging
+separate from your partner. If you do this, you should be sure that you're each contributing
+similar amounts: it's not fair, either in terms of time or in terms of learning,
+if one person does all the debugging. <b>Before debuggging on your own, make sure that your partner is
+onboard with that.</b> Also, make sure to share what you found with your partner afterwards.
+</p>
+
+<p>
+If pair programming in real-time just doesn't work for you and your partner, then you will need to amicably 
+split up and work individually. If you choose this option, you <b>must communicate that to
+me [Anna]</b> and send me an email with a zip file containing the code checkpoint
+of any work you did together (if applicable). 
+</p>
+
+<p>
+<b>If things are not going well with working with your partner or you find yourselves tempted
+to split up the work, please talk to me.</b> While doing a limited amount of debugging separately is fine,
+you should be doing the initial design and coding together - if you or your partner cannot
+explain how part of your interpreter works, then you have not followed the pair programming policies
+for this class.
+</p>
+</div>
+</div>
+<div id="outline-container-orge247ab5" class="outline-2">
+<h2 id="orge247ab5"><span class="section-number-2">2.</span> Get started</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/p03-interpreter-tokenizer/tokenizer-starter.zip">Click here to download the starter files.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org304f26e" class="outline-2">
+<h2 id="org304f26e"><span class="section-number-2">3.</span> Assignment details</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+You should create <code>tokenizer.c</code> to implement the functions specified in
+<code>tokenizer.h</code>. More generally, your tokenizer should read Scheme code from a
+file and return a linked list of tokens accompanied by the type of each token. You must
+include the following token types:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">boolean, integer, real, string, symbol, open, close, quote
+</pre>
+</div>
+
+<p>
+The last three are for <code>(</code>, <code>)</code>, and <code>'</code> respectively. 
+</p>
+
+<p>
+The output format is, per line,
+<code>token:type</code>.
+</p>
+
+<p>
+On comments: You should strip out comments as you tokenize, so that anything
+after a <code>;</code> on a line is ignored.
+</p>
+
+<div class="note" id="orgbd2fe5b">
+<p>
+In
+detecting if you've found the end of a line, make sure to be super
+careful if you have created your test file with an editor on Microsoft
+Windows. Linux and Mac use an ascii <code>\n</code> at the end of a line, but
+Windows uses a <code>\r\n</code> at the end of a line. All of our tests run on on
+Linux so you don't need to worry about this unless you are creating
+your own test files with Windows. If you are, you need to either just
+create your test files on Mac/Linux (i.e., on the lab computers), 
+or make sure that your tokenizer code can also handle <code>\r\n</code> at the ends of a line.
+</p>
+
+</div>
+
+<p>
+For example, here's the input file <code>t04.scm</code> that I supplied in the exemplary tests:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">(+ x2 ( + ( quote x ) "foo;; still a string" 323) ;; now it's a comment!
+</pre>
+</div>
+
+<p>
+On the above, your program should output:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">(:open
++:symbol
+x2:symbol
+(:open
++:symbol
+(:open
+quote:symbol
+x:symbol
+):close
+"foo;; still a string":string
+323:integer
+):close
+</pre>
+</div>
+
+<p>
+Your tokenizer should handle bad input gracefully; your program should never crash with a 
+segfault, bus error, or the like. If the input code is untokenizable, print an error message. 
+You may print something generic such as "Syntax error: untokenizeable", or you can provide 
+more detailed information in the error message depending on what the problem is. Whatever 
+you print, it should start with the string text "Syntax error" so that it will pass the 
+automated tests. (Upper or lower case doesn't matter.) After encountering an error, your 
+program should exit after printing the error - don't read any more input. This is why we 
+wrote the function <code>texit</code>. Also feel free to follow your error message by printing Scheme 
+code around the error to be helpful if you can, though this optional.
+</p>
+</div>
+</div>
+<div id="outline-container-org768c9a7" class="outline-2">
+<h2 id="org768c9a7"><span class="section-number-2">4.</span> Syntax details</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Scheme is a complex language. In the interest of making things more tractable, 
+here is a simplified syntax for numbers that I expect your tokenizer to handle 
+(adapted from <a href="https://www.scheme.com/tspl4/grammar.html">Dybvig's book</a>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">&lt;number&gt;   -&gt;  &lt;sign&gt; &lt;ureal&gt; | &lt;ureal&gt;
+&lt;sign&gt;     -&gt;  + | -
+&lt;ureal&gt;    -&gt;  &lt;uinteger&gt; | &lt;udecimal&gt;
+&lt;uinteger&gt; -&gt;  &lt;digit&gt;+
+&lt;udecimal&gt; -&gt;  . &lt;digit&gt;+ | &lt;digit&gt;+ . &lt;digit&gt;*
+&lt;digit&gt;    -&gt;  0 | 1 | ... | 9
+</pre>
+</div>
+
+<p>
+Note that <code>*</code> is shorthand for zero or more repetitions of the symbol, 
+and <code>+</code> is shorthand for one or more repetitions of the symbol. Tip: if you want to 
+convert strings to numbers, you can use the functions <code>strtol</code> and <code>strtod</code> in the 
+standard library.
+</p>
+
+<p>
+Similarly, you should recognize symbols (identifiers) with the following syntax (again 
+adapted from  <a href="https://www.scheme.com/tspl4/grammar.html">Dybvig's book</a>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">&lt;identifier&gt; -&gt;  &lt;initial&gt; &lt;subsequent&gt;* | + | -
+&lt;initial&gt;    -&gt;  &lt;letter&gt; | ! | $ | % | &amp; | * | / | : | &lt; | = | &gt; | ? | ~ | _ | ^
+&lt;subsequent&gt; -&gt;  &lt;initial&gt; | &lt;digit&gt; | . | + | -
+&lt;letter&gt;     -&gt;  a | b | ... | z | A | B | ... | Z
+&lt;digit&gt;      -&gt;  0 | 1 | ... | 9 
+</pre>
+</div>
+
+
+<p>
+This is a little inconsistent with the actual behavior of Scheme, but it simplifies 
+things up a bit (at the cost of some minor incompatibilities).
+</p>
+
+<p>
+Symbols are case-sensitive.
+</p>
+
+<p>
+You may also find 
+<a href="https://www.scheme.com/tspl4/intro.html#./intro:h1">the syntax section of Dybvig's book</a> 
+to be helpful. The dialect described may not be completely consistent with
+the above, but it's readable in English. The BNF that I have provided
+above is considered to be the correct specification for this
+assignment. It deviates slightly from what Guile allows, but in ways
+that I think end up making some things, like differentiating numbers
+and symbols, easier. 
+</p>
+
+<p>
+Scheme provides many different ways of enclosing lists (parentheses,
+square brackets, etc.). We will only write code that uses parentheses for the
+purpose of enclosing lists. None of our test code will use square brackets. 
+You can write your tokenizer and subsequent parts of the interpreter to only work
+on parentheses. That said, if you want your project to also wrok on square brackets, it 
+isn't that hard of an extension. If you think you want to go that way, you'll need to 
+make sure that you tokenize parentheses and brackets differently. 
+</p>
+
+<p>
+We will identify the single quote <code>'</code> as a special token all of its own. It should be 
+stored in a <code>SchemeItem</code> as a <code>QUOTE_TYPE</code> and displayed by your tokenizer accordingly.
+Don't get this confused with the word <code>quote</code>, which is tokenized as a regular symbol. 
+</p>
+
+<p>
+Tokens are separated by various forms of whitespace (space, newline, tab, etc). 
+Use the C function <code>isspace</code> to test if a given character is a whitespace character.
+</p>
+</div>
+</div>
+<div id="outline-container-org465fe8a" class="outline-2">
+<h2 id="org465fe8a"><span class="section-number-2">5.</span> Some additional hints</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+I suppose it is theoretically possible to code this assignment up so
+that it produces precisely the right output, but without actually
+storing the data in a list. Don't do that; perhaps that might be
+easier to get results on this portion of the project (although I'm not
+convinced), but it will leave you in a useless position to continue for the next portion.
+</p>
+
+<p>
+There are many different ways of reading input files. I found it most useful to
+use the functions <code>fgetc</code> and occasionally <code>ungetc</code>. You can look
+those up; documentation is <a href="https://en.cppreference.com/w/c/io">also available here</a>.
+</p>
+
+<p>
+At some points in my code, I wanted to find out things like "Is the
+current character a letter?" Conveniently, characters can be compared
+using <code>&lt;</code> and <code>&gt;</code>, and the characters a-z, A-Z, and 0-9 all form their own
+ranges. So, I can write code like:
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #a020f0;">if</span> (myChar &gt;= <span style="color: #8b2252;">'A'</span> &amp;&amp; myChar &lt;= <span style="color: #8b2252;">'Z'</span>) {
+ ... <span style="color: #b22222;">//</span><span style="color: #b22222;">Whatever I want to do in this case goes here
+</span>}
+</pre>
+</div>
+<p>
+This tests if <code>myChar</code> is in A-Z - i.e., it tests if <code>myChar</code> is an
+uppercase letter. I can do similar things for a-z and 0-9; note that
+if you're comparing to, say, the character 0, you want to compare to
+'0', not 0 (i.e., don't forget the single quotes!). 
+</p>
+
+
+<p>
+The heart of your code will be your <code>tokenize</code> function, which reads
+the file and returns a list of SchemeItems. Here's a rough sketch of what that
+function might look like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">SchemeItem</span> *<span style="color: #0000ff;">tokenize</span>() {
+    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">charRead</span>;
+    <span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">list</span> = makeNull();
+    charRead = fgetc(stdin);
+
+    <span style="color: #a020f0;">while</span> (charRead != EOF) {
+
+        <span style="color: #a020f0;">if</span> (charRead == ...) {
+            ...
+        } <span style="color: #a020f0;">else</span> <span style="color: #a020f0;">if</span> (charRead == ...) {
+            ...
+        } <span style="color: #a020f0;">else</span> {
+            ...
+        }
+        charRead = fgetc(stdin);
+    }
+
+
+    <span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">revList</span> = reverse(list);
+    <span style="color: #a020f0;">return</span> revList;
+}
+</pre>
+</div>
+
+<p>
+Note that the type of <code>charRead</code> is an <code>int</code>, not a <code>char</code>.  This is because
+the version of clang that is included with Docker gives a warning if <code>charRead</code>
+is a char and you reach the end of the file (i.e., you compare char, an unsigned 
+type, with EOF, which is represented by -1). 
+</p>
+
+<p>
+You can still compared <code>charRead</code>, an <code>int</code>, with strings - e.g.,
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #a020f0;">if</span> (charRead == <span style="color: #8b2252;">'('</span> ) {
+  ...
+}
+</pre>
+</div>
+
+
+<p>
+We will guarantee that no token will be longer than 300 characters long. That 
+includes strings. Your code doesn't need to handle arbitrarily long tokens.
+</p>
+
+<p>
+We will guarantee that no line will be longer than 300 characters
+long. Your code doesn't need to handle arbitrarily long lines.
+</p>
+
+
+<p>
+FAQ: Should your tokenizer catch errors with mismatched parentheses, 
+i.e. <code>)(a b ))</code>? No, it should tokenizer strings like that without error. 
+Catching mismatched parentheses is the parser's job. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgbbdceef" class="outline-2">
+<h2 id="orgbbdceef"><span class="section-number-2">6.</span> The files you start with</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+After you download the starter code, you should be able to see that you get the 
+following starting files:
+</p>
+
+<ul class="org-ul">
+<li><code>schemeitem.h</code>: essentially the same header we have been using for an <code>SchemeItem</code>, 
+but some new types are added in</li>
+<li><code>linkedlist.h</code>: the same header file, more or less, from the last assignment</li>
+<li><code>talloc.h</code>: the same header file, more or less, from the last assignment</li>
+<li><code>tokenizer.h</code>: the header file for the functions you'll need to write for this 
+assignment. You'll also create a number of helper functions for that, but those 
+don't need to appear in the header since they will be "private".</li>
+<li><code>main.c</code>: Short main function that drives the whole program.</li>
+<li><code>justfile</code>: contains instructions for the command <code>just</code>, which will compile and 
+test your code</li>
+<li><code>test-files-m/</code> and <code>test-files-e/</code>: a directory of Scheme programs as test inputs, 
+and expected outputs</li>
+<li><code>test-m</code> and <code>test-e</code>: the usual testing scripts that you run</li>
+<li><code>tester.py</code>: a helper script to handle automated testing.</li>
+<li><code>lib</code>: a subdirectory of binaries, see below</li>
+</ul>
+
+<p>
+At this point, you have a choice regarding how to proceed for
+<code>linkedlist.c</code> and <code>talloc.c</code>. If you want to continue to build your
+own interpreter that is truly yours, you can copy in these files from
+the last project, and move forward. Alternatively, if you would prefer
+to use my versions instead, you can do so. In the <code>lib</code> directory
+you'll see <code>linkedlist.o</code> and <code>talloc.o</code> files, as well as <code>.h</code> files
+to go with them. These <code>.o</code> files are compiled binary versions of my
+<code>linkedlist.c</code> and <code>talloc.c</code>. If you would prefer to use one or both
+of these in your project instead of your own, you can replace them in
+the <code>justfile</code>. Specifically, in the <code>justfile</code>, change the first line as indicated. 
+I provide these binaries so that people who have trouble with earlier parts of the 
+project don't get slowed down, but 
+<b>I strongly encourage you to use your own code if it works</b> for two reasons:
+</p>
+<ul class="org-ul">
+<li>You'll feel a much stronger sense of ownership for the project if you do.</li>
+<li>You won't be able to trace bugs back to the linked list / talloc source code if you 
+need to. You'll sometimes have to make do with cryptic errors from my code that say 
+"linked list insertion error" or something like that. My code works as specified, 
+but it will produce bad and sometimes difficult-to-understand output if it gets 
+bad input.</li>
+</ul>
+
+
+<p>
+Note that compiled binaries are operating system specific (sometimes
+version specific), and thus might not work outside of the course Docker container.
+If you run into troubles using my binaries (either on your own computer, or for unforeseen
+reasons in the Docker container), please let me know and we can talk about options.
+</p>
+
+
+<p>
+To compile your code, issue the command <code>just build</code> at the command prompt. 
+(This will give an error if you haven't yet created the .c files you need, 
+or if you haven't changed the <code>justfile</code> to refer to the binaries if you need them.)
+</p>
+
+<p>
+To run your code, first create a file with some of your own Scheme code in it, 
+and give it a filename (e.g., <code>myprog.scm</code>). Then issue this command at a prompt:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">./interpreter &lt; myprog.scm
+</pre>
+</div>
+
+<p>
+Your tokenizer code should read data from "stdin." In that case, the above command 
+will redirect the text from the <code>myprog.scm</code> file into your program.
+</p>
+
+<p>
+To run your code through valgrind, you can similarly type
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">valgrind ./interpreter &lt; myprog.scm
+</pre>
+</div>
+
+<p>
+One challenge you may find is that when your output gets long, it gets
+hard to read before it scrolls all the way off the top of your
+terminal window. Piping your output through the UNIX less program
+helps. It will pause the output at the bottom of the screen, waiting
+for you press the space bar to continue, or q if you want to quit. You
+can do this with or without valgrind:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">./interpreter &lt; myprog.scm | less
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">valgrind ./interpreter &lt; myprog.scm | less
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeb00d73" class="outline-2">
+<h2 id="orgeb00d73"><span class="section-number-2">7.</span> Capstone extensions</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+For the final project submission, you will get to choose what additional functionality
+you want your interpreter to have, and you'll implement (several small, a few medium, or 1-2 large) 
+enhancements. One option is to be able to handle dot (as in, a dotted pair) or square brackets.
+</p>
+
+<p>
+Handling dot would count as a medium contribution, and square brackets will count as a small contribution.
+In either case, building in the tokenizer functionality is not sufficient, you'll need to also handle 
+these data types in parsing and evaluation. 
+</p>
+
+<p>
+However, if you'd like to get a start on the capstone portion &#x2013; or at least keep your options open for what enhancements
+you choose &#x2013; the first step for handling dot or square brackets is to tokenize these characters.
+</p>
+
+<ul class="org-ul">
+<li>Dot: <code>.</code>. A dot by itself is useful for handling dotted pairs. A <code>dot</code> token type should 
+be identified if and only if there is a dot with whitespace on both sides of it. 
+A dot at the beginning or end of file cannot be a <code>dot</code> token.</li>
+
+<li>Square brackets: <code>[ ]</code>. Add <code>openbracket</code> and <code>closebracket</code> token types, and tokenize
+these as well.</li>
+</ul>
+
+<p>
+If you implement either of these extensions, be sure to test your code! 
+</p>
+</div>
+<div id="outline-container-org4fb8635" class="outline-3">
+<h3 id="org4fb8635"><span class="section-number-3">7.1.</span> Studying for exams</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+The exam may ask you to be able to identify what sorts of errors your tokenizer can catch, 
+vs. what it might not, given a particular BNF grammar. Think about changing the BNF grammar provided 
+in the assignment, and then identifying what sorts of input should be tokenized. 
+Also think through what sorts of programming errors should not be caught by the tokenizer.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgae0bb6f" class="outline-2">
+<h2 id="orgae0bb6f"><span class="section-number-2">8.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org67db76f" class="outline-3">
+<h3 id="org67db76f"><span class="section-number-3">8.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+As with previous assignments, there are M tests and E tests. See the section of Scheme Intro 2
+labeled "How to test your work" if 
+you need a refresher on how to run these tests. 
+Note that the interpreter tests will fail if your code has compiler warnings and/or valgrind errors. 
+Make sure to run the tests in the Docker environment. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgcab1429" class="outline-3">
+<h3 id="orgcab1429"><span class="section-number-3">8.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-8-2">
+</div>
+<div id="outline-container-org12dd1ab" class="outline-4">
+<h4 id="org12dd1ab"><span class="section-number-4">8.2.1.</span> Acknowledging help</h4>
+<div class="outline-text-4" id="text-8-2-1">
+<p>
+You should already have a file <code>CollaborationsAndSources.txt</code>
+in your working directory (if not, copy it over from the previous assignment).
+Go to the header for this portion of the assignment and fill in the document. 
+Did you share strategies with anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with (other than your assigned partner) and some description of
+your interactions. If you used any resources outside of notes taken in class or the homework/lab starter files that
+Anna provided, that is also something to note. 
+</p>
+
+<p>
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org8995ad2" class="outline-4">
+<h4 id="org8995ad2"><span class="section-number-4">8.2.2.</span> Generating the submission file and uploading to Gradescope</h4>
+<div class="outline-text-4" id="text-8-2-2">
+<p>
+After completing <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code> (if you get a permissions error, run <code>chmod u+x ./zipitup</code> first).
+This script will create a zip file <code>XXX_submission.zip</code> where XXX is the assignment name or number. 
+Note that this zip file with include your C files, any new header files you created, 
+and <code>CollaborationsAndSources.txt</code>. We will re-copy in our version of the tests and of the provided 
+header files. 
+Upload the zip file to Gradescope. 
+</p>
+
+<p>
+<b><b>On Gradescope, make
+sure to add your partner if you worked with a partner.</b></b>
+<a href="https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members">This page has detailed instructions for how to do that.</a>
+</p>
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small chance that the tests will fail on Gradescope, even 
+if they passed on your own computer. Usually this means that you coded something in a 
+different way than we expected when writing the autograders. We will be grading based on the 
+results of the tests on Gradescope, so make sure to pay attention to the results of the tests there.
+(If you run into this issue, check that you are submitting to the correct assignment on Gradescope. 
+Then try resubmitting and rerunning the autograder. If the error messages are legible, feel free to debug further, 
+but it's also fine to reach out to Anna or the graders at this point.)
+</p>
+</div>
+</div>
+<div id="outline-container-orgc752b85" class="outline-4">
+<h4 id="orgc752b85"><span class="section-number-4">8.2.3.</span> Grading</h4>
+<div class="outline-text-4" id="text-8-2-3">
+<p>
+You'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs.</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> file with the information
+described above.</li>
+<li>Your code has significant stylistic or efficiency issues that we have not
+explicitly covered in class or on the feedback for a previous assignment.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+<li>Your code follows good style convention.</li>
+</ul>
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+<p>
+You are welcome to revise your submission until the revision deadline (see Gradescope). 
+</p>
+
+<p>
+If you revise your submission, double-check to make sure that the autograder tests pass and that you
+have included <code>CollaborationsAndSources.txt</code>. 
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+
+<div class="note" id="org659711e">
+<p>
+This assignment was originally created by David Liben-Nowell and has since been
+    updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
