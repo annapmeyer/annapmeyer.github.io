@@ -1,0 +1,834 @@
+---
+layout: null
+permalink: /teaching/cs251winter26/iflet.html
+---
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Interpreter Project 5: If/Let/Quote</title>
+<!-- 2024-03-22 Fri 10:56 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="annameyer" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/readtheorg/css/readtheorg.css"/>
+<style> #content{max-width:1500px;}</style>
+<style> p{max-width:1500px;}</style>
+<style> li{max-width:1500px;}</style
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/dist/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="../../assets/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Interpreter 5: if/let/quote</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1cf7520">1. Pair programming structure</a></li>
+<li><a href="#org88383ba">2. Get started</a></li>
+<li><a href="#orgac516da">3. Functionality</a></li>
+<li><a href="#org68f72dc">4. Core functionality</a></li>
+<li><a href="#orgdd757da">5. Frames, and bindings</a></li>
+<li><a href="#org159578a">6. Evaluation errors</a></li>
+<li><a href="#org74fd121">7. Multiple S-expressions</a></li>
+<li><a href="#orgc4fcc61">8. Don't annotate the parse tree (advice on quote)</a></li>
+<li><a href="#org08ecca8">9. Sample output</a></li>
+<li><a href="#org2a6da1e">10. Capstone Extensions</a></li>
+<li><a href="#orgd6c5c8d">11. The starter files</a></li>
+<li><a href="#org9f0d9c1">12. How to test and submit your work</a>
+<ul>
+<li><a href="#org5e49a6b">12.1. Testing your work</a></li>
+<li><a href="#org41e721f">12.2. Submitting your work</a>
+<ul>
+<li><a href="#org8aaef75">12.2.1. Acknowledging help</a></li>
+<li><a href="#org5de478a">12.2.2. Generating the submission file and uploading to Gradescope</a></li>
+<li><a href="#org9769ff4">12.2.3. Grading</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+It's time to start actually implementing the evaluation portion of the project!
+</p>
+
+
+<p>
+Note: if you are working with a partner on this assignment, you and your partner must both submit 
+your individual partner assignments by the Parser due date. You may each continue to revise parser after the due date,
+however, I expect the bulk of the functionality to be there (e.g., you should be passing &gt;80% of the M tests). 
+</p>
+<div id="outline-container-org1cf7520" class="outline-2">
+<h2 id="org1cf7520"><span class="section-number-2">1.</span> Pair programming structure</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is a "pair" assignment, which means that you and your partner should use the pair programming model. 
+You should be physically together, sharing a computer and both looking at the same screen. 
+</p>
+
+<p>
+Each partner has an active role to play during pair programming - please review the instructions on 
+Moodle about pair programming, and make sure you understand what you should be doing when you are the 
+<i>navigator</i> and when you are the <i>driver</i>. 
+You should make sure that over the course of an assignment that you each spend roughly the same amount of time  
+"driving." My recommendation is to set a timer and switch drivers every 10-15 minute. 
+</p>
+
+<p>
+For the interpreter project, you are permitted to do a limited amount of debugging
+separate from your partner. If you do this, you should be sure that you're each contributing
+similar amounts: it's not fair, either in terms of time or in terms of learning,
+if one person does all the debugging. <b>Before debuggging on your own, make sure that your partner is
+onboard with that.</b> Also, make sure to share what you found with your partner afterwards.
+</p>
+
+<p>
+If pair programming in real-time just doesn't work for you and your partner, then you will need to amicably 
+split up and work individually. If you choose this option, you <b>must communicate that to
+me [Anna]</b> and send me an email with a zip file containing the code checkpoint
+of any work you did together (if applicable). 
+</p>
+
+<p>
+<b>If things are not going well with working with your partner or you find yourselves tempted
+to split up the work, please talk to me.</b> While doing a limited amount of debugging separately is fine,
+you should be doing the initial design and coding together - if you or your partner cannot
+explain how part of your interpreter works, then you have not followed the pair programming policies
+for this class.
+</p>
+</div>
+</div>
+<div id="outline-container-org88383ba" class="outline-2">
+<h2 id="org88383ba"><span class="section-number-2">2.</span> Get started</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Download the folder with the starter code from the link
+below. Like for previous homeworks, unzip the folder and move it to
+where you'd like: most likely the folder for the Docker container.
+Then get started in VS Code.
+</p>
+
+<p>
+If when running tests you run into a permissions error, you can fix
+this by running the following code in the terminal:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod a+x test-e test-m
+</pre>
+</div>
+<p>
+This tells the computer that all users should be permitted to execute (run)
+the files <code>test-e</code> and <code>test-m</code>.
+</p>
+
+<p>
+<a href="../../_pages/teaching/2026-1winter-cs251/assignments/p05-interpreter-if-let-quote/ifletquote-starter.zip">Click here to download the starter files.</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgac516da" class="outline-2">
+<h2 id="orgac516da"><span class="section-number-2">3.</span> Functionality</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+For this phase of the project, you must support the correct evaluation of the
+following types of Scheme expressions:
+</p>
+
+<ol class="org-ol">
+<li>Boolean, integer, real, and string literals. (They evaluate to themselves.)</li>
+
+<li><p>
+<code>(if test trueExpr falseExpr)</code>
+</p>
+
+<p>
+Usually, <code>test</code> will evaluate to a Boolean, but that is not strictly required in Scheme.
+So, your code should evaluate <code>falseExpr</code> if <code>test</code> evaluates to <code>#f</code>, and should evaluate
+<code>trueExpr</code> otherwise. In other words, we will treat anything that is not <code>#f</code> as true.
+</p></li>
+
+<li><p>
+<code>(let list-of-bindings body)</code>
+</p>
+
+<p>
+You will need to implement the creation of new frames. Much more on this in a bit.
+</p></li>
+
+<li>Variables. Now that you've implemented <code>let</code> and frames, you should be able
+to evaluate a bound symbol.</li>
+
+<li><code>(quote expr)</code>.  You'll also need to be able to support the abbreviated form <code>'expr</code>. 
+That said, the parser should already be converting the second form into the first.</li>
+</ol>
+
+
+
+<p>
+When you're done with this part of the project, you should be able to evaluate
+very simple programs like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">let</span> ((x #t)) (<span style="color: #a020f0;">if</span> x 3 5))
+</pre>
+</div>
+
+<p>
+This should evaluate to 3. 
+</p>
+</div>
+</div>
+<div id="outline-container-org68f72dc" class="outline-2">
+<h2 id="org68f72dc"><span class="section-number-2">4.</span> Core functionality</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+At the core of your interpreter, you will need to implement a function to
+evaluate Scheme code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">SchemeItem</span> *<span style="color: #0000ff;">eval</span>(<span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">tree</span>, <span style="color: #228b22;">Frame</span> *<span style="color: #a0522d;">frame</span>) { ... }
+</pre>
+</div>
+
+<p>
+Given an expression tree and a frame (aka environment) in which to evaluate that expression,
+<code>eval</code> returns the value of the expression. I'll explain more about the "frame" in a
+moment. Here's a skeleton of my <code>eval</code> function, to give you an idea of where to
+start:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">SchemeItem</span> *<span style="color: #0000ff;">eval</span>(<span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">tree</span>, <span style="color: #228b22;">Frame</span> *<span style="color: #a0522d;">frame</span>) {
+   <span style="color: #a020f0;">switch</span> (tree-&gt;type)  {
+     <span style="color: #a020f0;">case</span> INT_TYPE: {
+        ...
+        <span style="color: #a020f0;">break</span>;
+     }
+     <span style="color: #a020f0;">case</span> ......: {
+        ...
+        <span style="color: #a020f0;">break</span>;
+     }  
+     <span style="color: #a020f0;">case</span> SYMBOL_TYPE: {
+        ... <span style="color: #b22222;">//</span><span style="color: #b22222;">Code to implement what should happen if we have a symbol
+</span>        <span style="color: #a020f0;">break</span>;
+     }  
+     <span style="color: #a020f0;">case</span> CONS_TYPE: {
+        <span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">first</span> = car(tree);
+        <span style="color: #228b22;">SchemeItem</span> *<span style="color: #a0522d;">args</span> = cdr(tree);
+
+        <span style="color: #b22222;">// </span><span style="color: #b22222;">Some error checking here (omitted from sample code) before moving to cases
+</span>
+        <span style="color: #a020f0;">if</span> (!strcmp(first-&gt;s,<span style="color: #8b2252;">"if"</span>)) {
+            result = evalIf(args, frame); <span style="color: #b22222;">//</span><span style="color: #b22222;">Helper functions can make your code easier to navigate!
+</span>        }
+
+        <span style="color: #b22222;">// </span><span style="color: #b22222;">.. other special forms here...
+</span>
+        <span style="color: #a020f0;">else</span> {
+           <span style="color: #b22222;">// </span><span style="color: #b22222;">not a recognized special form
+</span>           evaluationError();
+        }
+        <span style="color: #a020f0;">break</span>;
+     }
+
+      ....
+    }    
+    ....
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdd757da" class="outline-2">
+<h2 id="orgdd757da"><span class="section-number-2">5.</span> Frames, and bindings</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+We started discussing this topic on Friday, and will get much farther into
+the details this week. But in the meantime, here's a brief overview of 
+how to evaluate Scheme code:
+</p>
+
+<p>
+The <code>eval</code> function mentioned above takes a pointer to a "frame"; what is a
+frame? A frame is a collection of bindings. OK, what's a binding? A binding is a
+mapping from a variable name (i.e. a symbol) to a value. Bindings are created
+whenever we introduce new variable names. For example, in the program
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">let</span> ((x 5) (y <span style="color: #8b2252;">"hello"</span>)) (<span style="color: #a020f0;">if</span> #t x y))
+</pre>
+</div>
+
+<p>
+the bindings for <code>x</code> and <code>y</code> are stored in a single frame. You will have to
+construct a frame whenever <code>eval</code> encounters a <code>let</code>. This frame should be
+passed in when calling <code>eval</code> on the body of the let expression. The frame is
+used to <i>resolve</i> (find the value of) each variable encountered during
+evaluation. When <code>eval</code> tries to evaluate <code>x</code>, it looks in the current
+<i>frame</i> to find a value for <code>x</code>.
+</p>
+
+<p>
+There's one other crucial detail here: frames can be chained together to create
+a larger environment consisting of multiple frames. For example, in the
+program
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">let</span> ((x <span style="color: #8b2252;">"hello"</span>)) (<span style="color: #a020f0;">let</span> ((y <span style="color: #8b2252;">"goodbye"</span>)) (<span style="color: #a020f0;">if</span> #t x y)))
+</pre>
+</div>
+
+<p>
+each of the two let expressions creates a separate frame. When <code>eval</code> evaluates
+<code>x</code>, it first checks the innermost let's frame; since that frame only contains a
+binding for <code>y</code>, it then checks the outer let's frame, where it finds a binding
+for <code>x</code> with value <code>"hello"</code>.
+</p>
+
+<p>
+To summarize, evaluating a let expression of the form:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(<span style="color: #a020f0;">let</span> ((var1 expr1) (var2 expr2) ... (varn exprn)) body)
+</pre>
+</div>
+
+<p>
+consists of the following steps:
+</p>
+
+<ol class="org-ol">
+<li>Let <code>e</code> be a pointer to the current frame. Create a new frame <code>f</code> whose
+parent frame is <code>e</code>.</li>
+
+<li>For i = 1 through n:
+
+<ul class="org-ul">
+<li>Let <code>vali</code> be the result of evaluating <code>expri</code> in frame <code>e</code>.</li>
+
+<li>Add a binding from <code>vari</code> to <code>vali</code> to <code>f</code>.</li>
+</ul></li>
+
+<li>Evaluate <code>body</code> using frame <code>f</code> and return the result.</li>
+</ol>
+
+
+<p>
+You will need to implement data structures for frames and bindings. The easiest
+approach is to use linked lists. The linked list of frames essentially forms a
+stack: you push on a new frame just before evaluating the body of the let
+expression, and pop the frame off before returning (although the "pop" really
+happens automatically when you return from <code>eval</code>). Within each frame you should
+store a list of variable/value pairs (i.e. bindings), using another linked
+list. When you need to resolve a variable, check the current frame first, then
+its parent if that variable is not in the current frame, then its parent, and so
+on until you reach a frame with no parent.
+</p>
+</div>
+</div>
+<div id="outline-container-org159578a" class="outline-2">
+<h2 id="org159578a"><span class="section-number-2">6.</span> Evaluation errors</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+There are going to be many cases in which evaluation is not possible. For
+example:
+</p>
+
+<ul class="org-ul">
+<li>When an <code>if</code> expression has fewer than 3 arguments (yes, there are
+two syntaxes available for <code>if</code> in full Scheme, but we're only going
+to support the one we've been using in which <code>if</code> always has three arguments)</li>
+
+<li>When an <code>if</code> expression has more than 3 arguments.</li>
+
+<li>When the <code>list-of-bindings</code> for <code>let</code> does not contain a nested list</li>
+
+<li>When you encounter a variable that is not bound in the current frame or any of
+its ancestors</li>
+
+<li>etc&#x2026;</li>
+</ul>
+
+<p>
+In any of these cases, you should print "Evaluation error" at the
+start of your error message so that the tests will pass. You might
+enhance these messages by adding more text to it, like "Evaluation
+error: if has fewer than 3 arguments" or the like. While these more
+detailed error messages are not required,  writing better error messages may help you
+now or later in the project with debugging, as if things go wrong when they shouldn't,
+you'll have a better sense for what happened.
+</p>
+
+<p>
+You should then
+immediately quit, and make sure to clean up memory on your way out; use <code>texit</code> for this.
+</p>
+</div>
+</div>
+<div id="outline-container-org74fd121" class="outline-2">
+<h2 id="org74fd121"><span class="section-number-2">7.</span> Multiple S-expressions</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+As discussed in the parser assignment, a Scheme program is a list of
+S-expressions. You should call <code>eval</code> on each S-expression. This is what the
+function <code>interpret</code>, that you need to write, should do: it is a wrapper
+that calls <code>eval</code> for each top-level S-expression in the program. You should
+print out any necessary results before moving on to the next
+S-expression. (The interpreter follows a read-evaluate-print loop:
+after you evaluate a top level S-expression, the result of that
+evaluation is printed.)
+</p>
+
+<p>
+Some other parts of the code may also have multiple S-expressions,
+such as the body of <code>let</code>. If the body of <code>let</code> has multiple
+expressions, you should evaluate each one of them, and return the
+result of the last one. See the last test below for an example of
+this.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc4fcc61" class="outline-2">
+<h2 id="orgc4fcc61"><span class="section-number-2">8.</span> Don't annotate the parse tree (advice on quote)</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Do <i>not</i> implement <code>quote</code> by trying to somehow wrap up the quoted expression in some sort of 
+enclosure indicating that it is quoted.
+</p>
+
+<p>
+Some of you will feel tempted to do otherwise! Some of you may find
+that you are convinced that storing <code>quote</code> or a single quote
+somehow explicitly after evaluation will help you in some way. Some of
+you might even find that by doing so, you can succeed at this
+task. Don't do it. It's a trap. It might help you get this part of the
+assignment to work, but you'll get into hot water later - and it will be
+much more frustrating to go back through your old code and fix it
+later. This reflects
+a common and interesting point of confusion: <code>quote</code> does not tell the
+interpreter to <i>do</i> something to its arguments; rather, it tells the
+interpreter to <i>not do</i> something. 
+</p>
+
+<p>
+If you are feeling a strong urge to annotate something
+indicating that something is quoted, don't do it. If you are
+experiencing such compulsions because your tree is not printing
+properly, past experience has sometimes been that the problem is the
+code for <i>printing</i> the parse tree, not structuring it in the first
+place.
+</p>
+</div>
+</div>
+<div id="outline-container-org08ecca8" class="outline-2">
+<h2 id="org08ecca8"><span class="section-number-2">9.</span> Sample output</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-bash">$ cat test-in-01.scm
+3
+5
+(<span style="color: #a020f0;">if</span> <span style="color: #b22222;">#</span><span style="color: #b22222;">f 7 12)
+</span>$ ./interpreter &lt; test-in-01.scm
+3
+5
+12
+
+$ cat test-in-02.scm
+(<span style="color: #483d8b;">let</span> ((x 5)) x)
+(<span style="color: #a020f0;">if</span> <span style="color: #b22222;">#</span><span style="color: #b22222;">t x y)
+</span>$ ./interpreter &lt; test-in-02.scm
+5
+Evaluation error: unbound variable x.
+
+$ cat test-in-03.scm
+(<span style="color: #483d8b;">let</span> ((foo <span style="color: #8b2252;">"hello"</span>)
+      (bar 7)
+      (baz <span style="color: #b22222;">#</span><span style="color: #b22222;">f))
+</span>  (<span style="color: #a020f0;">if</span> baz foo bar))
+$ ./interpreter &lt; test-in-03.scm
+7
+
+$ cat test-in-04.scm
+(<span style="color: #483d8b;">let</span> ((x 3)) 2 4 x)
+$ ./interpreter &lt; test-in-04.scm
+3
+
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">
+$ cat test-in-01.scm
+(quote a)
+(quote (a b c))
+(quote (a b (quote (c d e))))
+(<span style="color: #483d8b;">let</span> ((x (quote a)) (y (quote (a b c))))
+  y)
+
+$ ./interpreter &lt; test-in-01.scm
+a
+(a b c)
+(a b (quote (c d e)))
+(a b c)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2a6da1e" class="outline-2">
+<h2 id="org2a6da1e"><span class="section-number-2">10.</span> Capstone Extensions</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+For the final project submission, you will get to choose what additional functionality you want your
+interpreter to have, and you'll implement (several small, a few medium, or 1-2 large) enhancements.
+It's not required to get started on these extensions now, but if you'd like to, here are some ideas:
+</p>
+
+<ul class="org-ul">
+<li><p>
+Implement the Scheme function <code>display</code> (described further down in
+this section of <a href="https://www.scheme.com/tspl4/io.html#./io:h9">Dybvig</a>). The simplest cases, which are those I'd
+focus on, are the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-scheme">(display x)  <span style="color: #b22222;">;; </span><span style="color: #b22222;">displays value of a particular variable
+</span>(display <span style="color: #8b2252;">"hello world"</span>) <span style="color: #b22222;">;; </span><span style="color: #b22222;">displays a particular string without the quotes</span>
+</pre>
+</div>
+
+<p>
+You can handle non-printable characters (newlines, etc) inside the strings in any reasonable way, so long as the code doesn't crash.
+</p>
+
+<p>
+Display is a small extension. 
+</p></li>
+
+<li>Implement the Scheme functions <code>when</code> and <code>unless</code> (described further down in this section of <a href="https://www.scheme.com/tspl4/control.html#./control:h3">Dybvig</a>).
+Each of these is a small extension.</li>
+</ul>
+
+<p>
+If you do any of these extensions, remember to write your own tests to make sure that they work!
+</p>
+</div>
+</div>
+<div id="outline-container-orgd6c5c8d" class="outline-2">
+<h2 id="orgd6c5c8d"><span class="section-number-2">11.</span> The starter files</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Your repository will follow the same structure that it has for the previous assignments. The key changes are in <code>schemeitem.h</code>, which now includes a struct for a frame, and <code>interpreter.h</code>, which is
+the header file for the new functionality. You'll need to add <code>interpreter.c</code>, which implements the functions specified in <code>interpreter.h</code>. 
+</p>
+
+<p>
+Again as usual, you may use my binaries if you wish instead of using
+your own previous code, and the directions on how to do so are the
+same. I continue to encourage you enthusiastically to use your own
+code! To do so, copy in the <code>.c</code> files from your last assignment. Note
+that I will not able to provide binaries for parts beyond the parser -
+the code for evaluation gets too intertwined to be able to do so effectively.
+</p>
+
+<p>
+If you're working on a team, you and your partner each wrote your own parser 
+for the previous assignment. If you are going to continue building on your own 
+code, you'll need to choose one of the two parsers to use going forward. 
+Have a rock-paper-scissors tournament with your teammate to decide which, 
+or choose the one that passed more tests. If you have time and want to work 
+with your partner on merging the two together to make an even better parser, 
+feel free.
+</p>
+
+<p>
+Building and testing your code will work precisely the same as on the
+previous assignment (<code>just build</code>, <code>test-m</code>, and <code>test-e</code>). Gradescope
+will copy in fresh copies of the tester files and the supporting
+architecture when running the tests.
+</p>
+</div>
+</div>
+<div id="outline-container-org9f0d9c1" class="outline-2">
+<h2 id="org9f0d9c1"><span class="section-number-2">12.</span> How to test and submit your work</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-org5e49a6b" class="outline-3">
+<h3 id="org5e49a6b"><span class="section-number-3">12.1.</span> Testing your work</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+As with previous assignments, there are M tests and E tests. See the section of Scheme Intro 2
+labeled "How to test your work" if 
+you need a refresher on how to run these tests. 
+Note that the interpreter tests will fail if your code has compiler warnings and/or valgrind errors. 
+Make sure to run the tests in the Docker environment. 
+</p>
+</div>
+</div>
+<div id="outline-container-org41e721f" class="outline-3">
+<h3 id="org41e721f"><span class="section-number-3">12.2.</span> Submitting your work</h3>
+<div class="outline-text-3" id="text-12-2">
+</div>
+<div id="outline-container-org8aaef75" class="outline-4">
+<h4 id="org8aaef75"><span class="section-number-4">12.2.1.</span> Acknowledging help</h4>
+<div class="outline-text-4" id="text-12-2-1">
+<p>
+You should already have a file <code>CollaborationsAndSources.txt</code>
+in your working directory (if not, copy it over from the previous assignment).
+Go to the header for this portion of the assignment and fill in the document. 
+Did you share strategies with anyone else? Talk about any annoying errors and get advice? These are
+fine things to do, and you should note them in the <code>CollaborationsAndSources.txt</code>
+file. Give the names of people you talked with (other than your assigned partner) and some description of
+your interactions. If you used any resources outside of notes taken in class or the homework/lab starter files that
+Anna provided, that is also something to note. 
+</p>
+
+<p>
+If you didn't talk with anyone or use any outside sources, please note
+that explicitly in <code>CollaborationsAndSources.txt</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org5de478a" class="outline-4">
+<h4 id="org5de478a"><span class="section-number-4">12.2.2.</span> Generating the submission file and uploading to Gradescope</h4>
+<div class="outline-text-4" id="text-12-2-2">
+<p>
+After completing <code>CollaborationsAndSources.txt</code> and finishing the
+assignment, run <code>./zipitup</code> (if you get a permissions error, run <code>chmod u+x ./zipitup</code> first).
+This script will create a zip file <code>XXX_submission.zip</code> where XXX is the assignment name or number. 
+Note that this zip file with include your C files, any new header files you created, 
+and <code>CollaborationsAndSources.txt</code>. We will re-copy in our version of the tests and of the provided 
+header files. 
+Upload the zip file to Gradescope. 
+</p>
+
+<p>
+<b><b>On Gradescope, make
+sure to add your partner if you worked with a partner.</b></b>
+<a href="https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members">This page has detailed instructions for how to do that.</a>
+</p>
+
+<p>
+On Gradescope, you should see autograder output for the same tests as
+you ran locally.  There is a small chance that the tests will fail on Gradescope, even 
+if they passed on your own computer. Usually this means that you coded something in a 
+different way than we expected when writing the autograders. We will be grading based on the 
+results of the tests on Gradescope, so make sure to pay attention to the results of the tests there.
+(If you run into this issue, check that you are submitting to the correct assignment on Gradescope. 
+Then try resubmitting and rerunning the autograder. If the error messages are legible, feel free to debug further, 
+but it's also fine to reach out to Anna or the graders at this point.)
+</p>
+</div>
+</div>
+<div id="outline-container-org9769ff4" class="outline-4">
+<h4 id="org9769ff4"><span class="section-number-4">12.2.3.</span> Grading</h4>
+<div class="outline-text-4" id="text-12-2-3">
+<p>
+You'll earn at least an M if the following conditions are all met:
+</p>
+<ul class="org-ul">
+<li>All M tests pass</li>
+<li>A visual inspection of your code shows that you have not
+hyper-tailored your code to pass the tests.  Hyper-tailoring your
+code would be doing things like checking for the exact input from
+the test, meaning you haven't written your code in a way that would
+work for similar inputs.</li>
+<li>You have a <code>CollaborationsAndSources.txt</code> file with the information
+described above.</li>
+<li>Your code has significant stylistic or efficiency issues that we have not
+explicitly covered in class or on the feedback for a previous assignment.</li>
+</ul>
+
+<p>
+You'll earn an E if:
+</p>
+<ul class="org-ul">
+<li>All conditions above for an M are met.</li>
+<li>All the E tests pass.</li>
+<li>Your code is not significantly more complex than needed to
+accomplish the task.</li>
+<li>You have a comment before each function describing what the function
+does (its input/output behavior, not a play-by-play of "first
+checks&#x2026; then makes a recursive call &#x2026;").</li>
+<li>Your code follows good style convention.</li>
+</ul>
+
+<p>
+If your code does not meet the criteria for an M or an E, then you'll earn a
+grade of NA (Not Assessable) or SP (Some Progress) for the assignment. Not Assessable means that your submission does not
+have an attempt at one or more functions in the assignment. Some Progress means
+that your submission has some code (in the correct language) for all functions in the
+assignment, but that the code does not pass all of the M tests, is
+hyper-tailored to the tests, and/or is missing a <code>CollaborationsAndSources.txt</code>
+file. 
+</p>
+
+<p>
+You are welcome to revise your submission until the revision deadline (see Gradescope). 
+</p>
+
+<p>
+If you revise your submission, double-check to make sure that the autograder tests pass and that you
+have included <code>CollaborationsAndSources.txt</code>. 
+</p>
+
+<p>
+Good luck, ask questions, and have fun!
+</p>
+
+
+<div class="note" id="orgbb808f8">
+<p>
+This assignment was originally created by David Liben-Nowell and has since been
+    updated by Dave Musicant, Jed Yang, and Laura Effinger-Dean. Thanks for sharing!
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
