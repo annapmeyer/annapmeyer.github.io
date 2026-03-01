@@ -424,18 +424,11 @@ evenly. (Guile returns a fraction; don't do this.) It's fine to only implement
 the two-argument case. 
 </p>
 
-<ul class="org-ul">
-<li><code>modulo</code>. I recommend implementing a version where you assume that the arguments</li>
-</ul>
-<p>
-are integers.
-</p>
+<li><p>code>modulo</code>. I recommend implementing a version where you assume that the arguments are integers. </p></li>
 
-<ul class="org-ul">
-<li><code>&gt;</code>, <code>&lt;\=</code>, <code>&gt;\=</code> and <code>\=</code>. As these functions all use similar logic, you may earn at most
+<li><p><code>&gt;</code>, <code>&lt;\=</code>, <code>&gt;\=</code> and <code>\=</code>. As these functions all use similar logic, you may earn at most
 two points from these functions, even if you implement all 4. Note that the difference between 
-<code>\=</code> and <code>equal?</code> is that <code>\=</code> only works with numbers.</li>
-</ul></li>
+<code>\=</code> and <code>equal?</code> is that <code>\=</code> only works with numbers.</p></li>
 </ul></li>
 </ul>
 
@@ -466,25 +459,23 @@ You can handle non-printable characters (newlines, etc) inside the strings in an
 
 <ul class="org-ul">
 <li>Implement additional special forms</li>
-</ul>
+
 <p>
 Note that these are special forms, not primitive functions. You should be able to think of test cases 
 (e.g., ones that use <code>set!</code>) where this distinction matters. 
 </p>
 
-<ul class="org-ul">
-<li>- <code>and</code> is a special form. <code>and</code> is technically
+<li> <p><code>and</code> is a special form. <code>and</code> is technically
  defined for any number of arguments (including 0) and for any type of arguments; however, I recommend 
 you focus on the case where you have 1 or more arguments of Boolean type. More details are available 
-in <a href="https://www.scheme.com/tspl4/control.html#./control:s11">the Dybvig specification</a>.</li>
+in <a href="https://www.scheme.com/tspl4/control.html#./control:s11">the Dybvig specification</a>.</p></li>
 
-<li>- <code>or</code> is a special form. <code>or</code> is technically 
+<li> <p><code>or</code> is a special form. <code>or</code> is technically 
  defined for any number of arguments (including 0) and for any type of arguments; however, I recommend 
 you focus on the case where you have 1 or more arguments of Boolean type. More details are available 
-in <a href="https://www.scheme.com/tspl4/control.html#./control:s11">the Dybvig specification</a>.</li>
+in <a href="https://www.scheme.com/tspl4/control.html#./control:s11">the Dybvig specification</a>.</p></li>
+
 </ul>
-
-
 <ul class="org-ul">
 <li>Format your output so that it resembles Guile output as closely as possible. Specifically, don't have an 
 extraneous space after the last item in a list before the closing parenthesis. You don't need to write tests 
@@ -677,7 +668,7 @@ To receive an M:
 <li>Write tests for the new functionality. The tests should have comprehensive coverage of the functional code.</li>
 <li>Describe the new functionality in <code>contributions.txt</code>.</li>
 <li>In <code>contributions.txt</code>, be upfront about any edge cases that still fail.</li>
-<li>Use good coding style (I should be able to read your code without too much trouble)</li>
+<li>Write the code so that it does not contain significant stylistic or efficiency problems</li>
 <li>Fill out the interpreter reflection form, linked from Moodle.</li>
 </ul>
 
