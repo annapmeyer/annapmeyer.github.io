@@ -1,0 +1,495 @@
+---
+layout: null
+permalink: /teaching/cs111/hw0-start.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW0 (Getting Started)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 0 (Getting Started)</h1>
+<p>
+Welcome to CS 111! This homework assignment has 3 parts: course setup logistics, command line basics, and
+your first programming activity. 
+</p>
+<div id="outline-container-org9f74e22" class="outline-3">
+<h3 id="org9f74e22">Assignment logistics</h3>
+<div class="outline-text-3" id="text-org9f74e22">
+<p>
+This is an individual assignment. You are welcome to discuss any part of the assignment with classmates,
+course staff or Anna. For Part 3 (the programming activity), make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+This assignment is due at 10PM on Wednesday, April 1. 
+</p>
+</div>
+</div>
+<div id="outline-container-org46781c1" class="outline-2">
+<h2 id="org46781c1">Part 1: Course setup logistics</h2>
+<div class="outline-text-2" id="text-org46781c1">
+<ul class="org-ul">
+<li><b><b>Log into Moodle:</b></b> log into our course Moodle page. Class materials, readings, and homework will be posted here.</li>
+<li><b><b>Complete Monday's pre-class tasks:</b></b> If you haven't yet, complete Monday's pre-class tasks: reading the syllabus, filling out
+the background survey and logging into Ed, our Q&amp;A platform.</li>
+<li>Optional, but recommended: <b><b>Set up your computer for development</b></b></li>
+</ul>
+</div>
+<div id="outline-container-org7599e7f" class="outline-3">
+<h3 id="org7599e7f">Personal computer development setup</h3>
+<div class="outline-text-3" id="text-org7599e7f">
+<p>
+I encourage you to work in the computer science labs in Olin: the computers have everything we need, working on a larger screen is nice 
+especially for partnered assignments, and the labs (specifically, Olin 310) are often staffed with studnet lab assistants who can help
+you with your work. But sometimes, it may be more convenient to work on your own computer. If you'd like to have this as an option, you'll
+need to install Python and VSCode, and know how to access the COURSES drive. 
+</p>
+
+<ul class="org-ul">
+<li><a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=160547">Python and VSCode setup for Macs</a></li>
+<li><a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=160545">Python and VSCode setup for Windows</a></li>
+<li><a href="https://stolafcarleton.teamdynamix.com/TDClient/2092/Carleton/KB/ArticleDet?ID=148546">Instructions to mount COURSES on your computer</a></li>
+</ul>
+
+<p>
+The CS Department educational associate, Aadi Akyianu (akyianun@carleton.edu) will be hosting in person sessions to help students setup
+Python on their own computers. The sessions are at TBD.
+</p>
+
+<p>
+If you run into any issues with the setup, please reach out for help! The best person to help is Mike Tie (mtie@carleton.edu, Olin 337). Mike
+is the technical director for the CS department and will be able to help you solve any issue. I'm also happy to try to help during my office
+hours (but we may end up needed to reach out to Mike, anyways). 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc5016a1" class="outline-2">
+<h2 id="orgc5016a1">Part 2: "Command line" basics</h2>
+<div class="outline-text-2" id="text-orgc5016a1">
+<p>
+In class we'll frequently use a tool on the computers called "command line". Back in the old days (1960s-70s), computers didn't
+have the fancy displays they do now. Instead, monitors could only show text with 80 characters per line and 25 lines on the screen.
+As a result, anytime you wanted to do anything, you had to type commands onto the computer screen. For instance (I'm making up syntax
+here, but the general idea holds), "run chrome" could open up Google Chrome in the background, and then "search Carleton College" could 
+perform a Google search for Carleton. 
+</p>
+
+<p>
+Fortunately, we now have nice graphical displays on our computers, but for certain tasks, using command line is much easier than using 
+the mouse-and-graphics interface. 
+</p>
+
+<p>
+To complete this part of the assignment, log into one of the CS lab machines in Olin 310 or 308. You can also run these instructions on
+your own computer, but not that they're written for Mac. Certain details differ when working with command line in Windows, so these exact 
+instructions won't work.
+</p>
+
+<p>
+After logging in, open VSCode and mount the courses drive 
+(follow <a href="https://stolafcarleton.teamdynamix.com/TDClient/2092/Carleton/KB/ArticleDet?ID=148546">these instructions</a>). 
+In VSCode, you should be in a new window. If not, go to the File menu and select New Window. Then, go to your student work folder in the 
+Finder (go to the <code>CS111-01-26SP</code> folder, then to the <code>StuWork</code>, then to the folder with your username). Create a new folder within that 
+folder called <code>hw0</code> by going to the File menu and selecting New Folder. Drag this new folder onto a new window in VSCode. Then, go to the 
+Terminal menu in VSCode and select New Terminal. 
+</p>
+
+<p>
+Your VSCode window will now look something like this: 
+</p>
+
+
+<div id="orgd06f6b0" class="figure">
+<p><img src="./vscode_open.png" alt="vscode_open.png" width="800px" />
+</p>
+</div>
+
+<p>
+To double check that everything is correct, click next to the % or $ on the bottom part of the window (whether this is symbol is % or 
+$ just depends on the exact computer you're on), type <code>pwd</code>, and press enter.
+</p>
+
+
+<div id="org513b0fa" class="figure">
+<p><img src="./vscode_pwd.png" alt="vscode_pwd.png" width="500px" />
+</p>
+</div>
+
+<p>
+Your prompt will look a little different, instead of <code>InstructorWork</code> you should see <code>StuWork/username</code> where <code>username</code> 
+is your Carleton username. 
+If you don't see something printed that starts with <code>/Volumes/COURSES/CS111-01-26SP/StuWork/</code> and then has your username and <code>hw0</code>, then 
+something has gone wrong. Try again, or reach out for help. If you see <code>COURSES-1</code> instead of <code>COURSES</code>, that is fine.
+</p>
+
+<p>
+We call the area following the $ or % the <b><b>command line</b></b>. You just typed <code>pwd</code> at the <b><b>prompt</b></b>. This command, short for "print working 
+directory" prints the path of the directory you are currently in (i.e., the "address" of your current folder on the computer). 
+</p>
+
+<p>
+Now, go through Typographical Conventions, Introduction to UNIX Operating System, and Tutorials 1-3 of 
+<a href="https://cs.carleton.edu/faculty/jondich/documents/unixtutorial/">this tutorial</a>. The tutorials were originally created over 25 years ago,
+but they're still accurate-enough for us. A few notes and minor discrepancies are:
+</p>
+<ul class="org-ul">
+<li>The <code>ls</code> command is shorthand for "list". Thus, it's the lowercase letter l, then the letter s. Adding this note because the number 1 and lowercase l look 
+identical in the tutorial's font.</li>
+<li>The final character of the prompt on the tutorial is %. For us, this will be $ or % depending on the computer.</li>
+<li>We'll generally start a Terminal session directly in VSCode. The Intro to UNIX portion of the tutorial describes opening the standalone terminal app
+which also works, it just doesn't bring to your current folder the way that the VSCode terminal does.</li>
+</ul>
+
+<p>
+For this part of the assignment, you will hand in the <code>biglist</code> file that you create in Exercise 3a.
+</p>
+</div>
+</div>
+<div id="outline-container-org7ef8e7a" class="outline-2">
+<h2 id="org7ef8e7a">Part 3: Programming</h2>
+<div class="outline-text-2" id="text-org7ef8e7a">
+<p>
+This part of the assignment has two purposes. First, I want you to practice writing code, since that's what we'll be doing the rest of the term! And second, I 
+want to familiarize everyone with the mechanics of assignments will work in this class. This includes file formatting, assignment submission on Gradescope, and 
+understanding the autograder on Gradescope. 
+</p>
+
+<p>
+Before getting started, I want to remind you that this course's policy is that you cannot use search engines or generative AI (including the Copilot extension in 
+VSCode) when working on homework assignments. You may, however, use and cite the <a href="https://docs.python.org/3/">official Python documentation</a>. 
+</p>
+</div>
+<div id="outline-container-org94114a5" class="outline-3">
+<h3 id="org94114a5">Step 1: Creating your file</h3>
+<div class="outline-text-3" id="text-org94114a5">
+<p>
+Create a file called <code>hello.py</code>. Whenever you create a file for a homework assignment in this class, you are expected to provide a file header with the 
+following format:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">File: hello.py
+Author: Ada Lovelace
+Purpose: Implements Assignment 0 (asks a user <span style="color: #a020f0;">for</span> their name <span style="color: #a020f0;">and</span> age <span style="color: #a020f0;">and</span> then 
+          greets them)
+
+Acknowledgements
+Alan Turing (lab assistant) helped me find the documentation <span style="color: #a020f0;">for</span> <span style="color: #483d8b;">print</span>() 
+Schiller explained to me that the Autograder checks <span style="color: #a020f0;">for</span> spacing so I need to 
+         adjust how I use <span style="color: #483d8b;">print</span>
+</pre>
+</div>
+
+<p>
+Here's another example:
+</p>
+<div class="org-src-container">
+<pre class="src src-python">File: hello.py
+Author: Grace Hopper
+Purpose: Assignment 0
+
+Acknowledgements
+I worked alone, but after finishing the assignment XXX asked me <span style="color: #a020f0;">for</span> <span style="color: #483d8b;">help</span> <span style="color: #a020f0;">and</span> I 
+recommended that they <span style="color: #a020f0;">try</span> using the <span style="color: #483d8b;">input</span> function
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcceb276" class="outline-3">
+<h3 id="orgcceb276">Step 2: Writing the code</h3>
+<div class="outline-text-3" id="text-orgcceb276">
+<p>
+In <code>hello.py</code>, write a program that asks the user for their first and last name, and then greets them by name. Your program should also ask their age and then give
+them an estimate of the number of days old they are (assuming exactly 365 days per year). 
+</p>
+
+<p>
+Here is an example interaction that your program should be able to mimic: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">Hello there!
+What is your first name? Lulu
+What is your last name? Amert
+How old are you, in years? 13
+
+Have a great day, Lulu Amert!
+You are approximately 4745 days old.
+</pre>
+</div>
+
+<p>
+Here's another example:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">Hello there!
+What is your first name? Cheddar
+What is your last name? Amert
+How old are you, in years? 1
+
+Have a great day, Cheddar Amert!
+You are approximately 365 days old.
+</pre>
+</div>
+
+<p>
+<i>Hint: if you're stuck, try looking at <a href="https://runestone.academy/ns/books/published/foppff/simple-python-data_input.html?mode=browsing">Section 2.15 of Runestone</a></i>
+</p>
+</div>
+</div>
+<div id="outline-container-orgd084031" class="outline-3">
+<h3 id="orgd084031">Step 3: Adding comments</h3>
+<div class="outline-text-3" id="text-orgd084031">
+<p>
+Any program with more than a few lines of code should have comments describing what different blocks of the code do. 
+We'll learn more about good commenting style in the next couple of weeks, but for now you should add a couple of comments 
+describing how your code works so that someone who reads your program can easily tell what is happening. 
+You should also make sure that your variables have descriptive names. The graders will give feedback on your coding style to
+help you improve it. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org7cee358" class="outline-2">
+<h2 id="org7cee358">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org7cee358">
+</div>
+<div id="outline-container-org52b10ee" class="outline-3">
+<h3 id="org52b10ee">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-org52b10ee">
+<p>
+You need to hand in Part 3 on Gradescope (see Moodle for the link to Gradescope). 
+Specifically, you should upload your Python file <code>hello.py</code>. The assignment is due at 10PM on April 1, but as 
+with all assignments, I've added a 1-hour buffer to the Gradescope submission deadline to account for occasional technical difficulties. 
+</p>
+
+<p>
+You may resubmit your code as many times as you wish before the deadline to fix any issues. If you have any questions about what the autograder
+results mean, please ask!
+</p>
+</div>
+</div>
+<div id="outline-container-org1291851" class="outline-3">
+<h3 id="org1291851">Grading</h3>
+<div class="outline-text-3" id="text-org1291851">
+<p>
+The assignment will be graded out of 20 points total.
+</p>
+<ul class="org-ul">
+<li>5 points: Part 1 (the parts we can check: logging into Moodle and Ed, filling out the background survey)</li>
+<li>5 points: Part 2. Are the list's contents correct?</li>
+<li>5 points: Part 3 correctness. Can the user interact with your program as expected?</li>
+<li>5 points: Part 3 style. Do you have an appropriate header and comments in your python file?</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb3ec5d2" class="outline-3">
+<h3 id="orgb3ec5d2">Anna's acknowledgements</h3>
+<div class="outline-text-3" id="text-orgb3ec5d2">
+<p>
+Portions of this assignment were borrowed from Layla Oesper and Tanya Amert (in particular, the pet names in the <code>hello.py</code> examples are Tanya's pets!). 
+Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
