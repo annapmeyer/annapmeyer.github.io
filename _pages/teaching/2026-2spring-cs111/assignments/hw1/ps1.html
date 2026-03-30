@@ -1,0 +1,508 @@
+---
+layout: null
+permalink: /teaching/cs111/hw1-basics.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW1 (Python Basics)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 1 (Python Basics)</h1>
+<div id="outline-container-org7853f98" class="outline-2">
+<h2 id="org7853f98">Assignment overview</h2>
+<div class="outline-text-2" id="text-org7853f98">
+<p>
+In this assignment, you'll continue practicing Python basics.
+</p>
+</div>
+<div id="outline-container-orgd4b17a2" class="outline-3">
+<h3 id="orgd4b17a2">Logistics</h3>
+<div class="outline-text-3" id="text-orgd4b17a2">
+<p>
+This is an individual assignment. You are welcome to discuss any part of the assignment with classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+This assignment is due at 10PM on Friday, April 3.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org06cfd30" class="outline-2">
+<h2 id="org06cfd30">Setup</h2>
+<div class="outline-text-2" id="text-org06cfd30">
+<p>
+Mount the COURSES drive and create a folder called <code>hw1</code> in your STUWORK folder.
+Open the new folder in VSCode and create two files called <code>height.py</code> and <code>functions.py</code>. 
+If you need a refresher on how to complete these steps, refer back to the in-class
+lab from the first day of class.
+</p>
+</div>
+</div>
+<div id="outline-container-org995e74e" class="outline-2">
+<h2 id="org995e74e">Part 1: Sorting by height</h2>
+<div class="outline-text-2" id="text-org995e74e">
+<p>
+Python has the ability to group data, for example into pairs (called <code>tuples</code>). 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">tup1 = ("cat", 3)
+tup2 = ("mouse", 5)
+tup3 = ("giraffe", 7)
+</pre>
+</div>
+
+<p>
+You can make a tuple using variables, as well:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">animal = "elephant"
+length = 8
+tup4 = (animal, length)
+</pre>
+</div>
+
+<p>
+There's also a built-in function <code>max</code> that gives us the "largest" of two or 
+more inputs. <code>max</code> behaves logically for numbers, and for strings it compares 
+its values "alphabetically" (it's a little more complex than this, but we'll talk 
+about that later). For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">a = max(4, 2)
+b = max(tup1, tup2, tup3, tup4) # defined in the previous code snippet
+print(a) # prints 2
+print(b) # prints ('mouse', 5)
+</pre>
+</div>
+
+<p>
+You can also give different names to different parts of a tuple (this process is called <i>unpacking</i>):
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">animalName, nameLength = b # b is ('mouse', 5) so animalName = 'mouse' and animalLength = 5
+print("Animal:",animalName)
+print("Length:", nameLength)
+</pre>
+</div>
+
+<p>
+For this part, write a program in <code>height.py</code> that will ask the user to type in three people's names
+and their heights. You should make pairs for the names and heights and use the 
+<code>max</code> function to find the tallest person. 
+</p>
+
+<p>
+For example, if Boris is 68", Miyeon is 70", and Juan is 66", then the program would
+print that Miyeon is the tallest. In this example, the interaction should look like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">Please enter three people's names and hit enter after each:
+Boris
+Miyeon
+Juan
+
+Please enter their heights in inches and hit enter after each:
+68
+70
+66
+
+Miyeon is tallest (70 inches). 
+</pre>
+</div>
+
+<p>
+For full credit, you will need to:
+</p>
+<ul class="org-ul">
+<li>Implement a solution without using <code>if</code> statements, even if you know how to use these 
+from a previous class or from reading ahead in the textbook.</li>
+<li>Match this interaction exactly, including punctuation and spaces</li>
+<li>Give the correct input even on unrealistic heights (e.g., if the user says that 
+Alice is 66 inches and Bob is 402 inches, your program should correctly report that
+Bob is taller).</li>
+</ul>
+
+<p>
+You can test your work by running 
+<code>python3 heights.py</code> from the terminal window in VSCode.
+</p>
+</div>
+</div>
+<div id="outline-container-org416a3b7" class="outline-2">
+<h2 id="org416a3b7">Part 2: Functions</h2>
+<div class="outline-text-2" id="text-org416a3b7">
+<p>
+For this part of the assignment, you'll write code in <code>functions.py</code>. 
+</p>
+</div>
+<div id="outline-container-org271137a" class="outline-3">
+<h3 id="org271137a">Part 2.a Calculations</h3>
+<div class="outline-text-3" id="text-org271137a">
+<p>
+Create a function <code>calculate</code>. Inside the function, define two variables, <code>num1</code> with a value of 3, 
+and <code>num2</code> with a value of 2. Then store the value of <code>num1 * num2</code> in a new variable called <code>product</code>.
+(I.e., do this computation in your code. Don't just store the value of 6 directly in <code>product</code>.) Then, 
+still within the function, print the value of <code>product</code>.
+</p>
+
+<p>
+Try running <code>calculate</code> directly from the terminal like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">$ python3
+&gt;&gt;&gt; <span style="color: #a020f0;">import</span> functions
+&gt;&gt;&gt; functions.calculate()
+</pre>
+</div>
+
+<p>
+The first line launches the Python interpreter. Make sure to type <code>python3</code>, and not just <code>python</code>. The latter 
+commend will open an older version of Python that we don't want to use.
+ The <code>&gt;&gt;&gt;</code> is how lines within the interpreter start. The line <code>import functions</code> loads the code from <code>function.py</code> into
+ the interpreter. Then, when you run <code>functions.calculate()</code>, the interpreter is able to search the <code>functions</code> namespace
+ for a function called <code>calculate</code>. 
+</p>
+
+<p>
+Now, your terminal window should look something like this. You can type <code>quit()</code> to exit the interpreter and return
+to the terminal.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">$ python3
+&gt;&gt;&gt; <span style="color: #a020f0;">import</span> functions
+&gt;&gt;&gt; functions.calculate()
+The product <span style="color: #a020f0;">is</span> 6
+&gt;&gt;&gt; 
+</pre>
+</div>
+
+<p>
+If you run into errors with any part of this step, first check that your code is indented correctly. Are all lines 
+that belong in the function indented by 1 tab? If you're still running into issues, ask a lab assistant or Anna for help.
+</p>
+</div>
+</div>
+<div id="outline-container-org6add732" class="outline-3">
+<h3 id="org6add732">Part 2.b Calling a function within your code</h3>
+<div class="outline-text-3" id="text-org6add732">
+<p>
+Add the following line to the end of <code>functions.py</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">calculate()
+</pre>
+</div>
+
+<p>
+Make sure this line is outside of the function (i.e., has no indentation). 
+</p>
+
+<p>
+Now, run the following command from the terminal window:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">python3 functions.py
+</pre>
+</div>
+
+<p>
+This approach runs all code in <code>functions.py</code> <i>that is not in a function</i>.  There are pros and cons to this approach: 
+it's easy to run the module from the command line, but every time you import the module, you'll see the result of 
+running calculate(). (To see the difference, try importing the module in the interpreter now that you've made 
+this change - you should see a difference from what happened before you added this line.) 
+</p>
+</div>
+</div>
+<div id="outline-container-orga28b959" class="outline-3">
+<h3 id="orga28b959">Part 2.c Fun fact</h3>
+<div class="outline-text-3" id="text-orga28b959">
+<p>
+Write a second function, <code>funFact()</code> in functions.py. This function should contain one line of code that prints a 
+fun fact of your choice. Then, run your code by opening the python interpreter and calling the function directly. 
+For instance, your interaction may look like this: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">$ python3
+&gt;&gt;&gt; <span style="color: #a020f0;">import</span> functions
+The product <span style="color: #a020f0;">is</span> 6
+&gt;&gt;&gt; functions.funFact()
+Post-it notes were invented <span style="color: #a020f0;">in</span> Minnesota
+&gt;&gt;&gt; 
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org41c5825" class="outline-2">
+<h2 id="org41c5825">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org41c5825">
+</div>
+<div id="outline-container-orgb02bbe2" class="outline-3">
+<h3 id="orgb02bbe2">Final pieces</h3>
+<div class="outline-text-3" id="text-orgb02bbe2">
+<p>
+Remember to add comments, including the header block to each of your files (refer back to HW0 for instructions).
+ You should make sure the 
+acknowledgments section in each header block is accurate. You should include a reflection section in the header 
+of <i>one</i> of the files. Include reflections about both pieces of the assignment there, along with a time estimate 
+of the total time spent working on this assignment. 
+</p>
+</div>
+</div>
+<div id="outline-container-orge591b55" class="outline-3">
+<h3 id="orge591b55">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-orge591b55">
+<p>
+You need to hand in your solution on Gradescope (see Moodle for the link to Gradescope). You can either click and 
+drag both files into the Gradescope upload window, or you can create a single zip file to submit like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">zip hw1.zip height.py functions.py
+</pre>
+</div>
+
+<p>
+This command means you want to create a zip file called <code>hw1.zip</code> and that it should contain the files height.py 
+and functions.py. You can also use the following shorthand, where <code>*</code> means include all files in the directory:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">zip hw1.zip *
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbbb9f60" class="outline-3">
+<h3 id="orgbbb9f60">Grading</h3>
+<div class="outline-text-3" id="text-orgbbb9f60">
+<p>
+This assignment is worth 20 points, broken up as follows:
+</p>
+<ul class="org-ul">
+<li>8 points Part 1 correctness</li>
+<li>4 points Part 2a correctness</li>
+<li>4 points Part 2c correctness</li>
+<li>4 points style (comments, header, following instructions)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org687bfe5" class="outline-3">
+<h3 id="org687bfe5">Anna's acknowledgements</h3>
+<div class="outline-text-3" id="text-org687bfe5">
+<p>
+Portions of this assignment were borrowed from Tanya Amert and Anna Rafferty.
+Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
