@@ -1,0 +1,450 @@
+---
+layout: null
+permalink: /teaching/cs111/day2-lab.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python Day 2 Basics</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day 2 Python Basics Lab</h1>
+<p>
+Today, we'll be practicing various basics about how to use Python.
+</p>
+
+<p>
+This is a lab activity, not an assignment. Therefore, it's not required that 
+you complete it or hand it in. However, the concepts in this lab will be useful when you go to 
+complete the homework assignments (and will be useful for exams down the road), so I'd encourage you
+to put in a serious effort on it in class, and to consider finishing any remaining parts outside 
+of class. 
+</p>
+<div id="outline-container-orgd95e596" class="outline-2">
+<h2 id="orgd95e596">Setup</h2>
+<div class="outline-text-2" id="text-orgd95e596">
+<p>
+The setup will be the same as last time. Here's a reminder, as well as a
+<a href="https://stolafcarleton.teamdynamix.com/TDClient/3356/Portal/KB/ArticleDet?ID=152558">link with screenshots that correspond to these instructions.</a>
+</p>
+
+<ol class="org-ol">
+<li>Mount the COURSES drive by double clicking the courses Desktop icon (if you didn't use the checkbox when you logged in)</li>
+<li>Create a new folder in your STUWORK folder called <code>Lab1</code></li>
+<li>Open VSCode</li>
+<li>Click and drag your <code>Lab1</code> folder to the VSCode window to open it</li>
+<li>Create a new file named <code>hello.py</code></li>
+<li>In the menu under Terminal, click New Terminal to open a terminal window.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org806ac91" class="outline-2">
+<h2 id="org806ac91">Exercise 1: Gradescope Practice</h2>
+<div class="outline-text-2" id="text-org806ac91">
+<p>
+Homework assignments in this class will be turned in on Gradescope. Homework assignments starting with HW1 (due Friday) 
+will also have an autograder, which runs your code with specific inputs to check that it works as intended. 
+</p>
+
+<p>
+Try out the following steps:
+</p>
+
+<ol class="org-ol">
+<li>Navigate to Moodle. In the top section, there is a link to Gradescope. Follow this link.</li>
+<li>In Gradescope, click on the "Lab 1 (autograder practice)" assignment.</li>
+<li>Submit the (empty) <code>hello.py</code> file. Wait 1-2 minutes for the autograder to run on your submission. 
+Notice what happens when an autograder test fails.</li>
+<li>In <code>hello.py</code> type the following: <code>print("Hello world!")</code>.
+<ul class="org-ul">
+<li><b>Don't copy and paste!</b> You should always type out Python code because it's good practice, and 
+because copying often introduces weird spacing that will make your program fail.</li>
+</ul></li>
+<li>Save <code>hello.py</code> (Cmd+s)</li>
+<li>Upload <code>hello.py</code> to Gradescope again and make sure that you pass both autograder tests.</li>
+<li>Add your partner to the submission on Gradescope (on the right sidebar, click "View or edit group" under your name).</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org91ed556" class="outline-2">
+<h2 id="org91ed556">Exercise 2: Operators</h2>
+<div class="outline-text-2" id="text-org91ed556">
+<p>
+For each of the following lines of code, predict the output and write this prediction
+down on your worksheet. 
+</p>
+
+<p>
+Then, run each line of code and see what is actually printed. (My recommendation: 
+create a new file <code>experiments.py</code> for this purpose, and type each line from scratch, 
+rather than copy-and-pasting.)
+</p>
+</div>
+<div id="outline-container-org4404548" class="outline-3">
+<h3 id="org4404548">Operators on numbers</h3>
+<div class="outline-text-3" id="text-org4404548">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(4)
+<span style="color: #483d8b;">print</span>(5 + 3)
+<span style="color: #483d8b;">print</span>(5.0 - 3.0)
+<span style="color: #483d8b;">print</span>(5 * 3)
+<span style="color: #483d8b;">print</span>(5 / 3)
+<span style="color: #483d8b;">print</span>(5 // 3)
+<span style="color: #483d8b;">print</span>(5 % 3)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org00535e7" class="outline-3">
+<h3 id="org00535e7">Operators on strings</h3>
+<div class="outline-text-3" id="text-org00535e7">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> + <span style="color: #8b2252;">"3"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> - <span style="color: #8b2252;">"3"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> - 3)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> * <span style="color: #8b2252;">"3"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> * 3)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"5"</span> / <span style="color: #8b2252;">"3"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org54b8f35" class="outline-3">
+<h3 id="org54b8f35">Combining strings and expressions</h3>
+<div class="outline-text-3" id="text-org54b8f35">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"4 + 3 ="</span>, 4 + 3)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"Three 4s:"</span>, 3 * <span style="color: #8b2252;">"4"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"a="</span>, 4-3)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"a="</span>, <span style="color: #483d8b;">str</span>(4-3))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdaaa8f8" class="outline-2">
+<h2 id="orgdaaa8f8">Exercise 3: Printing</h2>
+<div class="outline-text-2" id="text-orgdaaa8f8">
+<p>
+When you call <code>print()</code> in Python, in addition to the expressions you want printed, you can
+also provide "keyword parameters" by name to change how print behaves.
+</p>
+
+<p>
+The <code>end</code> parameter says how to end a print statement. By default, this is a "newline character"
+(specified in Python as <code>\n</code>), meaning that the next thing to print will appear on the following
+line. 
+</p>
+
+<p>
+First, what does this code print?
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"cat"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"dog"</span>)
+</pre>
+</div>
+
+<p>
+It prints the following:
+</p>
+<div class="org-src-container">
+<pre class="src src-python">cat
+dog
+</pre>
+</div>
+
+<p>
+What do you think this code will print?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"cat"</span>, end=<span style="color: #8b2252;">"!"</span>)
+<span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"dog"</span>)
+</pre>
+</div>
+
+<p>
+Write down your guess, and then test it out in Python.
+</p>
+
+
+<p>
+Another keyword parameter of print is called <code>sep</code>, short for separator. What do you 
+think this parameter does? Predict the result and try it out for the following code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"cat"</span>, <span style="color: #8b2252;">"dog"</span>, <span style="color: #8b2252;">"rabbit"</span>, sep=<span style="color: #8b2252;">"!"</span>) <span style="color: #b22222;"># </span><span style="color: #b22222;">try changing "!" to something else</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5db9ade" class="outline-2">
+<h2 id="org5db9ade">Exercise 4: Variables</h2>
+<div class="outline-text-2" id="text-org5db9ade">
+<p>
+The following program computes the volume of a sphere given its radius.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="linenr"> 1: </span><span style="color: #b22222;"># </span><span style="color: #b22222;">Get the radius from the user
+<span class="linenr"> 2: </span></span><span style="color: #a0522d;">radius</span> = <span style="color: #483d8b;">input</span>(<span style="color: #8b2252;">"What is the radius? "</span>)
+<span class="linenr"> 3: </span><span style="color: #a0522d;">radius</span> = <span style="color: #483d8b;">float</span>(radius)
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span><span style="color: #b22222;"># </span><span style="color: #b22222;">Compute the volume (4/3 * pi * r^3)
+<span class="linenr"> 6: </span></span><span style="color: #a0522d;">volume</span> = 4 / 3
+<span class="linenr"> 7: </span><span style="color: #a0522d;">volume</span> = volume * 3.14
+<span class="linenr"> 8: </span><span style="color: #a0522d;">volume</span> = volume * radius
+<span class="linenr"> 9: </span><span style="color: #a0522d;">volume</span> = volume * radius
+<span class="linenr">10: </span><span style="color: #a0522d;">volume</span> = volume * radius
+<span class="linenr">11: </span><span style="color: #483d8b;">print</span>(<span style="color: #8b2252;">"The volume is"</span>, volume, <span style="color: #8b2252;">"(radius="</span>, + <span style="color: #483d8b;">str</span>(radius) + <span style="color: #8b2252;">")"</span>)
+</pre>
+</div>
+
+<p>
+Fill in the table on the worksheet to keep track of the values of the variables over time.
+You can assume that the input radius is <code>10</code>. Feel free to write fractions instead of real 
+numbers (e.g., <code>4/3</code> instead of <code>1.333333</code>) and to leave expressions unsimplified (e.g., <code>pi*pi</code> instead of 9.86).
+</p>
+</div>
+</div>
+<div id="outline-container-org85d9e1c" class="outline-2">
+<h2 id="org85d9e1c">Extra time?</h2>
+<div class="outline-text-2" id="text-org85d9e1c">
+<p>
+Here's a problem to solve: Suppose you are running a track workout and want to compute how 
+quickly you run one lap, based on the start and end time for that lap.
+</p>
+
+<p>
+Write a program that asks the users for these four integer inputs:
+</p>
+<ul class="org-ul">
+<li>The minutes of the start time</li>
+<li>The seconds of the start time</li>
+<li>The minutes of the end time</li>
+<li>The seconds of the end time</li>
+</ul>
+
+<p>
+Your code should then calculate the difference between the end time and the start time, 
+and print out the elapsed time in minutes and seconds.
+</p>
+
+<p>
+Note that seconds should be a value between 0 and 59, which means that simply subtracting 
+the start seconds from the end seconds won't work. Think about what you need to calculate here,
+and perhaps write out the algorithm on paper before starting to write the code.
+</p>
+
+<p>
+Try to come up with test input that will check for all cases that your code should handle. 
+</p>
+</div>
+</div>
+<div id="outline-container-org40b88c1" class="outline-2">
+<h2 id="org40b88c1">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-org40b88c1">
+<p>
+This activity was borrowed from Anya Vostinar &#x2013; thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
