@@ -375,11 +375,16 @@ what you're printing. For this part, you'll want to use conditionals (see the re
 database). Note that this is equivalent to counting the number of rows that have a value less than 5 in the 
 "authorBookCount" field. Again, you'll want to use conditionals.</li>
 <li>Finally, after you are convinced that your code is working smoothly, modify one line of code in 
-<code>dataAnalysis.py</code> so that the larger data file (<code>books.csv</code>) is used instead of the smaller data file.</li>
+<code>dataAnalysis.py</code> so that the larger data file (<code>books.csv</code>) is used instead of the smaller data file.
+(If you're on Windows, one additional step may be required -- see below!) </li>
 <li><b>Optional</b> (not worth any points): what else can we learn from this data? Be creative! Can you find the book 
 with the highest (or lowest) average rating? What about the book with the highest total number of user ratings?</li>
 </ol>
 </div>
+<p><strong>If you're on Windows and get an error when switching to <code>books.csv</code></strong>, look for the line that opens 
+the file under the <code>try</code> block (near the beginning of <code>main</code>). Change this line to be 
+<code>open(bookFilename, encoding="utf-8")</code>. UTF-8 is an encoding that includes non-English characters. For whatever 
+reason, Mac computers use this encoding by default, but Windows computers use a smaller, more restrictive encoding. </p>
 </div>
 <div id="outline-container-orgd0f4b41" class="outline-2">
 <h2 id="orgd0f4b41">Code notes and tips</h2>
