@@ -203,24 +203,24 @@ permalink: /teaching/cs111/hw5-ciphers.html
 <body>
 <div id="content" class="content">
 <h1 class="title">HW 5 (Caesar Ciphers)</h1>
-<div id="outline-container-org848bc77" class="outline-2">
-<h2 id="org848bc77">Assignment overview</h2>
-<div class="outline-text-2" id="text-org848bc77">
+<div id="outline-container-org82a2553" class="outline-2">
+<h2 id="org82a2553">Assignment overview</h2>
+<div class="outline-text-2" id="text-org82a2553">
 <p>
 In this assignment, you'll write code to encode and decode messages using the Double Caesar Cipher method.
 </p>
 </div>
-<div id="outline-container-orga2fc209" class="outline-3">
-<h3 id="orga2fc209">Goals</h3>
-<div class="outline-text-3" id="text-orga2fc209">
+<div id="outline-container-org17d22b4" class="outline-3">
+<h3 id="org17d22b4">Goals</h3>
+<div class="outline-text-3" id="text-org17d22b4">
 <p>
 Get practice using functions, having good code organization, and working with strings. 
 </p>
 </div>
 </div>
-<div id="outline-container-orgd516800" class="outline-3">
-<h3 id="orgd516800">Logistics</h3>
-<div class="outline-text-3" id="text-orgd516800">
+<div id="outline-container-orgf0b778b" class="outline-3">
+<h3 id="orgf0b778b">Logistics</h3>
+<div class="outline-text-3" id="text-orgf0b778b">
 <p>
 This is a partner assignment, which means you should complete 
 all pieces of this assignment with your assigned partner. In particular, any coding
@@ -231,16 +231,18 @@ course staff or Anna. Make sure to cite any help you receive in the
 </p>
 
 <p>
-You have a new partner for this assignment. Check the Moodle Gradebook to see who it is.</p>
+You have a new partner for this assignment. Check the Moodle Gradebook to see who it is.
+</p>
+
 <p>
 This assignment is due at 10PM on Monday, April 27.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org69bb4b1" class="outline-2">
-<h2 id="org69bb4b1">Setup</h2>
-<div class="outline-text-2" id="text-org69bb4b1">
+<div id="outline-container-org2d4bc89" class="outline-2">
+<h2 id="org2d4bc89">Setup</h2>
+<div class="outline-text-2" id="text-org2d4bc89">
 <p>
 Mount the COURSES drive and create a folder called <code>hw5</code> in your STUWORK folder.
 Open the new folder in VSCode. 
@@ -253,9 +255,9 @@ Next, create a file called <code>caesar.py</code>. You'll write all your code fo
 </p>
 </div>
 </div>
-<div id="outline-container-org7531c08" class="outline-2">
-<h2 id="org7531c08">Background on Caesar Ciphers</h2>
-<div class="outline-text-2" id="text-org7531c08">
+<div id="outline-container-org7f6194d" class="outline-2">
+<h2 id="org7f6194d">Background on Caesar Ciphers</h2>
+<div class="outline-text-2" id="text-org7f6194d">
 <p>
 Ciphers are procedures to encrypt and decrypt messages, which is important for ensuring that messages can be delivered 
 securely. (Originally, ciphers were necessary when mailing or using a messenger to deliver sensitive information, but today,
@@ -275,8 +277,8 @@ Supposedly, Julius Caesar used this technique to communicate with his generals. 
 A dramatically more effective variation is the <b>double-Caesar cipher</b>. It is just a little more complicated to implement than the 
 original Caesar cipher. Instead of having a single numeric key, there is a second string of text that acts as the key. Each 
 letter in the key tells you how many letters to advance: "a" is 0, "b" is 1, "c" is 2, and so on. For example, if your original 
-message is "carleton" and your key is "dog", the encrypted string will be "foxoszrb". Specifically, index 0 gets shifted forward by 3 
-since "d" is 3, index 1 gets shifted forward by 15 since "o" is 15, and index 2 gets shifted forward by 7 since "g" is 7. Then 
+message is "carleton" and your key is "dog", the encrypted string will be "foxoszrb". Specifically, index 0 gets shifted forward by 2 
+since "d" is 3, index 1 gets shifted forward by 15 since "o" is 15, and index 2 gets shifted forward by 7 since "g" is 7å. Then 
 we repeat the pattern: index 3 gets shifted forward by 3 (we loop back to the first letter of "dog"), and so on. 
 </p>
 
@@ -292,26 +294,19 @@ Encrypted:     f o x o s z r b
 </div>
 </div>
 </div>
-<div id="outline-container-orga3883e0" class="outline-2">
-<h2 id="orga3883e0">Part 1: Encode and decode</h2>
-<div class="outline-text-2" id="text-orga3883e0">
+<div id="outline-container-orgc2f8e84" class="outline-2">
+<h2 id="orgc2f8e84">Part 1: Encode and decode</h2>
+<div class="outline-text-2" id="text-orgc2f8e84">
 <p>
 For this part, you'll create functions that encode and decode messages using a Double Caesar Cipher. For both
 functions, I recommend that you and your partner work out a solution on paper (pseudocode the algorithm) before 
 starting to code. Then, you should check that your code works after implementing each function. Some of the 
 instructions in Part 2 may be helpful for thinking through how to structure your tests.
 </p>
-
-<p>
-Recall that we discussed the <code>ord</code> and <code>chr</code> functions in class. <code>ord</code> converts a character into its UTF-8 representation
-(e.g., <code>ord("a")=97</code>) and <code>chr</code> converts an integer into the corresponding UTF-8 character (e.g., <code>chr(97)="a"</code>). You should 
-feel free to reference unicode tables, e.g., <a href=https://en.wikipedia.org/wiki/List_of_Unicode_characters#Basic_Latin>this one</a>
-if they're helpful. In the table I linked, the "decimal" column is what will be referenced by <code>ord</code> and <code>chr</code>. 
-</p>
 </div>
-<div id="outline-container-org36701ab" class="outline-3">
-<h3 id="org36701ab">Encode function</h3>
-<div class="outline-text-3" id="text-org36701ab">
+<div id="outline-container-org8311d87" class="outline-3">
+<h3 id="org8311d87">Encode function</h3>
+<div class="outline-text-3" id="text-org8311d87">
 <p>
 Create a function called <code>encode</code> that takes in two parameters: (1) <code>message</code> the original text to encode (stored as
 a string) and (2) <code>key</code> the key to use when encoding with a double-caesar cipher (stored as a string). This function 
@@ -333,9 +328,9 @@ regardless of whether the original character was upper or lowercase.
 </p>
 </div>
 </div>
-<div id="outline-container-orgbb49799" class="outline-3">
-<h3 id="orgbb49799">Decode function</h3>
-<div class="outline-text-3" id="text-orgbb49799">
+<div id="outline-container-orgb4598be" class="outline-3">
+<h3 id="orgb4598be">Decode function</h3>
+<div class="outline-text-3" id="text-orgb4598be">
 <p>
 Create a function called <code>decode</code> that takes in two parameters: (1) <code>message</code> the encrypted text that we want to decode 
 (stored as a string) and (2) <code>key</code> the key to use when decoding (stored as a string). This function should <b>return</b> a 
@@ -350,16 +345,16 @@ string containing the decrypted text, all in lower case. The function definition
 </div>
 </div>
 </div>
-<div id="outline-container-orge317e39" class="outline-2">
-<h2 id="orge317e39">Part 2: Main and testing code</h2>
-<div class="outline-text-2" id="text-orge317e39">
+<div id="outline-container-orgc6642ef" class="outline-2">
+<h2 id="orgc6642ef">Part 2: Main and testing code</h2>
+<div class="outline-text-2" id="text-orgc6642ef">
 <p>
 In this part, you'll write two functions: <code>main</code> and <code>testing</code>. They can be completed in either order.
 </p>
 </div>
-<div id="outline-container-org2beb55b" class="outline-3">
-<h3 id="org2beb55b">Main function</h3>
-<div class="outline-text-3" id="text-org2beb55b">
+<div id="outline-container-org7923eba" class="outline-3">
+<h3 id="org7923eba">Main function</h3>
+<div class="outline-text-3" id="text-org7923eba">
 <p>
 Create a function <code>main</code> that takes no parameters. The function should do the following:
 </p>
@@ -379,9 +374,9 @@ for HW3 or HW4 if you don't remember how to do this.
 </p>
 </div>
 </div>
-<div id="outline-container-org7e9761c" class="outline-3">
-<h3 id="org7e9761c">Testing function</h3>
-<div class="outline-text-3" id="text-org7e9761c">
+<div id="outline-container-org00b6071" class="outline-3">
+<h3 id="org00b6071">Testing function</h3>
+<div class="outline-text-3" id="text-org00b6071">
 <p>
 Create a function <code>testing</code> that takes no parameters. You should use this function to test <code>encode</code>, <code>decode</code>, and the 
 the functions you'll write in Part 3. 
@@ -412,9 +407,9 @@ Note that if you're testing in the interpreter, you need to restart the interpre
 </div>
 </div>
 </div>
-<div id="outline-container-org9f61424" class="outline-2">
-<h2 id="org9f61424">Part 3: Adding in spaces and newlines</h2>
-<div class="outline-text-2" id="text-org9f61424">
+<div id="outline-container-org22b986f" class="outline-2">
+<h2 id="org22b986f">Part 3: Adding in spaces and newlines</h2>
+<div class="outline-text-2" id="text-org22b986f">
 <p>
 So far, we have excluded all characters that aren't letters. Now, we'll add in spaces and newline characters ("\n"). We won't 
 deal with adding in the additional punctuation (commas, apostrophes, periods) that we excluded in Part 1, but the general process to 
@@ -427,23 +422,19 @@ In this part, you won't modify your existing functions (other than <code>testing
 
 <ul class="org-ul">
 <li><code>encodeSpace</code> will behave similarly to <code>encode</code>, but will encode messages that contain spaces and newline characters</li>
-<li><p>
-<code>decodeSpace</code> will behave similarly to <code>decode</code>, but will decode messages that contain spaces and newline characters
-</p>
-</li>
+<li><code>decodeSpace</code> will behave similarly to <code>decode</code>, but will decode messages that contain spaces and newline characters</li>
 </ul>
 
 <p>
-<code>encodeSpace</code> and <code>decodeSpace</code> will handle  
-encoding and decoding when you have spaces and newlines. A bad way to handle spaces and newlines would be to include these 
+The new functions <code>encodeSpace</code> and <code>decodeSpace</code> will handle encoding and decoding when you have spaces and newlines. 
+A bad way to handle spaces and newlines would be to include these 
 characters, unencrypted, in the encoded message. This is a bad idea because then an attaker could infer things about your message 
 based on word and sentence length. Instead, we want to treat spaces and newlines like any other character when encoding. And our 
 encoded message might have spaces and newlines, but they won't be in their original positions!
 </p>
 
 <p>
-The basic approach we'll take is to imagine that we have an alphabet with 28 characters, instead of 26 (treat space
-as letter 27 and newline as character 28). You can still assume that <code>key</code> contains only letters.
+The basic approach we'll take is to imagine that we have an alphabet with 28 characters.
 </p>
 
 <p>
@@ -463,11 +454,15 @@ you can use the following command:
 myString = myString.replace("\\n", "\n")
 </pre>
 </div>
+
+<p>
+Make sure to update <code>testing</code> to verify that your new functions work as expected.
+</p>
 </div>
 </div>
-<div id="outline-container-orge76e44e" class="outline-2">
-<h2 id="orge76e44e">Optional extension</h2>
-<div class="outline-text-2" id="text-orge76e44e">
+<div id="outline-container-orgefaf58c" class="outline-2">
+<h2 id="orgefaf58c">Optional extension</h2>
+<div class="outline-text-2" id="text-orgefaf58c">
 <p>
 If you're encrypting a long message, it is easier to read it in from a text file than to type it all at the command line 
 prompt. Allow the user to choose whether they'd like to use the interactive input method (as you already implemented in <code>main</code>),
@@ -488,9 +483,9 @@ file.close()
 </div>
 </div>
 </div>
-<div id="outline-container-org3c32a9d" class="outline-2">
-<h2 id="org3c32a9d">Wrap up</h2>
-<div class="outline-text-2" id="text-org3c32a9d">
+<div id="outline-container-orgad89422" class="outline-2">
+<h2 id="orgad89422">Wrap up</h2>
+<div class="outline-text-2" id="text-orgad89422">
 <p>
 When you're finished, make sure to complete the usual documentation steps. 
 This includes adding comments, writing function docstrings, and adding a top-level 
@@ -506,9 +501,9 @@ Review the style document on Moodle for the expectations for this assignment.
 </p>
 </div>
 </div>
-<div id="outline-container-org94b7011" class="outline-2">
-<h2 id="org94b7011">Assignment submission and misc. notes</h2>
-<div class="outline-text-2" id="text-org94b7011">
+<div id="outline-container-org715a692" class="outline-2">
+<h2 id="org715a692">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org715a692">
 <p>
 You're welcome to add additional helper functions to organize your code, but please make sure 
 that the functions listed in this assignment are included and behave as specified (same number of 
@@ -516,20 +511,17 @@ parameters, same return values). I ask this for two main reasons:
 </p>
 
 <ul class="org-ul">
-<li>Code should be written to be reusable elsewhere. For example, maybe I want to write a program to
+<li>Code should be written to be reusable elsewhere. For example, maybe I want to write a program to 
 check if all the homework submissions produce the same encryptions. This is a much easier problem 
 if everyone has used the same code specification! More generally, coding projects often need to fit 
-into a larger system of code that expects functions to be defined in a certain way.
-</li>
-<li>When grading your homeworks, the graders and I run your code and also look at the code. It's easier</li>
-to give helpful feedback when all the assignments follow the same specification.
-</li>
+into a larger system of code that expects functions to be defined in a certain way.</li>
+<li>When grading your homeworks, the graders and I run your code and also look at the code. It's easier 
+to give helpful feedback when all the assignments follow the same specification.</li>
 </ul>
-
 </div>
-<div id="outline-container-org6e10c3b" class="outline-3">
-<h3 id="org6e10c3b">Handing in the assignment</h3>
-<div class="outline-text-3" id="text-org6e10c3b">
+<div id="outline-container-orgbe76bc5" class="outline-3">
+<h3 id="orgbe76bc5">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-orgbe76bc5">
 <p>
 You need to hand in <code>caesar.py</code> on Gradescope. 
 Only one partner should submit the assignment to Gradescope (but make sure to add your partner to 
@@ -537,9 +529,9 @@ your group after submitting)
 </p>
 </div>
 </div>
-<div id="outline-container-org325ee2f" class="outline-3">
-<h3 id="org325ee2f">Grading</h3>
-<div class="outline-text-3" id="text-org325ee2f">
+<div id="outline-container-orgb428132" class="outline-3">
+<h3 id="orgb428132">Grading</h3>
+<div class="outline-text-3" id="text-orgb428132">
 <p>
 This assignment is worth 40 points, broken up as follows:
 </p>
@@ -549,7 +541,7 @@ This assignment is worth 40 points, broken up as follows:
 <li><code>main</code> function - 4 points</li>
 <li><code>testing</code> function - 6 points</li>
 <li><code>encodeSpace</code> and <code>decodeSpace</code> functions - 4 points each</li>
-<li>Style (6 points): header, comments, following the style guidelines from Moodle.</li>
+<li>Style (6 points): header, comments, code organization, following the style guidelines from Moodle.</li>
 </ul>
 
 <p>
@@ -557,9 +549,9 @@ Start early, ask lots of questions, and have fun!
 </p>
 </div>
 </div>
-<div id="outline-container-org5413c85" class="outline-3">
-<h3 id="org5413c85">Anna's acknowledgements</h3>
-<div class="outline-text-3" id="text-org5413c85">
+<div id="outline-container-org0164870" class="outline-3">
+<h3 id="org0164870">Anna's acknowledgements</h3>
+<div class="outline-text-3" id="text-org0164870">
 <p>
 This assignment was adapted from assignments used by Andy Exley, Anna Rafferty, and Layla Oesper. Thanks for sharing!
 </p>
