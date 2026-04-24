@@ -1,0 +1,510 @@
+---
+layout: null
+permalink: /teaching/cs111/names-lab.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Baby Names Lab</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Baby Names Lab</h1>
+<p>
+This is a lab activity, not an assignment. Therefore, it's not required that 
+you complete it or hand it in. However, the concepts in this lab will be useful for completing the
+homework assignments (and will be useful for exams down the road), so I'd encourage you
+to put in a serious effort on it in class, and to consider finishing any remaining parts outside 
+of class. 
+</p>
+
+<p>
+<b>Goals:</b> Practice using files and nested lists. See how we can use the matplotlib library to create plots 
+in Python.
+</p>
+<div id="outline-container-org3951c32" class="outline-2">
+<h2 id="org3951c32">Setup</h2>
+<div class="outline-text-2" id="text-org3951c32">
+<p>
+Log into a lab computer, mount COURSES, and navigate to your STUWORK directory. Look back at the lab
+from the first day of class or get help from Anna or Rachel if you need a reminder on how to complete 
+these steps. 
+</p>
+
+<p>
+Create a folder in your STUWORK directory called <code>lettersLab</code>. Open VSCode, and drag the <code>lettersLab</code> folder
+into the VSCode window. Download the 
+<a href="https://drive.google.com/file/d/1Pr8HO0Zqed0G1K7lAUcuqqTrcGOOaJlS/view?usp=sharing">starter code</a> 
+and move all files into your new folder. 
+</p>
+
+<p>
+One additional setup note: if you're running this on your own computer after class, you'll likely get an error 
+that says something about matplotlib not being installed. You can fix this by running the following command in the terminal
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">pip3 install matplotlib
+</pre>
+</div>
+
+<p>
+If that doesn't work, try <code>pip install matplotlib</code>. If that still doesn't work, reach out for help and in the meantime 
+work on one of the lab computers that already has matplotlib installed.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd611ed2" class="outline-2">
+<h2 id="orgd611ed2">Part 1: Counting letters</h2>
+<div class="outline-text-2" id="text-orgd611ed2">
+<p>
+The folder you downloaded contains several data files. These files contain the top 100 baby names assigned per gender 
+for several birth years both in the US 
+(source: <a href="https://www.ssa.gov/oact/babynames/">Social Security Administration</a>) 
+and in New Zealand (source: 
+<a href="https://www.dia.govt.nz/diawebsite.nsf/wpg_URL/Services-Births-Deaths-and-Marriages-Most-Popular-Male-and-Female-First-Names?OpenDocument">Dept. of Internal Affairs, Te Tari Taiwhenua</a>).
+</p>
+
+<p>
+For the first part of the lab, you'll focus on counting how often each letter appears in a string. Then, we'll 
+read data from a file to apply this technique to popular baby names for the different 
+location and years. Then, later in the lab we'll explore how to display this data visually. 
+</p>
+</div>
+<div id="outline-container-orge64445b" class="outline-3">
+<h3 id="orge64445b"><code>countLetters</code></h3>
+<div class="outline-text-3" id="text-orge64445b">
+<p>
+You'll write a helper function <code>countLetters</code>. This function will be called by <code>countLettersInFile</code> and the idea is that 
+<code>countLettersInFile</code> function will count all the letters in a file by calling <code>countLetters</code> for each name in the file. 
+</p>
+
+<p>
+<code>countLetters</code> will take two parameters, a string and a list that contains the counts so far. <b><b>It should return a new list 
+that contains the sum of the counts for the old list and the counts for the new string</b></b>. 
+</p>
+
+<p>
+For example, if I've initalized a list of twenty-six 0's and called this variable <code>myList</code>, then I can do the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">&gt;&gt;&gt; myList
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+&gt;&gt;&gt; updatedList = letterCounter.countLetters("anna", myList)
+&gt;&gt;&gt; updatedList
+[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+&gt;&gt;&gt; updatedAgain = letterCounter.countLetters("anna", updatedList)
+[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</pre>
+</div>
+
+<p>
+After the first call to <code>countLetters</code>, the count at index 0 is 2 (for the 2 "a"'s in "anna") and the count at index 
+13 is 2 (for the 2 "n"'s in "anna"). Then I call <code>countLetters("alan", updatedList)</code>, which returns a newly updated list 
+combining the letter counts for "anna" and "alan". Please ask for help if you have questions about this.
+</p>
+
+<p>
+<b><b>First, before you write any code on the computer</b></b>, write pseudocode on a piece of paper for a function that will count the 
+number of times each letter appears in a string. Then, modify your pseudocode to account for these complexities:
+</p>
+
+<ul class="org-ul">
+<li>Lowercase and uppercase letters should both count towards the overall count for a letter.</li>
+<li>Not all characters in the string will be letters (for names, think apostrophe or hyphens) but you should 
+only count letters.</li>
+</ul>
+
+<p>
+Once you're satisfied with your pseudocode, <b><b>type it up in Python</b></b>. Add your code to <code>letterCounter.py</code> and find the 
+function stub for <code>countLetters</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org2dd56fb" class="outline-3">
+<h3 id="org2dd56fb">Testing <code>countLetters</code></h3>
+<div class="outline-text-3" id="text-org2dd56fb">
+<p>
+<code>main</code> already contains one test for <code>countLetters</code>. Run the code to see if it produces the expected results. If it does, 
+add at least 2 more test cases to make sure the function behaves as expected. If it doesn't go back and debug. Some tips 
+for debugging are:
+</p>
+
+<ul class="org-ul">
+<li>Make a hypothesis about what could be causing the behavior you're seeing.</li>
+<li>Add print statements or use the VSCode debugger to test your hypothesis. If you're using print statements, make sure to 
+include some text in the print statement so that you know what variable is being printed. Whether you're using print 
+statements or the debugger, make sure that the variables match what you expect.</li>
+<li>Try to understand why the bug is occurring. This helps to strengthen your mental model of programming and may make it 
+easier to avoid or solve similar problems in the future.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf6a136f" class="outline-2">
+<h2 id="orgf6a136f">Part 2: Reading from a file</h2>
+<div class="outline-text-2" id="text-orgf6a136f">
+<p>
+Now, we'll read data from a file. Write out pseudocode for a function that will read lines from a file and count the 
+letters in each line, finally returning a list with the total count of each letter. This function should call <code>countLetters</code>. 
+ See below ("Code tips") for example syntax of how to read a file and loop through the lines. 
+</p>
+
+<p>
+As you're writing your pseudocode, take a look at the data files to see how the data is formatted. 
+</p>
+
+<p>
+Again, once you're satisfied with your pseudocode, write the code in Python and test it. You should put this code in the 
+function <code>countLettersInFile</code>. 
+</p>
+
+<p>
+I've also included a file <code>smallTestCounts.txt</code> that just contains 6 names. The returned list of counts for that file should 
+look like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">&gt;&gt;&gt; counts = letterCount.countLettersInFile("smallTestCounts.txt")
+&gt;&gt;&gt; counts
+[3, 0, 0, 0, 4, 0, 2, 1, 1, 0, 0, 1, 3, 1, 1, 0, 0, 5, 0, 5, 2, 1, 0, 0, 2, 0]
+</pre>
+</div>
+</div>
+<div id="outline-container-org7ac26da" class="outline-3">
+<h3 id="org7ac26da">Code tips</h3>
+<div class="outline-text-3" id="text-org7ac26da">
+<p>
+To read in a file by line, use this syntax:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">with</span> <span style="color: #483d8b;">open</span>(filename, <span style="color: #8b2252;">'r'</span>, encoding=<span style="color: #8b2252;">'utf-8'</span>) <span style="color: #a020f0;">as</span> <span style="color: #483d8b;">file</span>:
+    <span style="color: #a020f0;">for</span> line <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">file</span>:
+        <span style="color: #483d8b;">print</span>(line) <span style="color: #b22222;"># </span><span style="color: #b22222;">this prints the line. Replace with whatever you'd like to do instead</span>
+</pre>
+</div>
+
+<p>
+There are also other ways of reading in a file if you want to store its lines and iterate through them many 
+times. You don't need to do this here, but the <code>readlines</code> method is a good one to check out, if you ever need 
+this functionality in the future. 
+</p>
+
+<p>
+The method <code>str.split</code> may be useful. If you need a refresher on how this method works, in the interpreter 
+(type <code>python3</code> in the terminal), you can run <code>help(str.split)</code>. (Alternatively, you can look back at the 
+<a href="https://runestone.academy/ns/books/published/foppff/sequences_splitting-and-joining-strings.html?mode=browsing">Runestone Section that discusses split</a>. 
+Then, experiment in the interpreter to 
+to see how to use split. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf7977e3" class="outline-2">
+<h2 id="orgf7977e3">Part 3: Plotting</h2>
+<div class="outline-text-2" id="text-orgf7977e3">
+<p>
+Once your functions are working, try calling the <code>plotList</code> function with the list that's returned by <code>countLettersInFile</code>. 
+You should see a graph popup that shows you the counts for each letter. Here's an example of the graph that shows up for the 
+<code>smallTestCounts.txt</code> file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">&gt;&gt;&gt; counts = letterCounter.countLettersInFile("smallTestCounts.txt")
+&gt;&gt;&gt; letterCounter.plotList(counts)
+</pre>
+</div>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/labs/day13/LetterCountsPlot.png" alt="bar chart of letter frequencies" width="500px" />
+</div>
+</div>
+<div id="outline-container-org4460e25" class="outline-2">
+<h2 id="org4460e25">Extra time?</h2>
+<div class="outline-text-2" id="text-org4460e25">
+<p>
+There are lots more analyses you can do on this dataset! Here are some ideas.
+</p>
+</div>
+<div id="outline-container-org3620664" class="outline-3">
+<h3 id="org3620664">Calculating frequencies</h3>
+<div class="outline-text-3" id="text-org3620664">
+<p>
+We'd like to be able to compare how letter frequency in names changes over time. 
+One way to do this would be simply to compare the count of "a" from, say, 1900, to the 
+count of "a" in 2008. But what if names also got longer during this timeframe? Instead, we should 
+compare the proportion of "a"'s in 1900 to the proportion of "a" in 2008. 
+</p>
+
+<p>
+To do this, write a function <code>calculateFrequencies</code> that takes a list as a parameter and returns a list that 
+has proportions, rather than raw counts. For example, if my original list was <code>[2, 3, 1, 2]</code> my new list would be
+<code>[0.25, 0.375, 0.125, 0.25]</code> because there are 8 total occurences in the list. Your function should not be destructive 
+(i.e., don't modify the list that is passed in). 
+</p>
+
+<p>
+Test your function and then try calling <code>plotList</code> with the list that's returned. You should see the same pattern as for 
+the original list, but with a different y-axis. Why is this?
+</p>
+</div>
+</div>
+<div id="outline-container-org5be2068" class="outline-3">
+<h3 id="org5be2068">Comparing frequencies</h3>
+<div class="outline-text-3" id="text-org5be2068">
+<p>
+There's an <a href="https://www.explainxkcd.com/wiki/index.php/1571:_Car_Model_Names">XKCD comic</a> that compares the frequency of 
+letters in normal English text with the frequency of letters in car names. For example, the comic shows that the letter "x" 
+is overrepresented in car names relative to other English text. 
+</p>
+
+<p>
+We'll make something similar that will allow us to compare relative frequencies over time (e.g., 2008 vs 1900) or place 
+(USA vs New Zealand). To do this, write a function <code>compareFrequencies</code> that takes two filenames as parameters, and returns 
+a list of 26 items. The nth item should be positive if the nth letter is more common in the first file than the second, 
+and negative if the nth letter is more common in the second file than the first. More specifically, the value of the nth 
+item should be the ratio of the frequency in the first file to the frequency in the second file. 
+It will help to write out pseudocode on paper first!
+</p>
+
+<p>
+When you test your algorithm, you may run into a problem: the function crashes if there are 0 counts of a particular letter 
+in one of the files. Modify <code>countLettersInFile</code> to add 1 to every letter count. This is known as smoothing: it helps "smooth"
+out irregularities in the data, such as counts being 0 due to not having a large enough collection of names, while still preserving
+big differences in counts that come from the data. 
+</p>
+
+<p>
+After writing <code>compareFrequencies</code>, call <code>plotList</code> to make the plot. If you aren't seeing much detail (e.g., if only one of the 
+values is very large), call <code>plotList</code> with two parameters: the list, followed by True. Adding the second parameter will make 
+<code>plotList</code> use y-axis limits of -10 and 10. 
+</p>
+
+<p>
+Explore the data files and see if you notice any interesting trends!
+</p>
+</div>
+</div>
+<div id="outline-container-orgd05bfb3" class="outline-3">
+<h3 id="orgd05bfb3">Even more ideas</h3>
+<div class="outline-text-3" id="text-orgd05bfb3">
+<ul class="org-ul">
+<li>The files include the number of babies given a particular name. Modify your functions from Part 1 so that <code>countLettersInFile</code>
+takes an additional parameter, a boolean. If the parameter is False, behave as we did previously. But if the 
+parameter is True, count each letter in a name n times if there 
+were n babies born with that name. For example, if "Erin" occured 500 times, I would add 500 to my count of "e", 
+500 to my count of "r", and so on. You may also want to modify <code>countLetters</code> to take an additional parameter as well.</li>
+<li>You might be interested in plotting other lists. For example, a list comparing the average number of characters in names from 
+different eras. Make a copy of the plot function, rename it, and try to modify it so that it doesn't require the input list 
+to contain 26 items.</li>
+<li>The files include M/F for gender assigned at birth. Write a function that only counts letters for the M names 
+or for the F names. Try to reuse code as much as possible, calling functions rather than copying/pasting code.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdea4e94" class="outline-2">
+<h2 id="orgdea4e94">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-orgdea4e94">
+<p>
+This lab was adapted from one by Anna Rafferty. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
