@@ -1,0 +1,502 @@
+---
+layout: null
+permalink: /teaching/cs111/hw6-plotting.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW6 (Plotting)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 6 (Plotting climate data)</h1>
+<div id="outline-container-org1b710f9" class="outline-2">
+<h2 id="org1b710f9">Assignment overview</h2>
+<div class="outline-text-2" id="text-org1b710f9">
+<p>
+There are Python packages that allow us to plot graphs, just like what you might do in Excel. In this 
+assignment, you'll practice using lists to create coordinates for a set of 2-dimensional data points, 
+and then plot these points. I'll provide the starter code that constructs a plot (given data that's 
+properly formatted), your responsibilities is (1) to load in the data from a file and get it into the 
+correct format for plotting, and (2) using my code as a template, create another plot of your choice. 
+</p>
+
+<p>
+Specifically, we'll be looking at historic climate data from the MSP airport. 
+</p>
+</div>
+<div id="outline-container-org505ce3a" class="outline-3">
+<h3 id="org505ce3a">Goals</h3>
+<div class="outline-text-3" id="text-org505ce3a">
+<p>
+Practice reading from files, using lists, and making plots.
+</p>
+</div>
+</div>
+<div id="outline-container-org5c35452" class="outline-3">
+<h3 id="org5c35452">Logistics</h3>
+<div class="outline-text-3" id="text-org5c35452">
+<p>
+This is an individual assignment. You are welcome to discuss any part of the assignment with classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+This assignment is due at 10PM on Friday, May 1.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org8d4de7d" class="outline-2">
+<h2 id="org8d4de7d">Setup</h2>
+<div class="outline-text-2" id="text-org8d4de7d">
+<p>
+Mount the COURSES drive and create a folder called <code>hw6</code> in your STUWORK folder.
+Open the new folder in VSCode. 
+If you need a refresher on how to complete these steps, refer back to the in-class
+lab from the first day of class.
+</p>
+
+<p>
+Download the <a href="https://drive.google.com/file/d/1J8SkUAUZ8gQj7-GVSsp9BvdLtDHZM4FL/view?usp=sharing">starter code</a>
+and move the two files, <code>climate.py</code> and <code>mspData.csv</code> into your <code>hw6</code> folder.
+</p>
+
+<p>
+If you are working on your own computer, you'll need to install the Python package <code>matplotlib</code>. To do 
+so, run the following command from the terminal:
+</p>
+
+<p>
+<code>pip3 install matplotlib</code>
+</p>
+
+<p>
+If that doesn't work, you can try <code>pip install matplotlib</code> instead. If that still doesn't work, reach out 
+for help, and in the meantime, work on the lab computers.
+</p>
+</div>
+</div>
+<div id="outline-container-org656362b" class="outline-2">
+<h2 id="org656362b">Explore the starter code</h2>
+<div class="outline-text-2" id="text-org656362b">
+</div>
+<div id="outline-container-org434b981" class="outline-3">
+<h3 id="org434b981">Python file: <code>climate.py</code></h3>
+<div class="outline-text-3" id="text-org434b981">
+<p>
+You will add all of your code to <code>climate.py</code>. I already have starter code for many of the function you'll 
+need. Here's what you'll find:
+</p>
+
+<ul class="org-ul">
+<li><code>main</code> specifies the filename and calls the other functions we need to load in, process, and plot the data.</li>
+<li><code>parseData</code> will read each line from the file and will add the results to a set of lists. <b><b>You need to 
+complete the missing code in this function.</b></b></li>
+<li><code>getMonthData</code> will filter your dataset to only include data from a specific month. <b><b>You need to complete the 
+missing code in this function.</b></b></li>
+<li><code>plotMonthTemps</code> will create a plot that contains two line plots on the same axes. For both graphs, the  
+x-axis will be years and for the y-axis, one line will be the average daily maximum temperature and the other 
+will be the average daily minimum temperature. </li>
+</ul>
+
+<p>
+For this assignment you'll also need to create one additional plot of your choice. I haven't created that function 
+for you since different people will choose to plot different data.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb0c2284" class="outline-3">
+<h3 id="orgb0c2284">Data: <code>mspData.csv</code></h3>
+<div class="outline-text-3" id="text-orgb0c2284">
+<p>
+This file contains monthly climate data from the MSP airport from April 1938 to April 2026. Each row contains the 
+average high temperature, average low temperature, total precipitation, total snowfall, and average snow depth 
+for one month. For example, the first row (with numbers rounded to the nearest thousandth for readability) is 
+</p>
+
+<p>
+<code>1938,04,62.955,41.182,3.27,0.0,0.0</code>
+</p>
+
+<p>
+which means that in April (i.e., month "04") 1938, the average high was 62.955 degrees F, the average low was 
+41.182 degrees F, there were 3.27 inches of liquid precipation and 0 inches of snow, and the average snow depth 
+was 0 inches. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0ead799" class="outline-2">
+<h2 id="org0ead799">Write <code>parseData</code></h2>
+<div class="outline-text-2" id="text-org0ead799">
+<p>
+I recommend creating a smaller data file (e.g., using only the first 5-6 lines) to use during testing. 
+</p>
+
+<p>
+Fill in the missing code in the <code>parseData</code> function. The core of this function should be a loop using 
+ <code>readlines</code> that iterates over each line in the data file. Within the loop body, you'll need to use 
+ string manipulation to separate out the different parts of the data, and then use list indexing and mutation 
+ to add the correct pieces of data to each of the lists we return. 
+</p>
+
+<p>
+Note that the first line in <code>mspData</code> is a <b>header</b>, meaning it doesn't contain data. You'll have to figure 
+out a way to skip over this line when populating the lists in <code>parseData</code>. One way (but certainly not the only way)
+to do this is to make use of the python keyword <code>continue</code>, as illustrated in the following for loop:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">example of continue. Code will print 0, 1, 2, 4, 5
+</span><span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">range</span>(5):
+    <span style="color: #a020f0;">if</span> i == 3:
+       <span style="color: #a020f0;">continue</span> <span style="color: #b22222;"># </span><span style="color: #b22222;">go to the next loop iteration now
+</span>    <span style="color: #483d8b;">print</span>(i)
+</pre>
+</div>
+
+<p>
+After writing <code>parseData</code>, be sure to test it. Creating a smaller data file and then printing the variables 
+and manually checking is a great way to do this. Another option is to print out the 
+length of the variables <code>years</code>, <code>months</code>,
+<code>minTemps</code>, and <code>maxTemps</code> in <code>main</code> (they should each have 1057 items) and to print out the first few
+elements of each variable and check that they match the first few items in in the data file.  
+</p>
+
+<p>
+Note that while there exist libraries for automating CSV processing in Python, <b>you should not use those libraries here</b>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org882614e" class="outline-2">
+<h2 id="org882614e">Write <code>getMonthData</code></h2>
+<div class="outline-text-2" id="text-org882614e">
+<p>
+In the next part of this assignment, I am going to ask you to plot the data for all the years in the dataset, 
+but only for the month of May. That means we have to create new versions of the <code>years</code>, <code>minTemps</code>, and <code>maxTemps</code> 
+list that only contain data for the month of May. The starter code calls <code>getMonthData</code> from <code>main</code> to create 
+new variables for you, but you have to fill in the missing code in <code>getMonthData</code>. 
+</p>
+
+<p>
+Your basic strategy will be to iterate through <code>monthList</code>, and whenever <code>monthList[i]</code> (where <code>i</code> is your loop variable) 
+is the specified <code>month</code>, you should also add <code>otherList[i]</code> to <code>newList</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-org9695200" class="outline-2">
+<h2 id="org9695200">Check that <code>plotMonthTemps</code> works</h2>
+<div class="outline-text-2" id="text-org9695200">
+<p>
+I've already written <code>plotMonthTemps</code> for you. Run the code after completing the previous two parts and check that the 
+following image is produced:
+</p>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/assignments/hw6/mayTemps.png" alt="line plot of min/max temperatures vs years at MSP" width="500px" />
+
+
+<p>
+The graph should show up in a popup window. You need to close this window for the code to continue executing.
+</p>
+</div>
+</div>
+<div id="outline-container-org97de68e" class="outline-2">
+<h2 id="org97de68e">Create another plot of your choice</h2>
+<div class="outline-text-2" id="text-org97de68e">
+<p>
+What else could we plot with the data? For this part of the assignment, you'll create one more 
+plot of your choice. Feel free to be creative, but here are some ideas:
+</p>
+
+<ul class="org-ul">
+<li>Plot the average snowfall, snow depth, or rainfall per year (could be the average per year, or the average for a 
+given month)</li>
+<li>Plot the average temperature, snowfall, or rainfall by month for a given year.</li>
+<li>Plot the average temperature each month for a multi-year period (I recommend limiting to a 5-10 year period so that your graph is still readable)</li>
+<li>Plot the change in temperature between all successive months (again, you'd likely want to limit yourself to a 
+few-year timespan or else do the change in the average across all months)</li>
+</ul>
+
+<p>
+All of these ideas are (likely) line plots, but you can also create bar plots or other graph styles if you wish! 
+Depending on what plot you create, it may be sufficient to only slightly modify the code from <code>plotMonthTemps</code>. 
+But if you have more ambitious ideas (or just want to understand what is going on), feel free to reference and 
+cite the <a href="https://matplotlib.org/stable/gallery/index.html#examples-index">matplotlib documentation</a>. A good 
+strategy is to find an image of a graph similar to the one you want to create, and then look at that example code 
+to try to figure out how to do a similar thing for your situation.
+</p>
+
+<p>
+It's possible that you'll need to edit <code>parseData</code> to create and return additional variables. Feel free to do so! 
+You will likely also want to create a new helper function to do data preprocessing (similar to <code>getMonthData</code>) and a 
+new function to plot the graph (similar to <code>plotMonthTemps</code>). 
+</p>
+
+<p>
+When you create your new plot, make sure you update the title and the axis labels to be descriptive. 
+</p>
+</div>
+</div>
+<div id="outline-container-org2b4bb5b" class="outline-2">
+<h2 id="org2b4bb5b">Optional extension</h2>
+<div class="outline-text-2" id="text-org2b4bb5b">
+<p>
+Create more plots! 
+</p>
+</div>
+</div>
+<div id="outline-container-org54b31d9" class="outline-2">
+<h2 id="org54b31d9">Wrap up</h2>
+<div class="outline-text-2" id="text-org54b31d9">
+<p>
+When you're finished, make sure to complete the usual documentation steps. 
+This includes adding comments, writing function docstrings, and adding a top-level 
+comment, acknowledgements, and a reflection to the header. 
+</p>
+
+<p>
+You should also think about coding style. Have you written everything in a 
+consistent way that is easy to read? Does your code have any unnecessary 
+print statements? (Remove them.) Is there any repetitive code that could be rewritten 
+to use loops or functions? 
+Review the style document on Moodle for the expectations for this assignment. 
+</p>
+</div>
+</div>
+<div id="outline-container-org4bb82ee" class="outline-2">
+<h2 id="org4bb82ee">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org4bb82ee">
+</div>
+<div id="outline-container-orgebef9fb" class="outline-3">
+<h3 id="orgebef9fb">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-orgebef9fb">
+<p>
+You need to hand in <code>climate.py</code> on Gradescope. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgf72debc" class="outline-3">
+<h3 id="orgf72debc">Grading</h3>
+<div class="outline-text-3" id="text-orgf72debc">
+<p>
+This assignment is worth 40 points, broken up as follows:
+</p>
+
+<ul class="org-ul">
+<li><code>parseData</code> 12 points</li>
+<li><code>getMonthData</code> 12 points</li>
+<li>Creating another plot of your choice 10 points</li>
+<li>Style 6 points: header, comments, code organization, following the style guidelines from Moodle.</li>
+</ul>
+
+<p>
+Start early, ask lots of questions, and have fun! 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0060792" class="outline-2">
+<h2 id="org0060792">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-org0060792">
+<p>
+This assignment was adapted from assignments used by Layla Oesper and Tanya Amert. Thanks for sharing!</p>
+</div>
+</div>
+</div>
+</body>
+</html>
