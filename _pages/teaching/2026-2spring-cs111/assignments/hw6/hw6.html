@@ -359,7 +359,12 @@ elements of each variable and check that they match the first few items in in th
 </p>
 
 <p>
-Note that while there exist libraries for automating CSV processing in Python, <b>you should not use those libraries here</b>. 
+Note 1: there exist libraries for automating CSV processing in Python, <b>you should not use those libraries here</b>. 
+</p>
+<p>
+  Note 2: depending on your operating system, you may need to explicitly tell your computer what encoding to use when 
+reading from the file. If you get any unexpected errors when testing <code>parseData</code>, try modifying the code that opens the file 
+to <code>open(filename, "r", encoding="utf-8")</code>.
 </p>
 </div>
 </div>
