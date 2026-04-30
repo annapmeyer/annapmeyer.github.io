@@ -1,0 +1,453 @@
+---
+layout: null
+permalink: /teaching/cs111/images-lab.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Image Lab</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Images lab</h1>
+<p>
+This is a lab activity, not an assignment. Therefore, it's not required that 
+you complete it or hand it in. However, the concepts in this lab will be useful for completing the
+homework assignments (and will be useful for exams down the road), so I'd encourage you
+to put in a serious effort on it in class, and to consider finishing any remaining parts outside 
+of class. 
+</p>
+
+<p>
+<b>Goals:</b> Practice using nested lists and iteration. Prepare for the next homework assignment where 
+you'll be doing similar activities. 
+</p>
+<div id="outline-container-org5dc07e2" class="outline-2">
+<h2 id="org5dc07e2">Setup</h2>
+<div class="outline-text-2" id="text-org5dc07e2">
+<p>
+Log into a lab computer, mount COURSES, and navigate to your STUWORK directory. Look back at the lab
+from the first day of class or get help from Anna or Rachel if you need a reminder on how to complete 
+these steps. 
+</p>
+
+<p>
+Create a folder in your STUWORK directory called <code>imagesLab</code>. Open VSCode, and drag the <code>imagesLab</code> folder
+into the VSCode window. Download the 
+<a href="https://drive.google.com/file/d/1bBxKDZFLD-moNBrxmnJXXrDf_u6vQda2/view?usp=sharing">starter code</a> 
+and move all files into your new folder. 
+</p>
+
+<p>
+The download should include two Python files, <code>imageLab.py</code> and <code>cImage.py</code>, as well as three sample images.
+</p>
+
+<p>
+One additional setup note: if you're running this on your own computer after class, you might need to install a 
+library called pillow. You can do so with the following command in terminal: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">pip3 install pillow
+</pre>
+</div>
+
+<p>
+If that doesn't work, try <code>pip install pillow</code>. If that still doesn't work, reach out for help and in the meantime 
+work on one of the lab computers that already has pillow installed.
+</p>
+</div>
+</div>
+<div id="outline-container-org062bd9f" class="outline-2">
+<h2 id="org062bd9f">Part 1: Image modification</h2>
+<div class="outline-text-2" id="text-org062bd9f">
+<p>
+This section describes the actions you should take with the code; while programming, you may also find it useful to 
+read the section further down in the document where I summarize functions that might be helpful to use. 
+</p>
+</div>
+<div id="outline-container-orgab27a7f" class="outline-3">
+<h3 id="orgab27a7f">Familiarize yourself with the code</h3>
+<div class="outline-text-3" id="text-orgab27a7f">
+<p>
+Start by reading through the code that is already in <code>imageLab.py</code>. I've defined a function <code>testFilter</code> that 
+is similar to what I showed you in class where we removed blue from an image, but this function also allows you 
+to pass in the name of the function that you want to use to transform the image. 
+</p>
+</div>
+</div>
+<div id="outline-container-org2b5244c" class="outline-3">
+<h3 id="org2b5244c">Run the starter code</h3>
+<div class="outline-text-3" id="text-org2b5244c">
+<p>
+Run the starter code by typing <code>python3 imageLab.py</code> in the terminal. Note that you have to <b><b>click the images</b></b> (not 
+the red x in the corner) that popup to have the code continue executing. 
+</p>
+</div>
+</div>
+<div id="outline-container-org3149509" class="outline-3">
+<h3 id="org3149509">Complete the function <code>colorBlind</code></h3>
+<div class="outline-text-3" id="text-org3149509">
+<p>
+This function will take in one parameter (a Python image object) and return a new Python image object that has 
+been modified to be an approximation of what a person with red-green colorblindness might see. To do this, 
+every pixel in the original image needs to be modified so that the red and green pixel values are averaged 
+together. For example, if the original image had a pixel with the (r, g, b) values (100, 20, 80), the 
+corresponding pixel in the new image will have an (r, g, b) value of (60, 60, 80).
+</p>
+
+<ul class="org-ul">
+<li>Note #1: you'll want to make sure that the pixel values you use are integers. 
+The <code>round</code> function will be helpful for this.</li>
+<li>Note #2: it might be helpful to create a helper function that accepts a Pixel object as a parameter and returns 
+a new pixel with the appropriate modifications.</li>
+</ul>
+
+<p>
+After completing <code>colorBlind</code>, you should get an output like this: 
+</p>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/labs/day16/catColorblind.png" alt="Images of a cat where one image has replaced R,G pixels with their average value" width="500px" />
+
+</div>
+</div>
+<div id="outline-container-org1882c4f" class="outline-3">
+<h3 id="org1882c4f">Complete the function <code>contrast</code></h3>
+<div class="outline-text-3" id="text-org1882c4f">
+<p>
+This funciton will take in one parameter (a Python image object) and return a new Python image object that has been
+modified to have increased contrast. Do this by following these steps: for each original pixel, get the original 
+red, green, and blue values. Create a new pixel where each original color value that was less than or equal to 127
+is set to 0, and each color value that was greater than or equal to 128 is set to 255. For instance, if the pixel 
+had (r, g, b) values of (127, 128, 128), the new color values would be (0, 255, 255). Again, you may find it 
+useful to define additional functions while doing this. 
+</p>
+
+<p>
+After completing <code>contrast</code>, you should get an output like this: 
+</p>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/labs/day16/catContrast.png" alt="Images of a cat where one image is high-contrast" width="500px" />
+
+</div>
+</div>
+</div>
+<div id="outline-container-org753d8b4" class="outline-2">
+<h2 id="org753d8b4">Helpful image functions, summarized</h2>
+<div class="outline-text-2" id="text-org753d8b4">
+<p>
+These functions can be applied to <b>Image objects</b> and may be helpful when writing your code.
+</p>
+
+<ul class="org-ul">
+<li><code>getHeight</code> (no parameters): returns an integer representing how tall the image is, 
+i.e., the number of rows of pixels in the image.</li>
+<li><code>getWidth</code> (no parameters): returns an integer representing how wide the image is, 
+i.e., the number of columns of pixels in the image.</li>
+<li><code>getPixel</code> (two parameters: column (int) and row (int)): returns a reference to the pixel object at  
+coorindates (column, row). E.g., if column=2 and row=0, this would return the pixel in the top row, 
+three pixels from the left.</li>
+<li><code>setPixel</code> (three parameters: column (int), row (int), and pixel (Pixel object)): set the pixel at coordinates
+(column, row) to the given pixel. Helpful for when you've modified a copy of a pixel and want to place that 
+modified pixel into the new image.</li>
+</ul>
+
+<p>
+There are also some functions that can be <b>Pixel objects</b> that may be useful.
+</p>
+
+<ul class="org-ul">
+<li><code>getRed</code> (no parameters): returns the integer in [0, 255] representing the level of red in the pixel.</li>
+<li><code>getGreen</code> (no parameters): returns the integer in [0, 255] representing the level of green in the pixel.</li>
+<li><code>getBlue</code> (no parameters): returns the integer in [0, 255] representing the level of blue in the pixel.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2fe389c" class="outline-2">
+<h2 id="org2fe389c">Part 2: More loop practice</h2>
+<div class="outline-text-2" id="text-org2fe389c">
+<p>
+Here are some more exercises to practice using nested loops and while loops. For each of these, I recommend 
+writing the solution paper before typing it up and testing it. We'll go through the solutions to these in 
+class on Friday, so please try them before then.
+</p>
+
+<ol class="org-ol">
+<li><p>
+Use nested loops to write a snippet of code that will print the following pattern to the screen:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">*
+**
+***
+****
+*****
+</pre>
+</div></li>
+
+<li><p>
+Use nested loops to write a snippet of code that will print the following to the screen:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">012345
+123456
+234567
+345678
+</pre>
+</div></li>
+
+<li><p>
+Write a function called <code>multiplication</code> that will compute and print a multiplication table 
+nested loops. You should print 5 rows and 5 columns (but feel free to make your function more 
+advanced by having it accept parameters indicating how many rows and columns to print). I.e., 
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">1   2   3   4   5
+2   4   6   8   10
+3   6   9   12  15
+4   8   12  15  18
+5   10  15  20  25
+</pre>
+</div>
+
+<p>
+Note: you'll want to use the <code>print()</code> function, but instead of printing a newline at the end, 
+you may want to print a tab. You can do that with the following syntax: <code>print(1, end='\t'</code>) 
+where <code>'\t'</code> is the newline character.
+</p></li>
+
+<li><p>
+What will be the output of each of the following code snippets?
+</p>
+
+<p>
+a. 
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a0522d;">i</span> = 9
+<span style="color: #a020f0;">while</span> i &gt; 0:
+    <span style="color: #483d8b;">print</span>(i)
+    <span style="color: #a0522d;">i</span> -= 2
+<span style="color: #483d8b;">print</span>(f<span style="color: #8b2252;">"After loop, i is </span>{i}<span style="color: #8b2252;">"</span>)
+</pre>
+</div>
+
+<p>
+b.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">for</span> i <span style="color: #a020f0;">in</span> <span style="color: #483d8b;">range</span>(4):
+    <span style="color: #a0522d;">j</span> = 0
+    <span style="color: #a020f0;">while</span> j &lt;= i:
+        <span style="color: #483d8b;">print</span>(i, j)
+        <span style="color: #a0522d;">j</span> = j + 1
+    <span style="color: #483d8b;">print</span>()
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgcc5d71f" class="outline-2">
+<h2 id="orgcc5d71f">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-orgcc5d71f">
+<p>
+This lab was adapted from labs used by Anna Rafferty and Layla Oesper. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
