@@ -1,0 +1,392 @@
+---
+layout: null
+permalink: /teaching/cs111/hw7-images1.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW7 (Images Part 1)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 7 (Images Part 1)</h1>
+<div id="outline-container-org394b23d" class="outline-2">
+<h2 id="org394b23d">Assignment overview</h2>
+<div class="outline-text-2" id="text-org394b23d">
+<p>
+Similar to what we did in the images lab in class, in this lab you will practice image 
+manipulation. 
+</p>
+</div>
+<div id="outline-container-org647792a" class="outline-3">
+<h3 id="org647792a">Goals</h3>
+<div class="outline-text-3" id="text-org647792a">
+<p>
+Practice using nested for loops and using a library with objects (Images and Pixels). 
+</p>
+</div>
+</div>
+<div id="outline-container-orgbac3c04" class="outline-3">
+<h3 id="orgbac3c04">Logistics</h3>
+<div class="outline-text-3" id="text-orgbac3c04">
+<p>
+This is an individual assignment. You are welcome to discuss any part of the assignment with classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+This assignment is due at 10PM on Friday, May 8 (this is a shorter turnaround than most assignments, 
+accordingly, this assignment is shorter). 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org11a8879" class="outline-2">
+<h2 id="org11a8879">Setup</h2>
+<div class="outline-text-2" id="text-org11a8879">
+<p>
+Mount the COURSES drive and create a folder called <code>hw7</code> in your STUWORK folder.
+Open the new folder in VSCode. 
+If you need a refresher on how to complete these steps, refer back to the in-class
+lab from the first day of class.
+</p>
+
+<p>
+Download the <a href="https://drive.google.com/file/d/1hzt_Kb6_fxHTPm7lBCTxxllv-MNWE20P/view?usp=sharing">starter code</a>
+and move the files (<code>images.py</code>, <code>cImage.py</code>, and the test images) into your <code>hw7</code> folder.
+</p>
+
+<p>
+If you are working on your own computer, you may need to install the Python package <code>pillow</code>. To do 
+so, run the following command from the terminal:
+</p>
+
+<p>
+<code>pip3 install pillow</code>
+</p>
+
+<p>
+If that doesn't work, you can try <code>pip install pillow</code> instead. If that still doesn't work, reach out 
+for help, and in the meantime, work on the lab computers.
+</p>
+</div>
+</div>
+<div id="outline-container-orge538b12" class="outline-2">
+<h2 id="orge538b12">Part 1: Sepia toned images</h2>
+<div class="outline-text-2" id="text-orge538b12">
+<p>
+For this part, you'll write a filter that converts an image to sepia tones, as illustated by the 
+following image:
+</p>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/assignments/hw7/snowmanSepia.png" alt="image of a snowman next to the same image in sepia tones" width="500px" />
+
+
+<p>
+You should write a function <code>sepiaFilter</code> that takes one parameter (an Image object) and returns a 
+new Image object. Within the <code>sepiaFilter</code> function, you should create a copy of the original image 
+and then edit its pixels as follows, assuming that a given pixel has original RGB values of 
+<code>(redOrig, greenOrig, blueOrig)</code>:
+</p>
+
+<ul class="org-ul">
+<li>New red color: Use the formula <code>redNew = redOrig * 0.39 + greenOrig * 0.77 + blueOrig * 0.19</code></li>
+<li>New green color: Use the formula <code>greenNew = redOrig * 0.35 + greenOrig * 0.69 + blueOrig * 0.17</code></li>
+<li>New blue color: Use the formula <code>blueNew = redOrig * 0.27 + greenOrig * 0.53 + blueOrig * 0.13</code></li>
+</ul>
+
+<p>
+Remember that pixel RGB values must be integers. Additionally, these equations might give you pixel 
+values that are larger than 255. In that case, you should use 255. 
+</p>
+
+<p>
+After writing <code>sepiaFilter</code>, you can test it by calling the function <code>testFilter(imageFilename, sepiaFilter)</code>, 
+similar to what we did for the functions we wrote in the in-class lab.
+</p>
+</div>
+</div>
+<div id="outline-container-org5e4301f" class="outline-2">
+<h2 id="org5e4301f">Part 2: Adding a border</h2>
+<div class="outline-text-2" id="text-org5e4301f">
+<p>
+Sometimes it's nice to add a border to an image, e.g., as in this image: 
+</p>
+
+<p><img src="../../_pages/teaching/2026-2spring-cs111/assignments/hw7/snowmanBorder.png" alt="image of a snowman with a pink border" width="500px" />
+
+
+<p>
+For this part, you'll write a function <code>addBorder</code>. This function should take <b>3 parameters</b>: an Image object, 
+a border width (integer), and a border color (tuple of 3 integers). The function should return a new Image object 
+that is a copy of the original Image object with an added border.
+</p>
+
+<p>
+For example, if I use 10 as the border width parameter, I will add rows of 10 pixels to the top and the bottom 
+of the image, and columns of 10 pixels to the sides of the image. In total, if my original image dimensions were 
+m rows and n columns, the new image should have dimension (m + 2 * border width) times (n + 2 * border width). In 
+other words, the border gets added around the image, <b>do not cover up or replace pixels from the original image</b>. 
+</p>
+
+<p>
+The border color will be a tuple. For example, <code>(255, 0, 0)</code> would correspond to adding a red border.
+</p>
+
+<p>
+After you finish writing <code>addBorder</code> you can call display the image by calling <code>displayImage(imgWithBorder)</code> where 
+<code>imgWithBorder</code> is the image that you returned from <code>addBorder</code>. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgee4fce4" class="outline-2">
+<h2 id="orgee4fce4">Wrap up</h2>
+<div class="outline-text-2" id="text-orgee4fce4">
+<p>
+When you're finished, make sure to complete the usual documentation steps. 
+This includes adding comments, writing function docstrings, and adding a top-level 
+comment, acknowledgements, and a reflection to the header. 
+</p>
+
+<p>
+You should also think about coding style. Have you written everything in a 
+consistent way that is easy to read? Does your code have any unnecessary 
+print statements? (Remove them.)  
+Is there any repetitive code that could be rewritten 
+to use loops or helper functions? 
+Review the style document on Moodle for the expectations for this assignment. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgc411f69" class="outline-2">
+<h2 id="orgc411f69">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-orgc411f69">
+</div>
+<div id="outline-container-org634a5c9" class="outline-3">
+<h3 id="org634a5c9">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-org634a5c9">
+<p>
+You need to hand in <code>images.py</code> on Gradescope. 
+</p>
+</div>
+</div>
+<div id="outline-container-org2c586dd" class="outline-3">
+<h3 id="org2c586dd">Grading</h3>
+<div class="outline-text-3" id="text-org2c586dd">
+<p>
+This assignment is worth 20 points, broken up as follows:
+</p>
+
+<ul class="org-ul">
+<li>8 points <code>sepiaFilter</code></li>
+<li>8 points <code>addBorder</code></li>
+<li>4 points style and following the assignment specifications</li>
+</ul>
+
+<p>
+Start early, ask lots of questions, and have fun! 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f6a722" class="outline-2">
+<h2 id="org8f6a722">Anna's acknowledgements</h2>
+<p>This assignment was adapted from Anna Rafferty and Layla Oesper's teaching materials. Thanks for sharing!</p>
+</div>
+</div>
+</body>
+</html>
