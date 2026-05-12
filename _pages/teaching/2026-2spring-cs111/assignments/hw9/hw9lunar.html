@@ -1,0 +1,522 @@
+---
+layout: null
+permalink: /teaching/cs111/hw9-lunarlander1.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW9 (Lunar Lander Part 1)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 9 (Lunar Lander Part 1)</h1>
+<div id="outline-container-orgc00e61e" class="outline-2">
+<h2 id="orgc00e61e">Assignment overview</h2>
+<div class="outline-text-2" id="text-orgc00e61e">
+<p>
+You'll implement a version of the classic video game <a href="https://en.wikipedia.org/wiki/Lunar_Lander_(1979_video_game)">Lunar Lander</a>. 
+In this assignment, you'll implement the game logic and use a text based interface; 
+in HW 10 (Lunar Lander Part 2), you'll add graphics.
+</p>
+</div>
+<div id="outline-container-orga35144f" class="outline-3">
+<h3 id="orga35144f">Goals</h3>
+<div class="outline-text-3" id="text-orga35144f">
+<p>
+Practice using object-oriented programming. 
+</p>
+</div>
+</div>
+<div id="outline-container-org667cfda" class="outline-3">
+<h3 id="org667cfda">Logistics</h3>
+<div class="outline-text-3" id="text-org667cfda">
+<p>
+This is a partner assignment, which means you should complete 
+all pieces of this assignment with your assigned partner. In particular, any coding
+must be completed side-by-side in a pair programming style. 
+You are welcome to discuss the assignment with other classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+There are new partnerships for this assignment. Check Moodle to see who you're working with.
+</p>
+
+<p>
+This assignment is due at 10PM on Wednesday, May 20. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org148e2a7" class="outline-2">
+<h2 id="org148e2a7">Setup</h2>
+<div class="outline-text-2" id="text-org148e2a7">
+<p>
+Mount the COURSES drive and create a folder called <code>hw9</code> in your STUWORK folder.
+Open the new folder in VSCode. 
+If you need a refresher on how to complete these steps, refer back to the in-class
+lab from the first day of class.
+</p>
+
+<p>
+Download the <a href="https://drive.google.com/file/d/1NOP8MMO2gVX9v4AqsgsK3veGW09pdvjm/view?usp=sharing">starter code</a>
+and move the files (<code>interfaces.py</code> and <code>graphics.py</code>) into your <code>hw9</code> folder.
+</p>
+</div>
+<div id="outline-container-orgd3fc4d1" class="outline-3">
+<h3 id="orgd3fc4d1">About the code</h3>
+<div class="outline-text-3" id="text-orgd3fc4d1">
+<ul class="org-ul">
+<li><code>interfaces.py</code> contains two classes. For this assignment, you'll use (and minimally edit)
+the <code>TextLanderInterface</code> class. Take some time to read through this class and its methods.</li>
+<li><code>graphics.py</code> won't be used until HW10 (Lunar Lander Part 2).</li>
+</ul>
+
+<p>
+You should create a third file, <code>lunarLander.py</code> in your <code>hw9</code> directory. Almost all of your code 
+will be written to this file.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3f88747" class="outline-2">
+<h2 id="org3f88747">Lunar Lander</h2>
+<div class="outline-text-2" id="text-org3f88747">
+<p>
+In this game, you are controlling a moon lander that is descending towards the moon. Your 
+goal is to land safely on the moon without crashing (i.e., you can't land on the moon at too high 
+of a speed).
+Gravity will steadily accelerate your lander towards the moon, and you have one control: a "thrust" 
+button that will apply thrust to slow down your spacecraft. You have a limited amount of fuel though, 
+and once the fuel runs out gravity will take its course for the rest of the journey. 
+</p>
+</div>
+</div>
+<div id="outline-container-orgc5771dd" class="outline-2">
+<h2 id="orgc5771dd">Basic functionality</h2>
+<div class="outline-text-2" id="text-orgc5771dd">
+</div>
+<div id="outline-container-orgcf86156" class="outline-3">
+<h3 id="orgcf86156">LunarLander Class</h3>
+<div class="outline-text-3" id="text-orgcf86156">
+<p>
+First, you'll write a class caled LunarLander (in Python, the names of classes traditionally start 
+with a capital letter). This class will represent the spacecraft. 
+</p>
+
+<p>
+You'll need to create several <b><b>instance variables</b></b> and <b><b>methods</b></b> for this class.
+</p>
+
+<p>
+Instance variables you need include <code>altitude</code> (how far the spacecraft is above the surface of the moon), 
+<code>velocity</code> (how fast the ship is moving. A negative velocity means that the spacecraft is moving towards the
+moon, while a positive velocity means its moving away from the moon's surface and further into space), and 
+<code>fuel</code> (how much fuel is left in the tank). 
+</p>
+
+<p>
+Methods you need include:
+</p>
+<ul class="org-ul">
+<li>A constructor, that takes in the parameters necessary to create a <code>LunarLander</code> object.</li>
+<li><code>getAltitude</code>, a method that takes no parameters other than <code>self</code> and returns the numeric (integer) 
+altitude of the lander. Positive numbers indicate higher in the sky, while 0 indicates you are on the 
+moon's surface.</li>
+<li><code>getVelocity</code>, a method that takes no parameters other than <code>self</code> and returns the current velocity of 
+the moon lander.</li>
+<li><code>getFuel</code>, a method that takes no parameters other than <code>self</code> and returns the amount of fuel currently 
+in the tank.</li>
+<li><code>update</code>, a method that takes the parameters <code>self</code> and <code>thurstAmount</code>, an integer indicating how 
+much thrust to apply to the ship. <code>update</code> will update the lander's altitude and velocity in accordance 
+with how much thrust was applied. Specifically, you should
+<ul class="org-ul">
+<li>Use <code>thrustAmount</code> units of fuel if possible (if not enough fuel is available, just use what is left)</li>
+<li>For each unit of fuel that is burnt, increase the ship's velocity by 2.</li>
+<li>Subtract 1 from the velocity to account for gravity (remember, positive velocity means the spacecraft 
+is traveling away from the moon and negative velocity means it's going towards the moon).</li>
+<li>Compute and set the new altitude, calculated as the old altitude plus the new velocity. If this value 
+is less than or equal to 0, the spacecraft has reached the moon (either a successful landing or a crash) 
+in which case you should set the altitude to 0.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc58eebb" class="outline-3">
+<h3 id="orgc58eebb">LanderGame class</h3>
+<div class="outline-text-3" id="text-orgc58eebb">
+<p>
+To actually play our game, we need a class that will handle game play: it'll create the lunar lander object 
+and then repeatedly ask the user for how much thrust to use, while updating the lander's instance variables 
+to keep track of altitude, fuel, velocity, and whether it has landed. 
+</p>
+
+<p>
+Create a class <code>LanderGame</code> in <code>lunarLander.py</code>. For now, this class will have a constructor and one other 
+method, <code>play</code>. The constructor should create two instance variables, <code>lander</code> and <code>interface</code>. <code>lander</code> is an 
+instance of the <code>LunarLander</code> class and should be initialized to have velocity 0, altitude 100, and fuel 30. 
+<code>interface</code> will (for this assignment) be a <code>TextLanderInterface</code> object. You'll need to import the 
+<code>interfaces</code> module at the top of your file &#x2013; be cognizant of how you import the module and how you'll 
+have to initialize objects from this module.
+</p>
+
+<p>
+The <code>play</code> method will handling playing the game. It should keep asking the user for information (how much 
+thrust to use) until the lunar lander lands safely or crashes. <code>play</code> should do the following tasks:
+</p>
+
+<ul class="org-ul">
+<li><p>
+Normal game play: do the following in a loop as long as the <code>lander</code> instance variable has altitude 
+above 0.
+</p>
+<ul class="org-ul">
+<li>Ask the interface object to show the current status of the lander (altitude, velocity, fuel).
+   <b>Do not write your own code to do this.</b>  Use the methods in <code>TextLanderInterface</code>. </li>
+<li>Ask the interface to get a thrust amount from the user. Again, don't write your own code to do this: use
+    the methods in <code>TextLanderInterface</code>.
+</li>
+<li>Update the lunar lander's information with the returned amount.</li>
+</ul></li>
+<li>Handling ground contact: when the lander's altitude reaches 0, check its velocity. If its velocity is less 
+than -5, it has crashed. Otherwise, it has landed safely.</li>
+<li>Display results to the user: Based on whether it was a successful landing or a crash, display the correct 
+error message to the user. Don't write your own code to do this; use the methods in <code>TextLanderInterface</code>.</li>
+<li>Close the interface: call the interface's <code>close()</code> method to exit.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org686f6a9" class="outline-3">
+<h3 id="org686f6a9">Main function</h3>
+<div class="outline-text-3" id="text-org686f6a9">
+<p>
+Add a <code>main</code> function to <code>lunarLander.py</code> that will create a <code>LanderGame</code> instance and call its <code>play</code> 
+method to play the game. Here's a sample run of what playing the game should look like, if the player 
+always chooses 0 thrust:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">Lander Status: Altitude 100, Velocity 0, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 99, Velocity -1, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 97, Velocity -2, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 94, Velocity -3, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 90, Velocity -4, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 85, Velocity -5, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 79, Velocity -6, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 72, Velocity -7, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 64, Velocity -8, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 55, Velocity -9, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 45, Velocity -10, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 34, Velocity -11, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 22, Velocity -12, Fuel 15
+Thrust amount? 0
+Lander Status: Altitude 9, Velocity -13, Fuel 15
+Thrust amount? 0
+Crash! Oh no!
+Goodbye
+</pre>
+</div>
+<p>Make sure to also add the <code>if name == "__main__"</code> block so that you can play your game by running 
+<code>python3 lunarLander.py</code> from the terminal.</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org814338e" class="outline-2">
+<h2 id="org814338e">Improvements to the game</h2>
+<div class="outline-text-2" id="text-org814338e">
+<p>
+Congratulations, you've implemented a working game! Now let's see if we can add some improvements 
+to the player experience. Note that these enhancements are not worth many points relative to the overall 
+functionality, so you should make sure the basic game works before trying these pieces.
+</p>
+
+<ul class="org-ul">
+<li>Change the constructor of the <code>LanderGame</code> class so that it can take an integer parameter indicating
+the difficulty. Based on the given difficulty, create the lander with different initial values as follows:
+
+<ul class="org-ul">
+<li>1 (easy): Altitude 100, Velocity 0, Fuel 15</li>
+<li>2 (medium): Altitude 200, Velocity 0, Fuel 15</li>
+<li>3 (hard): Altitude 300, Velocity 0, Fuel 10</li>
+</ul></li>
+
+<li>Change the <code>main</code> function in <code>lunarLander.py</code> to explain to the user what the different difficulty levels mean
+and allow them to choose their preferred level.</li>
+
+<li>Edit the <code>getThrust</code> method in the <code>TextLanderInterface</code> class in <code>interfaces.py</code> to allow the user to 
+press Enter (i.e., to not enter any number) when they want to use 0 thrust.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org474ff6f" class="outline-2">
+<h2 id="org474ff6f">Wrap up</h2>
+<div class="outline-text-2" id="text-org474ff6f">
+<p>
+When you're finished, make sure to complete the usual documentation steps. 
+This includes adding comments, writing function docstrings, and adding a top-level 
+comment, acknowledgements, and a reflection to the header. 
+</p>
+
+<p>
+You should also think about coding style. Have you written everything in a 
+consistent way that is easy to read? Does your code have any unnecessary 
+print statements? (Remove them.)  
+Is there any repetitive code that could be rewritten 
+to use loops or helper functions? 
+Review the style document on Moodle for the expectations for this assignment. 
+</p>
+</div>
+</div>
+<div id="outline-container-org07a41d3" class="outline-2">
+<h2 id="org07a41d3">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org07a41d3">
+<p>
+You can test your code by running <code>python3 lunarLander.py</code>. 
+</p>
+</div>
+<div id="outline-container-orge283c0d" class="outline-3">
+<h3 id="orge283c0d">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-orge283c0d">
+<p>
+You need to hand in <code>lunarLander.py</code> and <code>interface.py</code> on Gradescope.  Only one partner should submit the 
+assignment to Gradescope (but make sure to add your partner to your group after submitting). 
+</p>
+</div>
+</div>
+<div id="outline-container-org37aa809" class="outline-3">
+<h3 id="org37aa809">Grading</h3>
+<div class="outline-text-3" id="text-org37aa809">
+<p>
+This assignment is worth 30 points, broken up as follows:
+</p>
+
+<ul class="org-ul">
+<li>10 points <code>LunarLander</code> class</li>
+<li>10 points <code>LanderGame</code> class</li>
+<li>5 points Improvements</li>
+<li>5 points style (reflections, acknowledgments, comments, coding style)</li>
+</ul>
+
+<p>
+Start early, ask lots of questions, and have fun! 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2dc86d7" class="outline-2">
+<h2 id="org2dc86d7">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-org2dc86d7">
+<p>
+This assignment was adapted from Layla Oesper's teaching materials. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
