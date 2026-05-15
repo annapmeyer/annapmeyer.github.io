@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-05-14 Thu 19:27 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW 10 (Lunar Lander Part 2)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 10 (Lunar Lander Part 2)</h1>
+<div id="outline-container-orgf2df542" class="outline-2">
+<h2 id="orgf2df542">Assignment overview</h2>
+<div class="outline-text-2" id="text-orgf2df542">
+<p>
+You'll implement a graphical user interface to play the Lunar Lander game that you build in HW9. 
+</p>
+
+<p>
+<b><b>If you did not get a working solution to HW9, please reach out to Anna early in the week.</b></b> I want 
+to help you get your code to a place where you'll be able to complete this assignment, independent 
+of how HW9 went.
+</p>
+</div>
+<div id="outline-container-org0ef6c3c" class="outline-3">
+<h3 id="org0ef6c3c">Goals</h3>
+<div class="outline-text-3" id="text-org0ef6c3c">
+<p>
+Practice using the <code>graphics.py</code> library (specifically, this will give you practice working with 
+classes and OOP). 
+</p>
+</div>
+</div>
+<div id="outline-container-orge008a75" class="outline-3">
+<h3 id="orge008a75">Logistics</h3>
+<div class="outline-text-3" id="text-orge008a75">
+<p>
+This is a partner assignment, which means you should complete 
+all pieces of this assignment with your assigned partner. In particular, any coding
+must be completed side-by-side in a pair programming style. 
+You are welcome to discuss the assignment with other classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+You're working with the same partner as for HW9.
+</p>
+
+<p>
+This assignment is due at 10PM on Friday, May 22. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgba6e00c" class="outline-2">
+<h2 id="orgba6e00c">Setup</h2>
+<div class="outline-text-2" id="text-orgba6e00c">
+<p>
+Mount the COURSES drive and create a folder called <code>hw10</code> in your STUWORK folder.
+Open the new folder in VSCode. 
+If you need a refresher on how to complete these steps, refer back to the in-class
+lab from the first day of class.
+</p>
+
+<p>
+Copy the files from HW9 (<code>graphics.py</code>, <code>interfaces.py</code>, and <code>lunarLander.py</code>) into your HW10 folder.
+</p>
+
+<p>
+You'll use the <code>GraphicalLanderInterface</code> in <code>interfaces.py</code>. Take some time to read through this class 
+carefully, and note the parts that seem incomplete (these should be noted in the method docstrings). 
+</p>
+</div>
+</div>
+<div id="outline-container-org85e1a20" class="outline-2">
+<h2 id="org85e1a20">Using <code>GraphicalLanderInterface</code></h2>
+<div class="outline-text-2" id="text-org85e1a20">
+<p>
+Change the constructor of your <code>LanderGame</code> class in <code>lunarLander.py</code> so that it uses the <code>GraphicalLanderInterface</code>
+class. Once you've done this, you should be able to run your code as previously (<code>python3 lunarLander.py</code>). 
+Just click on the screen and watch the moon lander descend. (Why does this work? You used the methods from 
+the interface to interact with the user, and <code>GraphicalLanderInterface</code> has those same method names. If you didn't 
+use the methods from <code>TextLanderInterface</code> in HW9, you'll need to modify your code to use the methods before continuing.)
+</p>
+
+<p>
+Depending on the difficulty levels you included in the HW9 game, the window may or may not be big enough to accomodate the 
+starting height. If you want, you can modify the size of the window (see the constructor of <code>GraphicalLanderInterface</code>). 
+</p>
+</div>
+</div>
+<div id="outline-container-org8d02c74" class="outline-2">
+<h2 id="org8d02c74">Fixing the graphical interface</h2>
+<div class="outline-text-2" id="text-org8d02c74">
+<p>
+There are a few problems with the graphical interface, as written. First, there's no way to use thrust (currently, 
+any mouse click just inputs 0 for the thrust amount). Second, there is no display of the current game state (properties 
+of the lunar lander like altitude, velocity, and fuel level). Finally, when the lunar lander reaches the moon, the 
+graphical window just closes and then a message is printed to the terminal, instead of displaying a message in the window
+itself.
+</p>
+
+<p>
+You'll fix each of these problems. Specifically, you should modify <code>GraphicalLanderInterface</code> in the following ways:
+</p>
+<ul class="org-ul">
+<li>In the <code>getThrust</code> method, make two buttons appear when the user is asked for a thrust amount. One button should be 
+labeled "thrust" and the other "no thrust". Depending on which button is clicked, have the interface return 0 or 1. 
+(Hints: like in the in-class lab, use a rectangle to create a button, and then add some text to it. You'll want to remove 
+(undraw) the buttons once the user has clicked one of them.)</li>
+<li>Edit the <code>showInfo</code> method so that it also displays the lunar lander's current status to the screen. Show enough information
+to be able to play the game (like the <code>TextLanderInterface</code>'s <code>showInfo</code> method does). This information should update each 
+time that <code>showInfo</code> is called, and it should remain on the screen even after <code>showInfo</code> is complete.</li>
+<li>Change the end-game methods so that they move the lander shape to be on hte moon's surface, and then display a short message 
+in the graphical window. You should also wait for a user mouse click before continuing (i.e., before the program terminates
+and the window closes).</li>
+</ul>
+
+
+<p>
+You have the skills necessary to complete each of these steps, but you'll likely have to look back at code from class
+(particularly the graphics lab) and at the <a href="https://mcsp.wartburg.edu/zelle/python/graphics/graphics/">documentation</a> 
+for graphics.py (or at the code for <code>graphics.py</code>, located in your current directory). 
+When you're doing coding projects in the future &#x2013; beyond this class &#x2013; you'll often need to use a library
+that no one has taught you about. Learning to use libraries that others have written requires reading parts of the documentation
+and doing some hands-on experimentation to see what works. This assignment is a chance to try that, while knowing you have 
+resources (Anna, the prefect, the lab assistants) to help you if you get stuck. 
+</p>
+</div>
+</div>
+<div id="outline-container-org2bd3aee" class="outline-2">
+<h2 id="org2bd3aee">Improvements to the game</h2>
+<div class="outline-text-2" id="text-org2bd3aee">
+<p>
+For the final 5 points on this assignment, you should implement at least 3 of these enhancements:
+</p>
+
+<ul class="org-ul">
+<li>A more complete control system (e.g., buttons for the user to select thrust 2, thrust 3, etc.)</li>
+<li>A lunar lander that looks more like a spaceship instead of a blue trapezoid</li>
+<li>A more celebratory result for a successful landing</li>
+<li>A more illustrative result of crashing onto the moon's surface</li>
+<li>A moon surface that is more detailed than just a gray rectangle</li>
+<li>Background (eg sun, earth, stars, an astronaut - use your imagination!)</li>
+<li>A scoring system that gives a score based on fuel remaining and speed at impact (i.e., the player 
+should get a higher score if they are going at a slower speed when they land, and if they have extra 
+fuel remaining at the end).</li>
+<li>An intro screen that allows the user to graphically choose a difficulty level.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org75f8a49" class="outline-2">
+<h2 id="org75f8a49">Wrap up</h2>
+<div class="outline-text-2" id="text-org75f8a49">
+<p>
+When you're finished, make sure to complete the usual documentation steps. 
+This includes adding comments, writing function docstrings, and adding a top-level 
+comment, acknowledgements, and a reflection to the header. 
+</p>
+
+<p>
+You should also think about coding style. Have you written everything in a 
+consistent way that is easy to read? Does your code have any unnecessary 
+print statements? (Remove them.)  
+Is there any repetitive code that could be rewritten 
+to use loops or helper functions? 
+Review the style document on Moodle for the expectations for this assignment. 
+</p>
+</div>
+</div>
+<div id="outline-container-org0974769" class="outline-2">
+<h2 id="org0974769">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-org0974769">
+</div>
+<div id="outline-container-org51ff15e" class="outline-3">
+<h3 id="org51ff15e">Handing in the assignment</h3>
+<div class="outline-text-3" id="text-org51ff15e">
+<p>
+You need to hand in <code>lunarLander.py</code> and <code>interface.py</code> on Gradescope.  Only one partner should submit the 
+assignment to Gradescope (but make sure to add your partner to your group after submitting). 
+</p>
+</div>
+</div>
+<div id="outline-container-orgcac1da2" class="outline-3">
+<h3 id="orgcac1da2">Grading</h3>
+<div class="outline-text-3" id="text-orgcac1da2">
+<p>
+This assignment is worth 30 points, broken up as follows:
+</p>
+
+<ul class="org-ul">
+<li>10 points - add "thrust" and "no thrust" buttons</li>
+<li>5 points - display the lander status to the screen</li>
+<li>5 points - modify the end of the game</li>
+<li>5 points Improvements</li>
+<li>5 points style (reflections, acknowledgments, comments, coding style)</li>
+</ul>
+
+<p>
+Start early, ask lots of questions, and have fun! 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org4cff31d" class="outline-2">
+<h2 id="org4cff31d">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-org4cff31d">
+<p>
+This assignment was adapted from Layla Oesper's teaching materials. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
