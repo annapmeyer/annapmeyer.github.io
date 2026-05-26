@@ -1,0 +1,359 @@
+---
+layout: null
+permalink: /teaching/cs111/hw12-sorting.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HW 12 (Searching and Sorting)</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">HW 12 (Searching and sorting)</h1>
+<div id="outline-container-orgebed551" class="outline-2">
+<h2 id="orgebed551">Assignment overview</h2>
+<div class="outline-text-2" id="text-orgebed551">
+</div>
+<div id="outline-container-org6a74043" class="outline-3">
+<h3 id="org6a74043">Logistics</h3>
+<div class="outline-text-3" id="text-org6a74043">
+<p>
+This is an individual assignment. You are welcome to discuss any part of the assignment with classmates,
+course staff or Anna. Make sure to cite any help you receive in the 
+"acknowlegdements" portion of the assignment. 
+</p>
+
+<p>
+This assignment is due at 10PM on Monday, June 1. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org8aa8a78" class="outline-2">
+<h2 id="org8aa8a78">Setup</h2>
+<div class="outline-text-2" id="text-org8aa8a78">
+<p>
+This assignment is a problem set (no coding). 
+ You'll legibly handwrite or type your solutions, and submit your answers as a PDF.
+</p>
+</div>
+</div>
+<div id="outline-container-org72830d4" class="outline-2">
+<h2 id="org72830d4">Questions</h2>
+<div class="outline-text-2" id="text-org72830d4">
+<ol class="org-ol">
+<li><p>
+List each item I will compare to (in order) if I'm using binary search to look for "June" in the following list:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">lst = ["January", "July", "March", "May", "November", "September"]
+</pre>
+</div>
+
+<p>
+Assume that I use integer division <code>len(lst)//2</code> to compute the middle index (this means that if the list has an 
+even number of items, I will compare with the larger of the two middle items). 
+</p></li>
+
+<li><p>
+What is the big-O running time of the following function in terms of <code>n</code>, where <code>n</code> is the length of <code>someList</code>? 
+(Recall that to find the big-O running time, you count how many operations will be completed in terms of <code>n</code> and 
+(e.g., how many times a particular line inside of a nested for loop will be reached) and then remove any constants).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">def mystery(someList):
+    total = 0
+    for i in range(len(someList)):
+        for j in range(len(someList)):
+            total = total + 2 * someList[i]
+
+    for i in range(len(someList)):
+        print(total + someList[i])
+
+    return total
+</pre>
+</div></li>
+
+<li><p>
+Both selection sort and insertion sort have an outer loop that iterates through the whole list. Suppose we're sorting 
+the following list: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">lst = [63, 27, 54, 72, 90, 99, 45, 18]
+</pre>
+</div>
+
+<p>
+Write down what <code>lst</code> looks like at the end of each iteration of the outer loop for (a) insertion sort and (b) 
+selection sort. You should have a sequence of lists for each part (a) and part (b) and the final list in each 
+sequence should be fully sorted. 
+</p></li>
+
+<li><p>
+Show how merge sort would sort the same list:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">lst = [63, 27, 54, 72, 90, 99, 45, 18]
+</pre>
+</div>
+
+<p>
+In your answer, you should tell me what each step of the sorting process is (what part of the list are you working
+with, and what's its current order?) For example, if I were to explain how [78, 38] is sorted using merge sort, I 
+would say that we recurse on the first half of the list and on the second half. The first half is [78] which is 
+trivially sorted because it has length 1. Same with the second half of the list, [38]. Then we merge the two sorted 
+lists [78] and [38] to form the list [38, 78]. Your explanation doesn't need to keep reporting all of the same details,
+but you should tell me at a minimum what lists are being merged together in what order. The latter part could be 
+conveyed by drawing a tree diagram and labeling with numbers what order the steps occur in. 
+</p></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orga299f13" class="outline-2">
+<h2 id="orga299f13">Assignment submission and misc. notes</h2>
+<div class="outline-text-2" id="text-orga299f13">
+<p>
+When you finish, add acknowledgements and a reflection to your work. 
+</p>
+
+<p>
+You'll need to hand in a PDF on Gradescope. If you're working in Google Docs or Microsoft word, there should be an 
+option to export your file as a PDF. You can also go to print the document, and then (on the Mac dialogue in the 
+lab computers) in the lower left corner, select PDF. 
+</p>
+
+<p>
+If you've handwritten your responses, you can scan it via an on-campus printer, or take a picture and paste those 
+into a PDF. (You can also do this option if you're typing some of the results and handwriting others, e.g., diagrams.)
+Please make sure your work is legible! (Both your handwriting and the quality of the scan/photo)
+</p>
+</div>
+<div id="outline-container-org29c6ee5" class="outline-3">
+<h3 id="org29c6ee5">Grading</h3>
+<div class="outline-text-3" id="text-org29c6ee5">
+<p>
+This assignment is worth 20 points, broken up as follows:
+</p>
+
+<ul class="org-ul">
+<li>4 points Question 1</li>
+<li>5 points Question 2</li>
+<li>5 points Question 3</li>
+<li>5 points Question 4</li>
+<li>1 point acknowledgments and reflection</li>
+</ul>
+
+<p>
+Start early, ask lots of questions, and have fun! 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org17931d5" class="outline-2">
+<h2 id="org17931d5">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-org17931d5">
+<p>
+This assignment was adapted from Anna Rafferty's and Layla Oesper's teaching materials. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
