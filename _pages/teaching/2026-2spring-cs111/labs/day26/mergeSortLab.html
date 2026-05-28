@@ -1,0 +1,431 @@
+---
+layout: null
+permalink: /teaching/cs111/mergesort-lab.html
+---
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-10 Wed 12:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Merge Sort Lab</title>
+<meta name="author" content="annameyer" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../../../../../assets/css/orgstyle.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Merge Sort Lab</h1>
+<p>
+This is a lab activity, not an assignment. Therefore, it's not required that 
+you complete it or hand it in. However, the concepts in this lab will be useful for completing the
+homework assignments (and will be useful for exams down the road), so I'd encourage you
+to put in a serious effort on it in class, and to consider finishing any remaining parts outside 
+of class. 
+</p>
+
+<p>
+<b>Goals:</b> Understand merge sort by implementing it. Compare the efficiency of different sorting algorithms. 
+</p>
+<div id="outline-container-org82cc1e0" class="outline-2">
+<h2 id="org82cc1e0">Setup</h2>
+<div class="outline-text-2" id="text-org82cc1e0">
+<p>
+Log into a lab computer, mount COURSES, and navigate to your STUWORK directory. Look back at the lab
+from the first day of class or get help from Anna or Rachel if you need a reminder on how to complete 
+these steps. 
+</p>
+
+<p>
+Create a folder in your STUWORK directory called <code>mergeSortLab</code>. Open VSCode, and drag the <code>mergeSortLab</code> folder
+into the VSCode window. Download the 
+<a href="https://drive.google.com/file/d/1iYfrtIOP78HlYBO_II_ud5uKQ7u1t1lM/view?usp=sharing">starter code</a> 
+and move the files into your new folder. 
+</p>
+
+<p>
+The download should include two Python files, <code>mergeSort.py</code> and <code>sortTiming.py</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-org1ad1c50" class="outline-2">
+<h2 id="org1ad1c50">Part 1: Implement the <code>merge</code> function</h2>
+<div class="outline-text-2" id="text-org1ad1c50">
+<p>
+There is starter code for a <code>merge</code> function in <code>mergeSort.py</code>. This function will take in two sorted lists, and 
+return a new list that is the merged (sorted) version of both lists. 
+</p>
+
+<ol class="org-ol">
+<li><p>
+First, write a <code>while</code> loop that implements the following pseudocode. You should use the variables that I  
+created for you.
+</p>
+<div class="org-src-container">
+<pre class="src src-nil"># while there are still items in both the left and right halves
+    # check if the next left item is less than or equal to the next right item
+        # if so, append the next left item to the merged list
+        # otherwise, append the next right item to the merged list
+</pre>
+</div></li>
+
+<li><p>
+Your <code>merge</code> function isn't quite done: it'll stop merging as soon as you run out of items in one of the lists. 
+But this is a good time to check whether it works, so far. Uncomment the lines of code towards the end of the 
+file that are labeled as test cases for Part 1.
+</p>
+
+<p>
+Run the code (<code>python3 mergeSort.py</code>), and you should get the following output:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">[0, 1, 2, 3, 4, 5, 6, 7]
+[0, 1, 7, 8]
+['apple', 'avocado', 'banana', 'cucumber', 'fig', 'grape']
+</pre>
+</div></li>
+
+<li><p>
+Finish writing the <code>merge</code> function by implementing the following pseudocode after the while loop:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil"># if we're not done with the left list, append all remaining items to the new list
+# otherwise, append all remaining items from the right list to the new list
+</pre>
+</div>
+
+<p>
+Now, when you run the code, you should get the following output:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">[0, 1, 2, 3, 4, 5, 6, 7, 8]
+[0, 1, 7, 8, 20, 26]
+['apple', 'avocado', 'banana', 'cucumber', 'fig', 'grape', 'zucchini']
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org386a6ab" class="outline-2">
+<h2 id="org386a6ab">Part 2: Implement the <code>mergeSort</code> function</h2>
+<div class="outline-text-2" id="text-org386a6ab">
+<p>
+Now we'll implement <code>mergeSort</code>! The empty function is already in <code>mergeSort.py</code>, you should fill it in as follows:
+</p>
+<ul class="org-ul">
+<li>The base case is when the length of the list is 0 or 1</li>
+<li>In the recursive case, you should make recursive calls on the first half and second half of the list. Remember 
+that you can use <code>lst[:midpoint]</code> to get the first half of the list and <code>lst[midpoint:]</code> to get the second half  
+of the list if you've defined <code>midpoint</code> to be the index of the middle item. Remember that this midpoint needs to 
+be an integer!</li>
+<li>Then, use the <code>merge</code> function to merge the sorted sublists, and return the merged result.</li>
+</ul>
+
+<p>
+Once you're implemented <code>mergeSort</code>, uncomment the test cases that I've written. You should get the following 
+results:
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">[1, 2, 3, 4, 5]
+['apple', 'avocado', 'banana', 'cucumber', 'fig', 'grape', 'zucchini']
+[1, 1, 2, 2, 2, 3]
+[-10, -5, -1, 0, 2]
+[(1, 'b'), (2, 'a'), (2, 'c')]
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfef6049" class="outline-2">
+<h2 id="orgfef6049">Part 3: Explore timing</h2>
+<div class="outline-text-2" id="text-orgfef6049">
+<p>
+In the file <code>sortTiming.py</code>, I have written code that will run trials of several sorting algorithms, and then 
+print the average runtime of each algorithm. You have a few tasks to do:
+</p>
+
+<ul class="org-ul">
+<li>At the top of the file, fill in the <code>merge</code> and <code>mergeSort</code> functions by copying over your code from <code>mergeSort.py</code>.</li>
+<li><p>
+Run the code. You should see something like this: (the times may be smaller, I'm not sure how much faster the lab 
+computers are than my laptop!)
+</p>
+<div class="org-src-container">
+<pre class="src src-nil">Working on input size: 10
+-----------------------------------
+Avg. time for   bubble sort  with input size 10: 0.00312 ms
+Avg. time for selection sort with input size 10: 0.00223 ms
+Avg. time for insertion sort with input size 10: 0.00187 ms
+Avg. time for   merge sort   with input size 10: 0.00494 ms
+Avg. time for  built-in sort with input size 10: 0.00021 ms
+</pre>
+</div></li>
+<li>See how the results vary as the length of the list grows (change the variables in <code>main</code>) and record the results
+on your worksheet. You should also decrease the number of trials as the input size grows. For the largest trials, 
+you can also skip running the slowest sorting algorithm by commenting out those lines of code in <code>runTrials</code>.</li>
+<li>Plot the data on the <a href="https://www.desmos.com/calculator">Desmos calculator</a> or another plotting software of your
+choice to see how the results compare with the Big O times we've discussed for these algorithms. In Desmos, you can 
+click the "+" in the upper left corner, and then select "table" to enter in your data. 
+<ul class="org-ul">
+<li>You may want to adjust the zoom to see all your data more clearly. The best way to do this is to click the zoom 
+magnifying class icon, located just to the left of the table where you're entering the data.</li>
+</ul></li>
+<li>Answer the questions on your worksheet about which algorithm performs best in different settings.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org972a64f" class="outline-2">
+<h2 id="org972a64f">Extra time, or want extra practice?</h2>
+<div class="outline-text-2" id="text-org972a64f">
+</div>
+<div id="outline-container-orgbb3e83e" class="outline-3">
+<h3 id="orgbb3e83e">Merge sort in place</h3>
+<div class="outline-text-3" id="text-orgbb3e83e">
+<p>
+It is expensive (both in terms of additional runtime, and additional memory usage) to create new sublists like we 
+do in the current version of <code>mergeSort</code>. You can fix this by creating a single temporary list and using index 
+pointers to mark where the current start and end of the list is.
+</p>
+
+<ol class="org-ol">
+<li><p>
+Define a function <code>mergeInplace(lst, leftStart, leftEnd, rightEnd, tmp)</code> which takes the following parameters:
+</p>
+<ul class="org-ul">
+<li>The full list (<code>lst</code>)</li>
+<li>An index pointer (integer) to mark the start of the left sublist</li>
+<li>An index pointer to mark the end of the left sublist (note that this pointer will also be the start of 
+the right sublist)</li>
+<li>An index pointer to mark the end of the right sublist</li>
+<li>A temporary list (<code>tmp</code>) that is the same size as the full list</li>
+</ul>
+<p>
+Your function should do the same process as your original merge, but do the merging into <code>tmp</code> and then copy
+section of <code>tmp</code> back into <code>lst</code>. For example, if <code>leftStart</code> is 3 and <code>rightEnd</code> is 7, the merged list should 
+live in indices 3 through 6 (inclusive) in both <code>tmp</code> and <code>lst</code>. 
+</p>
+
+<p>
+Check that this function works correctly with the same tests we used in the lab. (You'll have to modify the 
+test cases to pass in all necessary parameters.)
+</p></li>
+<li>Now, define a function <code>mergeSortInplace(lst, first, last, tmp)</code> that implements merge sort, but instead of 
+creating new sublists, adjusts the <code>first</code> and <code>last</code> index pointers to indicate where the sublists are.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org197b7a8" class="outline-3">
+<h3 id="org197b7a8">Insertion sort optimization</h3>
+<div class="outline-text-3" id="text-org197b7a8">
+<p>
+Your experiments showed that merge sort isn't the fastest algorithm with small lists (insertion sort is faster). 
+This is because merge sort has extra work of splitting the list and making recursive calls. Because of this, 
+built-in sort algorithms like Python's <code>sort()</code> method typically use a hybrid approach where insertion sort is used 
+in place of merge sort once the list is small enough.
+</p>
+
+<ol class="org-ol">
+<li>Make a copy of your merge sort function and call it <code>hybridSort</code>. Then switch it to use insertion sort instead 
+of recursive merge sort when the sublist size is smaller than 10.</li>
+<li>Re-run the timing experiments to include <code>hybridSort</code>. Is there a noticable different in the speed?</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe495d6" class="outline-2">
+<h2 id="orgfe495d6">Anna's acknowledgements</h2>
+<div class="outline-text-2" id="text-orgfe495d6">
+<p>
+This lab was adapted from a lab used by Anya Vostinar. Thanks for sharing!
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
