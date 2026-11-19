@@ -10,7 +10,7 @@ redirect_from:
 
 ------
 
-I am an Assistant Professor in the Computer Science department at [Carleton College](https://cs.carleton.edu). This fall, I am teaching CS 251 (Programming Languages). 
+I am an Assistant Professor in the Computer Science department at [Carleton College](https://cs.carleton.edu). 
 
 My research aims to understand and improve the trustworthiness of machine learning models. Specifically, I look at a property called **multiplicity:** the phenomena where many models may perform equally well on a task, yet give different outputs for a given input.
 Multiplicity can harm machine learning reliability and fairness because it indicates that some decisions a model makes are arbitrary. This arbitrariness may be unavoidable, but is often hidden because the alternative models and decisions are not considered. As a result, people may be overconfident that their model's decisions are objective, which can cause them to over-rely on their model or make it harder to challenge a harmful model output.
@@ -21,11 +21,10 @@ I received my Ph.D. in computer science from UW-Madison. At UW-Madison, I was pa
 
 
 ## News
+* September 2025 - Started my job at Carleton
 * May 2025 - UCSD (home to my advisor Loris) published an [article](https://cse.ucsd.edu/about/news/when-stakes-are-high-do-machine-learning-models-make-fair-decisions) highlighting my CHI 2025 publication. 
 * April 2025 - I defended my thesis! Starting this fall, I will be an Assistant Professor at [Carleton College](https://carleton.edu). Carleton is also my alma mater so returning will be exciting and surreal!
 * January 2025 - My paper "Perceptions of the Fairness Impacts of Multiplicity in Machine Learning" was accepted to CHI! Very excited to travel to Japan this spring. 
-* October 2024 - Attended the INFORMS conference in Seattle to present my work on dataset multiplicity. 
-
 
 -----
 ## Publications
